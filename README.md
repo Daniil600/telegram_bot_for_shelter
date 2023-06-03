@@ -5,3 +5,5 @@
 ## Технологии проекта
 1. Spring Boot(web)
 2. Spring-test
+3. Hibernate
+4. Liquebase
