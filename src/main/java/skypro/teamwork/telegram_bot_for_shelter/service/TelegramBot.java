@@ -16,10 +16,12 @@ public class TelegramBot extends TelegramLongPollingBot {
     /**
      * Инициализация класса, в котором хранится имя и токен бота
      */
-    final BotConfig config;
+    private final BotConfig config;
+    private final BotService botService;
 
-    public TelegramBot(BotConfig config) {
+    public TelegramBot(BotConfig config, BotService botService) {
         this.config = config;
+        this.botService = botService;
     }
 
     /**
@@ -49,16 +51,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
             switch (messageText) {
                 case "/start":
-                    startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
-                    break;
-
-                case "/cat":
-                    catCommandReceived(chatId, update.getMessage().getChat().getFirstName());
-                    break;
-
-                case "/dog":
-                    dogCommandReceived(chatId, update.getMessage().getChat().getFirstName());
-
+                    botService.startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
                     break;
 
                 case "/catinfo":
@@ -94,24 +87,31 @@ public class TelegramBot extends TelegramLongPollingBot {
                     sendMessage(chatId, "Поторите попытку, такой комманды нет");
                     break;
             }
+
+        } else if (update.hasCallbackQuery()) {
+            String callbackQuery = update.getCallbackQuery().getData();
+            Long chatId = update.getCallbackQuery().getMessage().getChatId();
+
+            switch (callbackQuery) {
+                case "cat":
+                    botService.responseOnPressButtonCat(chatId);
+                    break;
+                case "dog":
+                    botService.responseOnPressButtonDog(chatId);
+                    break;
+
+                default:
+                    sendMessage(chatId, "Поторите попытку, такой комманды нет");
+                    break;
+            }
         }
 
     }
 
-    /**
-     * Данный метод реагирует на case /start и направляет в метод sendMessage запрос на его срабатывание
-     */
-    private void startCommandReceived(long chatId, String name) {
-        String answer = "Добро пожаловать " + name +
-                ", выберите необходимый приют: \n\n " +
-                "/cat - перенаправить в приют котиков. \n\n " +
-                "/dog - перенаправить в приют песелей.";
-        sendMessage(chatId, answer);
-    }
 
-    /**
+   /* *//**
      * Данный метод реагирует на case /cat и направляет в метод sendMessage запрос на его срабатывание
-     */
+     *//*
     private void catCommandReceived(long chatId, String name) {
         String answer = "Добро пожаловать в кошачий приют " + name +
                 ", что Вас интересует? \n\n " +
@@ -120,11 +120,11 @@ public class TelegramBot extends TelegramLongPollingBot {
                 "/catreport - прислать отчет о состоянии опекаемого питомца. \n\n " +
                 "/volunteer - связаться с свободным волонтером.";
         sendMessage(chatId, answer);
-    }
+    }*/
 
-    /**
+   /* *//**
      * Данный метод реагирует на case /dog и направляет в метод sendMessage запрос на его срабатывание
-     */
+     *//*
     private void dogCommandReceived(long chatId, String name) {
         String answer = "Добро пожаловать в собачий приют " + name +
                 ", что Вас интересует? \n\n " +
@@ -133,7 +133,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 "/dogreport - прислать отчет о состоянии опекаемого питомца. \n\n " +
                 "/volunteer - связаться с свободным волонтером.";
         sendMessage(chatId, answer);
-    }
+    }*/
 
 
 
