@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@Data
 @PropertySource("application.properties")
 
 /** Данный класс хранит в себе токен и имя бота для того, чтобы их можно было запрашивать из методов с помощью геттеров
@@ -18,4 +17,12 @@ public class BotConfig {
     String botName;
    @Value("${bot.token}")
     String token;
+
+    public String getBotName() {
+        return botName;
+    }
+
+    public String getToken() {
+        return token;
+    }
 }
