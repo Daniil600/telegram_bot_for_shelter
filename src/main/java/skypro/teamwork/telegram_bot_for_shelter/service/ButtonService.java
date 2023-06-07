@@ -2,7 +2,6 @@ package skypro.teamwork.telegram_bot_for_shelter.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -10,7 +9,9 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.ArrayList;
+
 import java.util.List;
+
 
 @Service
 public class ButtonService {
@@ -73,22 +74,26 @@ public class ButtonService {
             "volunteer"
     ));
 
-    @Autowired
-    private TelegramBot telegramBot;
+    private final TelegramBot telegramBot;
 
+    public ButtonService(TelegramBot telegramBot) {
+        this.telegramBot = telegramBot;
+    }
 
     /**
      * Метод создает InlineKeyboardMarkup клавиатуру (в каждой строке одна кнопка)
-     * @param buttonsTexts текст на кнопках
+     *
+     * @param buttonsTexts    текст на кнопках
      * @param buttonsCallback идентификаторы кнопок
      * @return инлайн клавитура c кнопками
      */
+
     public InlineKeyboardMarkup prepareKeyboard(List<String> buttonsTexts, List<String> buttonsCallback) {
 
         //создаем клавиатуру
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
         //создаем список строк
-        List<List<InlineKeyboardButton>> rowList= new ArrayList<>();
+        List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
 
         //в цикле:
         //создаем кнопки и добавляем их в строку, а строки в лист строк
@@ -108,10 +113,29 @@ public class ButtonService {
         return markupInline;
     }
 
+    /** еще один вариант кода выше
+    public InlineKeyboardMarkup prepareKeyboard(List<String> buttonsTexts, List<String> buttonsCallback) {
+        List<List<InlineKeyboardButton>> rowList = buttonsTexts.stream()
+                .map(text -> {
+                    InlineKeyboardButton button = new InlineKeyboardButton();
+                    button.setText(text);
+                    button.setCallbackData(buttonsCallback.get(buttonsTexts.indexOf(text)));
+                    return button;
+                })
+                .map(Collections::singletonList)
+                .collect(Collectors.toList());
+        InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+        markupInline.setKeyboard(rowList);
+        return markupInline;
+    }
+     */
+
+
     /**
      * Метод отправляет пользователю сообщение с клавиатурой под сообщением
-     * @param chatId идентификатор чата для отправки сообщения
-     * @param messageText текст сообщения
+     *
+     * @param chatId         идентификатор чата для отправки сообщения
+     * @param messageText    текст сообщения
      * @param inlineKeyboard клавиатура под сообщением
      */
     public void responseOnPressButton(long chatId, String messageText, InlineKeyboardMarkup inlineKeyboard) {
@@ -124,5 +148,4 @@ public class ButtonService {
             logger.error("Произошла ошибка в методе responseOnPressButton: " + e.getMessage());
         }
     }
-
 }

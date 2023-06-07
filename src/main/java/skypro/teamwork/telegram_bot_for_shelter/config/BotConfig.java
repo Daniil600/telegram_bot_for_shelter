@@ -9,7 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("application.properties")
 
 /** Данный класс хранит в себе токен и имя бота для того, чтобы их можно было запрашивать из методов с помощью геттеров
- * аннотация @Data у нас из зависимости ломбок, она собственно и создает конструктор в методе */
+ */
 
 public class BotConfig {
    @Value("${bot.name}")
