@@ -1,7 +1,6 @@
 package skypro.teamwork.telegram_bot_for_shelter.config;
 
 
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
