@@ -58,11 +58,6 @@ public class TelegramBot extends TelegramLongPollingBot {
 
                 case "/dog":
                     dogCommandReceived(chatId, update.getMessage().getChat().getFirstName());
-
-                    break;
-
-                case "/catinfo":
-                    dummy(chatId, update.getMessage().getChat().getFirstName());
                     break;
 
                 case "/catadopt":
