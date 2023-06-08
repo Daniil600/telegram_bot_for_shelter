@@ -54,6 +54,27 @@ public class ButtonService {
             "volunteer"
     ));
 
+
+    public static final List<String> textButtonsAfterCommandInfoShelter = new ArrayList<>(List.of(
+            "Рассказ о приюте",
+            "Расписание и адрес",
+            "Контактные данные охраны",
+            "Рекомандация по технике безопасности на территории",
+            "Принять контактные данные для связи",
+            "Вызвать волонтёра"
+    ));
+
+    /**
+     * ArrayList c индификаторами кнопок меню после нажатия кнопки "cat"
+     */
+    public static final List<String> callbackQueryAfterCommandInfoShelter = new ArrayList<>(List.of(
+            "HISTORY_OF_SHELTER",
+            "SCHEDULE_AND_ADDRESS",
+            "3",
+            "4",
+            "5",
+            "6"
+    ));
     /**
      * ArrayList c кнопками меню после нажатия кнопки "dog"
      */

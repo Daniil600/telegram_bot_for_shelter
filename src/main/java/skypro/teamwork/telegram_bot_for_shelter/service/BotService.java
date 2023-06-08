@@ -54,5 +54,17 @@ public class BotService {
 
     }
 
+    /**
+     * Данный метод реагирует на нажатие кнопки с индификатором "Info"
+     * вызывает новый набор кнопок для меню приюта собак
+     */
+    public void responseOnPressButtonInfo(long chatId) {
+        String msgTextDog = ("Информация о приюте кошек ");
+        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+                ButtonService.textButtonsAfterCommandInfoShelter,
+                ButtonService.callbackQueryAfterCommandInfoShelter
+        );
+        buttonService.responseOnPressButton(chatId, msgTextDog, inlineKeyboardDog);
+    }
 
 }

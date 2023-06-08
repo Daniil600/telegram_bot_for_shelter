@@ -99,7 +99,9 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "dog":
                     botService.responseOnPressButtonDog(chatId);
                     break;
-
+                case "CAT_1":
+                    botService.responseOnPressButtonInfo(chatId);
+                    break;
                 default:
                     sendMessage(chatId, "Поторите попытку, такой комманды нет");
                     break;
