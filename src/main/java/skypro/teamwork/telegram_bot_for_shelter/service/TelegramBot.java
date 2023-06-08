@@ -94,4 +94,13 @@ public class TelegramBot extends TelegramLongPollingBot {
 
         }
     }
+
+    /**
+     * Далее идут методы заглушки, которые далее будут стираться и переноситься в нормальное место
+     */
+
+    private void dummy(long chatId, String name) {
+        String answer = "Функция в стадии реализации";
+        sendMessage(chatId, answer);
+    }
 }
