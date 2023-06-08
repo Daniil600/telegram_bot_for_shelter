@@ -54,35 +54,6 @@ public class TelegramBot extends TelegramLongPollingBot {
                     botService.startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
                     break;
 
-                case "/catinfo":
-                    dummy(chatId, update.getMessage().getChat().getFirstName());
-                    break;
-
-                case "/catadopt":
-                    dummy(chatId, update.getMessage().getChat().getFirstName());
-                    break;
-
-                case "/catreport":
-                    dummy(chatId, update.getMessage().getChat().getFirstName());
-                    break;
-
-                case "/doginfo":
-                    dummy(chatId, update.getMessage().getChat().getFirstName());
-                    break;
-
-                case "/dogadopt":
-                    dummy(chatId, update.getMessage().getChat().getFirstName());
-                    break;
-
-                case "/dogreport":
-                    dummy(chatId, update.getMessage().getChat().getFirstName());
-                    break;
-
-                case "/volunteer":
-                    dummy(chatId, update.getMessage().getChat().getFirstName());
-                    break;
-
-
                 default:
                     sendMessage(chatId, "Поторите попытку, такой комманды нет");
                     break;
@@ -99,7 +70,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "dog":
                     botService.responseOnPressButtonDog(chatId);
                     break;
-                case "CAT_1":
+                case "ABOUT_SHELTER_CAT":
                     botService.responseOnPressButtonInfo(chatId);
                     break;
                 default:
@@ -109,36 +80,6 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
 
     }
-
-
-   /* *//**
-     * Данный метод реагирует на case /cat и направляет в метод sendMessage запрос на его срабатывание
-     *//*
-    private void catCommandReceived(long chatId, String name) {
-        String answer = "Добро пожаловать в кошачий приют " + name +
-                ", что Вас интересует? \n\n " +
-                "/catinfo - получить информацию о приюте . \n\n " +
-                "/catadopt - получить информацию о том как взять животное из приюта. \n\n " +
-                "/catreport - прислать отчет о состоянии опекаемого питомца. \n\n " +
-                "/volunteer - связаться с свободным волонтером.";
-        sendMessage(chatId, answer);
-    }*/
-
-   /* *//**
-     * Данный метод реагирует на case /dog и направляет в метод sendMessage запрос на его срабатывание
-     *//*
-    private void dogCommandReceived(long chatId, String name) {
-        String answer = "Добро пожаловать в собачий приют " + name +
-                ", что Вас интересует? \n\n " +
-                "/doginfo - получить информацию о приюте . \n\n " +
-                "/dogadopt - получить информацию о том как взять животное из приюта. \n\n " +
-                "/dogreport - прислать отчет о состоянии опекаемого питомца. \n\n " +
-                "/volunteer - связаться с свободным волонтером.";
-        sendMessage(chatId, answer);
-    }*/
-
-
-
     /**
      * Данный метод получает входящие данные и несет в себе функционал отправки их пользователю
      */
@@ -152,14 +93,5 @@ public class TelegramBot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
 
         }
-    }
-
-    /**
-     * Далее идут методы заглушки, которые далее будут стираться и переноситься в нормальное место
-     */
-
-    private void dummy(long chatId, String name) {
-        String answer = "Функция в стадии реализации";
-        sendMessage(chatId, answer);
     }
 }

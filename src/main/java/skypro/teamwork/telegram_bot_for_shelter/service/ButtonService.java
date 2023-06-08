@@ -34,67 +34,6 @@ public class ButtonService {
             "dog"
     ));
 
-    /**
-     * ArrayList c кнопками меню после нажатия кнопки "cat"
-     */
-    public static final List<String> textButtonsAfterCommandCat = new ArrayList<>(List.of(
-            "О приюте кошек",
-            "Как взять питомца из приюта",
-            "Прислать отчет о питомце",
-            "Позвать волонтёра"
-    ));
-
-    /**
-     * ArrayList c индификаторами кнопок меню после нажатия кнопки "cat"
-     */
-    public static final List<String> callbackQueryAfterCommandCat = new ArrayList<>(List.of(
-            "CAT_1",
-            "CAT_2",
-            "CAT_3",
-            "volunteer"
-    ));
-
-
-    public static final List<String> textButtonsAfterCommandInfoShelter = new ArrayList<>(List.of(
-            "Рассказ о приюте",
-            "Расписание и адрес",
-            "Контактные данные охраны",
-            "Рекомандация по технике безопасности на территории",
-            "Принять контактные данные для связи",
-            "Вызвать волонтёра"
-    ));
-
-    /**
-     * ArrayList c индификаторами кнопок меню после нажатия кнопки "cat"
-     */
-    public static final List<String> callbackQueryAfterCommandInfoShelter = new ArrayList<>(List.of(
-            "HISTORY_OF_SHELTER",
-            "SCHEDULE_AND_ADDRESS",
-            "3",
-            "4",
-            "5",
-            "6"
-    ));
-    /**
-     * ArrayList c кнопками меню после нажатия кнопки "dog"
-     */
-    public static final List<String> textButtonsAfterCommandDog = new ArrayList<>(List.of(
-            "О приюте собак",
-            "Как взять питомца из приюта",
-            "Прислать отчет о питомце",
-            "Позвать волонтёра"
-    ));
-
-    /**
-     * ArrayList c индификаторами кнопок меню после нажатия кнопки "dog"
-     */
-    public static final List<String> callbackQueryAfterCommandDog = new ArrayList<>(List.of(
-            "DOG_1",
-            "DOG_2",
-            "DOG_3",
-            "volunteer"
-    ));
-
     private final TelegramBot telegramBot;
 
     public ButtonService(TelegramBot telegramBot) {
@@ -113,6 +52,7 @@ public class ButtonService {
 
         //создаем клавиатуру
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+
         //создаем список строк
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
 
@@ -133,25 +73,6 @@ public class ButtonService {
 
         return markupInline;
     }
-
-    /** еще один вариант кода выше
-    public InlineKeyboardMarkup prepareKeyboard(List<String> buttonsTexts, List<String> buttonsCallback) {
-        List<List<InlineKeyboardButton>> rowList = buttonsTexts.stream()
-                .map(text -> {
-                    InlineKeyboardButton button = new InlineKeyboardButton();
-                    button.setText(text);
-                    button.setCallbackData(buttonsCallback.get(buttonsTexts.indexOf(text)));
-                    return button;
-                })
-                .map(Collections::singletonList)
-                .collect(Collectors.toList());
-        InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
-        markupInline.setKeyboard(rowList);
-        return markupInline;
-    }
-     */
-
-
     /**
      * Метод отправляет пользователю сообщение с клавиатурой под сообщением
      *
