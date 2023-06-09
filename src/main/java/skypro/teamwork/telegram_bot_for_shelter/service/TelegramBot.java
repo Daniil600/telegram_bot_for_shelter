@@ -75,6 +75,9 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "ABOUT_SHELTER_CAT":
                     botService.responseOnPressButtonInfo(chatId, messageId);
                     break;
+                case "HOW_TAKE_CAT":
+                    botService.responseOnPressButtonTakeInfo(chatId, messageId);
+                    break;
                 default:
                     sendMessage(chatId, "Поторите попытку, такой комманды нет");
                     break;
@@ -95,14 +98,5 @@ public class TelegramBot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
 
         }
-    }
-
-    /**
-     * Далее идут методы заглушки, которые далее будут стираться и переноситься в нормальное место
-     */
-
-    private void dummy(long chatId, String name) {
-        String answer = name + ", Функция в стадии реализации";
-        sendMessage(chatId, answer);
     }
 }
