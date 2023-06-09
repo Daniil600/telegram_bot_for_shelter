@@ -14,7 +14,8 @@ public class ButtonCatService {
             "О приюте кошек",
             "Как взять питомца из приюта",
             "Прислать отчет о питомце",
-            "Позвать волонтёра"
+            "Позвать волонтёра",
+            "Назад"
     ));
 
     /**
@@ -24,7 +25,8 @@ public class ButtonCatService {
             "ABOUT_SHELTER_CAT",
             "HOW_TAKE_CAT",
             "SEND_REPORT_CAT",
-            "VOLUNTEER"
+            "VOLUNTEER",
+            "START_BUTTON_FOR_EDIT_MESSAGE"
     ));
 
 
