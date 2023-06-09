@@ -73,20 +73,6 @@ public class BotService {
     }
 
     /**
-     * Данный метод реагирует на нажатие кнопки с индификатором "HOW_TAKE_CAT"
-     * вызывает новый набор кнопок для меню приюта собак
-     */
-    public void responseOnPressButtonHowTakeCat(long chatId, long messageId) {
-        String msgTextDog = ("Информация о приюте кошек ");
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
-                ButtonCatService.textButtonsAfterCommandHowTakeCat,
-                ButtonCatService.callbackQueryAfterCommandHowTakeCat
-        );
-        buttonService.responseOnPressButton(chatId, messageId, msgTextDog, inlineKeyboardDog);
-    }
-
-
-    /**
      * Данный метод реагирует на нажатие кнопки с индификатором "HISTORY_OF_SHELTER_CAT"
      * вызывает новый набор кнопок для меню приюта кошек
      */
@@ -137,6 +123,107 @@ public class BotService {
 
         buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationLeafyCat, inlineKeyboardCat);
     }
+
+
+    /**
+     * Данный метод реагирует на нажатие кнопки с индификатором "HOW_TAKE_CAT"
+     * вызывает новый набор кнопок для меню приюта собак
+     */
+    public void responseOnPressButtonHowTakeCat(long chatId, long messageId) {
+        String msgTextDog = ("Информация о приюте кошек ");
+        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+                ButtonCatService.textButtonsAfterCommandHowTakeCat,
+                ButtonCatService.callbackQueryAfterCommandHowTakeCat
+        );
+        buttonService.responseOnPressButton(chatId, messageId, msgTextDog, inlineKeyboardDog);
+    }
+
+    /**
+     * Данный метод реагирует на нажатие кнопки с индификатором "DATING_RULES_CAT"
+     * вызывает новый набор кнопок для меню приюта собак
+     */
+    public void responseOnPressButtonDatingRulesCat(long chatId, long messageId) {
+        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+                ButtonCatService.textButtonsAfterCommandGroupHowTakeCat,
+                ButtonCatService.callbackQueryAfterCommandGroupHowTakeCat
+        );
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.datingRulesCat, inlineKeyboardDog);
+    }
+
+    /**
+     * Данный метод реагирует на нажатие кнопки с индификатором "LIST_OF_DOCUMENTS_FOR_ADOPTING_A_CAT"
+     * вызывает новый набор кнопок для меню приюта собак
+     */
+    public void responseOnPressButtonListOfDocumentsForAdoptingCat(long chatId, long messageId) {
+        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+                ButtonCatService.textButtonsAfterCommandGroupHowTakeCat,
+                ButtonCatService.callbackQueryAfterCommandGroupHowTakeCat
+        );
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.listOfDocumentsForAdoptingCat, inlineKeyboardDog);
+    }
+
+    /**
+     * Данный метод реагирует на нажатие кнопки с индификатором "RECOMMENDATIONS_FOR_TRANSPORTATION_CAT"
+     * вызывает новый набор кнопок для меню приюта собак
+     */
+    public void responseOnPressButtonRecommendationsForTransportationCat(long chatId, long messageId) {
+        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+                ButtonCatService.textButtonsAfterCommandGroupHowTakeCat,
+                ButtonCatService.callbackQueryAfterCommandGroupHowTakeCat
+        );
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForTransportationCat, inlineKeyboardDog);
+    }
+
+    /**
+     * Данный метод реагирует на нажатие кнопки с индификатором "RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_LITTLE_CAT"
+     * вызывает новый набор кнопок для меню приюта собак
+     */
+    public void responseOnPressButtonRecommendationsForHomeDesignForLittleCat(long chatId, long messageId) {
+        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+                ButtonCatService.textButtonsAfterCommandGroupHowTakeCat,
+                ButtonCatService.callbackQueryAfterCommandGroupHowTakeCat
+        );
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForHomeDesignForLittleCat, inlineKeyboardDog);
+    }
+
+    /**
+     * Данный метод реагирует на нажатие кнопки с индификатором "RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_ADULT_CAT"
+     * вызывает новый набор кнопок для меню приюта собак
+     */
+    public void responseOnPressButtonRecommendationsForHomeDesignForAdultCat(long chatId, long messageId) {
+        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+                ButtonCatService.textButtonsAfterCommandGroupHowTakeCat,
+                ButtonCatService.callbackQueryAfterCommandGroupHowTakeCat
+        );
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForHomeDesignForAdultCat, inlineKeyboardDog);
+    }
+
+    /**
+     * Данный метод реагирует на нажатие кнопки с индификатором "RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_DISABLED_CAT"
+     * вызывает новый набор кнопок для меню приюта собак
+     */
+    public void responseOnPressButtonRecommendationsForHomeDesignForDisabledCat(long chatId, long messageId) {
+        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+                ButtonCatService.textButtonsAfterCommandGroupHowTakeCat,
+                ButtonCatService.callbackQueryAfterCommandGroupHowTakeCat
+        );
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForHomeDesignForDisabledCat, inlineKeyboardDog);
+    }
+
+    /**
+     * Данный метод реагирует на нажатие кнопки с индификатором "LIST_OF_REASONS_FOR_ADOPTING_CAT"
+     * вызывает новый набор кнопок для меню приюта собак
+     */
+    public void responseOnPressButtonListOfReasonForAdoptingCat(long chatId, long messageId) {
+        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+                ButtonCatService.textButtonsAfterCommandGroupHowTakeCat,
+                ButtonCatService.callbackQueryAfterCommandGroupHowTakeCat
+        );
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.listOfReasonForAdoptingCat, inlineKeyboardDog);
+    }
+
+
+
 
 
     /**

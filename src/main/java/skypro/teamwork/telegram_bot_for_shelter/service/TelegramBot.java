@@ -99,9 +99,33 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "HOW_TAKE_CAT":
                     botService.responseOnPressButtonHowTakeCat(chatId, messageId);
                     break;
+                case "DATING_RULES_CAT":
+                    botService.responseOnPressButtonDatingRulesCat(chatId, messageId);
+                    break;
+                case "LIST_OF_DOCUMENTS_FOR_ADOPTING_CAT":
+                    botService.responseOnPressButtonListOfDocumentsForAdoptingCat(chatId, messageId);
+                    break;
+                case "RECOMMENDATIONS_FOR_TRANSPORTATION_CAT":
+                    botService.responseOnPressButtonRecommendationsForTransportationCat(chatId, messageId);
+                    break;
+                case "RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_LITTLE_CAT":
+                    botService.responseOnPressButtonRecommendationsForHomeDesignForLittleCat(chatId, messageId);
+                    break;
+                case "RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_ADULT_CAT":
+                    botService.responseOnPressButtonRecommendationsForHomeDesignForAdultCat(chatId, messageId);
+                    break;
+                case "RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_DISABLED_CAT":
+                    botService.responseOnPressButtonRecommendationsForHomeDesignForDisabledCat(chatId, messageId);
+                    break;
+                case "LIST_OF_REASONS_FOR_ADOPTING_CAT":
+                    botService.responseOnPressButtonListOfReasonForAdoptingCat(chatId, messageId);
+                    break;
 
 
-
+                case "SEND_REPORT_CAT":
+                    sendMessage(chatId, "Раздел в стадии разработки, " +
+                            "тут вы сможете отправить отчет о том как питомец себя чувствует на новом месте");
+                    break;
                 case "TAKE_CONTACT_FOR_FEEDBACK":
                     sendMessage(chatId, "Раздел в стадии разработки, " +
                             "тут вы сможете оставить свои данные для передачи их волонтеру");
