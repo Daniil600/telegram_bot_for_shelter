@@ -55,7 +55,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                     break;
 
                 default:
-                    sendMessage(chatId, "Поторите попытку, такой комманды нет");
+                    sendMessage(chatId, "Поторите попытку, такой комманды нет!"
+                            + "\nНажмите на /start для начала общения с ботом");
                     break;
             }
 
