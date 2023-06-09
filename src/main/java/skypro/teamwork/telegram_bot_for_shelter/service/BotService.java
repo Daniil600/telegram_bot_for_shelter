@@ -23,36 +23,65 @@ public class BotService {
         InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonService.textButtonsAfterCommandStart,
                 ButtonService.callbackQueryAfterCommandStart);
-        buttonService.responseOnPressButton(chatId, msgText, inlineKeyboard);
+        buttonService.responseStartButton(chatId, msgText, inlineKeyboard);
     }
     /**
      * Данный метод реагирует на нажатие кнопки с индификатором "cat"
      * вызывает новый набор кнопок для меню приюта кошек
      */
-    public void responseOnPressButtonCat(long chatId) {
+    public void responseOnPressButtonCat(long chatId, long messageId) {
         String msgTextCat = ("Меню приюта кошек ");
         InlineKeyboardMarkup inlineKeyboardCat = buttonService.prepareKeyboard(
-                ButtonService.textButtonsAfterCommandCat,
-                ButtonService.callbackQueryAfterCommandCat
+                ButtonCatService.textButtonsAfterCommandCat,
+                ButtonCatService.callbackQueryAfterCommandCat
         );
 
-        buttonService.responseOnPressButton(chatId, msgTextCat, inlineKeyboardCat);
+        buttonService.responseOnPressButton(chatId, messageId, msgTextCat, inlineKeyboardCat);
     }
+
+    /**
+     * Данный метод реагирует на нажатие кнопки с индификатором "Info"
+     * вызывает новый набор кнопок для меню приюта собак
+     */
+    public void responseOnPressButtonInfo(long chatId, long messageId) {
+        String msgTextDog = ("Информация о приюте кошек ");
+        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+                ButtonCatService.textButtonsAfterCommandInfoShelter,
+                ButtonCatService.callbackQueryAfterCommandInfoShelter
+        );
+        buttonService.responseOnPressButton(chatId, messageId, msgTextDog, inlineKeyboardDog);
+    }
+
+    /**
+     * Данный метод реагирует на нажатие кнопки с индификатором "TakeInfo"
+     * вызывает новый набор кнопок для меню приюта собак
+     */
+    public void responseOnPressButtonTakeInfo(long chatId, long messageId) {
+        String msgTextDog = ("Информация о приюте кошек ");
+        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+                ButtonCatService.textButtonsAfterCommandTakeInfoShelter,
+                ButtonCatService.callbackQueryAfterCommandTakeInfoShelter
+        );
+        buttonService.responseOnPressButton(chatId, messageId, msgTextDog, inlineKeyboardDog);
+    }
+
+
 
     /**
      * Данный метод реагирует на нажатие кнопки с индификатором "dog"
      * вызывает новый набор кнопок для меню приюта собак
      */
-    public void responseOnPressButtonDog(long chatId) {
+    public void responseOnPressButtonDog(long chatId, long messageId) {
         String msgTextDog = ("Меню приюта собак ");
         InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
-                ButtonService.textButtonsAfterCommandDog,
-                ButtonService.callbackQueryAfterCommandDog
+                ButtonDogService.textButtonsAfterCommandDog,
+                ButtonDogService.callbackQueryAfterCommandDog
         );
 
-        buttonService.responseOnPressButton(chatId, msgTextDog, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, msgTextDog, inlineKeyboardDog);
 
     }
+
 
 
 }

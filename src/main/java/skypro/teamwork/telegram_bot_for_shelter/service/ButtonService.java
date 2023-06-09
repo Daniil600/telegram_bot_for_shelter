@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -34,46 +35,6 @@ public class ButtonService {
             "dog"
     ));
 
-    /**
-     * ArrayList c кнопками меню после нажатия кнопки "cat"
-     */
-    public static final List<String> textButtonsAfterCommandCat = new ArrayList<>(List.of(
-            "О приюте кошек",
-            "Как взять питомца из приюта",
-            "Прислать отчет о питомце",
-            "Позвать волонтёра"
-    ));
-
-    /**
-     * ArrayList c индификаторами кнопок меню после нажатия кнопки "cat"
-     */
-    public static final List<String> callbackQueryAfterCommandCat = new ArrayList<>(List.of(
-            "CAT_1",
-            "CAT_2",
-            "CAT_3",
-            "volunteer"
-    ));
-
-    /**
-     * ArrayList c кнопками меню после нажатия кнопки "dog"
-     */
-    public static final List<String> textButtonsAfterCommandDog = new ArrayList<>(List.of(
-            "О приюте собак",
-            "Как взять питомца из приюта",
-            "Прислать отчет о питомце",
-            "Позвать волонтёра"
-    ));
-
-    /**
-     * ArrayList c индификаторами кнопок меню после нажатия кнопки "dog"
-     */
-    public static final List<String> callbackQueryAfterCommandDog = new ArrayList<>(List.of(
-            "DOG_1",
-            "DOG_2",
-            "DOG_3",
-            "volunteer"
-    ));
-
     private final TelegramBot telegramBot;
 
     public ButtonService(TelegramBot telegramBot) {
@@ -92,6 +53,7 @@ public class ButtonService {
 
         //создаем клавиатуру
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+
         //создаем список строк
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
 
@@ -112,25 +74,6 @@ public class ButtonService {
 
         return markupInline;
     }
-
-    /** еще один вариант кода выше
-    public InlineKeyboardMarkup prepareKeyboard(List<String> buttonsTexts, List<String> buttonsCallback) {
-        List<List<InlineKeyboardButton>> rowList = buttonsTexts.stream()
-                .map(text -> {
-                    InlineKeyboardButton button = new InlineKeyboardButton();
-                    button.setText(text);
-                    button.setCallbackData(buttonsCallback.get(buttonsTexts.indexOf(text)));
-                    return button;
-                })
-                .map(Collections::singletonList)
-                .collect(Collectors.toList());
-        InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
-        markupInline.setKeyboard(rowList);
-        return markupInline;
-    }
-     */
-
-
     /**
      * Метод отправляет пользователю сообщение с клавиатурой под сообщением
      *
@@ -138,9 +81,27 @@ public class ButtonService {
      * @param messageText    текст сообщения
      * @param inlineKeyboard клавиатура под сообщением
      */
-    public void responseOnPressButton(long chatId, String messageText, InlineKeyboardMarkup inlineKeyboard) {
+    public void responseStartButton(long chatId, String messageText, InlineKeyboardMarkup inlineKeyboard) {
 
         SendMessage sendMess = new SendMessage(String.valueOf(chatId), messageText);
+        sendMess.setReplyMarkup(inlineKeyboard);
+        try {
+            telegramBot.execute(sendMess);
+        } catch (TelegramApiException e) {
+            logger.error("Произошла ошибка в методе responseOnPressButton: " + e.getMessage());
+        }
+    }
+
+    /** responseStartButton отлаввливает сообщение старт и создает первое сообщение с клавиатурой,
+     * далее кнопки обращаются к данному методу и он заменяет предыдущее сообщение новым с новой клавиатурой
+     */
+
+    public void responseOnPressButton(long chatId, long messageId, String messageText, InlineKeyboardMarkup inlineKeyboard) {
+
+        EditMessageText sendMess = new EditMessageText();
+        sendMess.setChatId(String.valueOf(chatId));
+        sendMess.setText(messageText);
+        sendMess.setMessageId((int)messageId);
         sendMess.setReplyMarkup(inlineKeyboard);
         try {
             telegramBot.execute(sendMess);
