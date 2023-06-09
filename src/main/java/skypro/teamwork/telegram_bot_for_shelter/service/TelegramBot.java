@@ -49,7 +49,6 @@ public class TelegramBot extends TelegramLongPollingBot {
             long chatId = update.getMessage().getChatId();
 
 
-
             switch (messageText) {
                 case "/start":
                     botService.startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
@@ -64,19 +63,51 @@ public class TelegramBot extends TelegramLongPollingBot {
             String callbackQuery = update.getCallbackQuery().getData();
             Long chatId = update.getCallbackQuery().getMessage().getChatId();
             long messageId = update.getCallbackQuery().getMessage().getMessageId();
+            String firstName = update.getCallbackQuery().getFrom().getFirstName();
 
             switch (callbackQuery) {
-                case "cat":
+                case "START_BUTTON_FOR_EDIT_MESSAGE":
+                    botService.startCommandReceivedForEditMessage
+                            (chatId, messageId, firstName);
+                    break;
+                case "CHOOSE_A_SHELTER_CAT":
                     botService.responseOnPressButtonCat(chatId, messageId);
                     break;
-                case "dog":
+                case "CHOOSE_A_SHELTER_DOG":
                     botService.responseOnPressButtonDog(chatId, messageId);
                     break;
+
+
                 case "ABOUT_SHELTER_CAT":
                     botService.responseOnPressButtonInfo(chatId, messageId);
                     break;
+                case "HISTORY_OF_SHELTER_CAT":
+                    botService.responseOnPressButtonHistoryOfShelterCat(chatId, messageId);
+                    break;
+                case "SCHEDULE_AND_ADDRESS_CAT":
+                    botService.responseOnPressButtonScheduleAndAddressCat(chatId, messageId);
+                    break;
+                case "CONTACT_SECURITY_CAT":
+                    botService.responseOnPressButtonContactSecurityCat(chatId, messageId);
+                    break;
+                case "RECOMMENDATION_LEAFY_CAT":
+                    botService.responseOnPressButtonRecommendationLeafyCat(chatId, messageId);
+                    break;
+
+
+
                 case "HOW_TAKE_CAT":
-                    botService.responseOnPressButtonTakeInfo(chatId, messageId);
+                    botService.responseOnPressButtonHowTakeCat(chatId, messageId);
+                    break;
+
+
+
+                case "TAKE_CONTACT_FOR_FEEDBACK":
+                    sendMessage(chatId, "Раздел в стадии разработки, " +
+                            "тут вы сможете оставить свои данные для передачи их волонтеру");
+                    break;
+                case "VOLUNTEER":
+                    sendMessage(chatId, "Раздел в стадии разработки, тут вы сможете связаться с волонтером");
                     break;
                 default:
                     sendMessage(chatId, "Поторите попытку, такой комманды нет");
@@ -85,6 +116,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
 
     }
+
     /**
      * Данный метод получает входящие данные и несет в себе функционал отправки их пользователю
      */

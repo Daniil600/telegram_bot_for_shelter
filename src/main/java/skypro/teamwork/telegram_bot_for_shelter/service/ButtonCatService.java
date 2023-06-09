@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public class ButtonCatService {
     /**
-     * ArrayList c кнопками меню после нажатия кнопки "cat"
+     * ArrayList c кнопками меню после нажатия кнопки "CHOOSE_A_SHELTER_CAT"
      */
     public static final List<String> textButtonsAfterCommandCat = new ArrayList<>(List.of(
             "О приюте кошек",
@@ -18,7 +18,7 @@ public class ButtonCatService {
     ));
 
     /**
-     * ArrayList c индификаторами кнопок меню после нажатия кнопки "cat"
+     * ArrayList c индификаторами кнопок меню после нажатия кнопки "CHOOSE_A_SHELTER_CAT"
      */
     public static final List<String> callbackQueryAfterCommandCat = new ArrayList<>(List.of(
             "ABOUT_SHELTER_CAT",
@@ -27,11 +27,15 @@ public class ButtonCatService {
             "VOLUNTEER"
     ));
 
+
+
+
+
     /**
      * ArrayList c кнопками меню после нажатия кнопки "ABOUT_SHELTER_CAT"
      */
 
-    public static final List<String> textButtonsAfterCommandInfoShelter = new ArrayList<>(List.of(
+    public static final List<String> textButtonsAfterCommandAboutShelterCat = new ArrayList<>(List.of(
             "Рассказ о приюте",
             "Расписание и адрес",
             "Контактные данные охраны",
@@ -43,20 +47,23 @@ public class ButtonCatService {
     /**
      * ArrayList c индификаторами кнопок меню после нажатия кнопки "ABOUT_SHELTER_CAT"
      */
-    public static final List<String> callbackQueryAfterCommandInfoShelter = new ArrayList<>(List.of(
+    public static final List<String> callbackQueryAfterCommandAboutShelterCat = new ArrayList<>(List.of(
             "HISTORY_OF_SHELTER_CAT",
             "SCHEDULE_AND_ADDRESS_CAT",
             "CONTACT_SECURITY_CAT",
             "RECOMMENDATION_LEAFY_CAT",
-            "TAKE_CONTACT_FOR_FEATBACK_CAT",
+            "TAKE_CONTACT_FOR_FEEDBACK",
             "VOLUNTEER"
     ));
+
+
+
 
 
     /**
      * ArrayList c кнопками меню после нажатия кнопки "HOW_TAKE_CAT"
      */
-    public static final List<String> textButtonsAfterCommandTakeInfoShelter = new ArrayList<>(List.of(
+    public static final List<String> textButtonsAfterCommandHowTakeCat = new ArrayList<>(List.of(
             "Правила ззнакомства с животным",
             "Список документов для опеки",
             "Рекоммендации по транспортировке",
@@ -71,7 +78,7 @@ public class ButtonCatService {
     /**
      * ArrayList c индификаторами кнопок меню после нажатия кнопки "HOW_TAKE_CAT"
      */
-    public static final List<String> callbackQueryAfterCommandTakeInfoShelter = new ArrayList<>(List.of(
+    public static final List<String> callbackQueryAfterCommandHowTakeCat = new ArrayList<>(List.of(
             "DATING_RULES",
             "LIST_OF_DOCUMENTS_FOR_ADOPTING_A_CAT",
             "RECOMMENDATIONS_FOR_TRANSPORTATION_CAT",
@@ -79,8 +86,38 @@ public class ButtonCatService {
             "RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_ADULT_CAT",
             "RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_A_DISABLED_CAT",
             "LIST_OF_REASONS_FOR_ADOPTING_A_CAT",
-            "TAKE_CONTACT_FOR_FEATBACK_CAT",
+            "TAKE_CONTACT_FOR_FEEDBACK",
             "VOLUNTEER"
+    ));
+
+
+
+
+
+    /**
+     * ArrayList c кнопками меню после нажатия кнопок выдаваемых кнопкой  ABOUT_SHELTER_CAT"
+     * список кнопок
+     * HISTORY_OF_SHELTER_CAT
+     * SCHEDULE_AND_ADDRESS_CAT
+     * CONTACT_SECURITY_CAT
+     * RECOMMENDATION_LEAFY_CAT"
+     */
+    public static final List<String> textButtonsAfterCommandGroupAboutShelterCat = new ArrayList<>(List.of(
+            "Назад",
+            "Вернуться в начало"
+    ));
+
+    /**
+     * ArrayList c индификаторами кнопок меню после нажатия кнопок выдаваемых кнопкой  ABOUT_SHELTER_CAT"
+     * список кнопок
+     * HISTORY_OF_SHELTER_CAT
+     * SCHEDULE_AND_ADDRESS_CAT
+     * CONTACT_SECURITY_CAT
+     * RECOMMENDATION_LEAFY_CAT"
+     */
+    public static final List<String> callbackQueryAfterCommandGroupAboutShelterCat = new ArrayList<>(List.of(
+            "ABOUT_SHELTER_CAT",
+            "START_BUTTON_FOR_EDIT_MESSAGE"
     ));
 
 }

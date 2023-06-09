@@ -31,8 +31,8 @@ public class ButtonService {
      * ArrayList c индификаторами кнопок меню после команды "start"
      */
     public static final List<String> callbackQueryAfterCommandStart = new ArrayList<>(List.of(
-            "cat",
-            "dog"
+            "CHOOSE_A_SHELTER_CAT",
+            "CHOOSE_A_SHELTER_DOG"
     ));
 
     private final TelegramBot telegramBot;
@@ -81,6 +81,10 @@ public class ButtonService {
      * @param messageText    текст сообщения
      * @param inlineKeyboard клавиатура под сообщением
      */
+
+    /** responseStartButton отлаввливает сообщение старт и создает первое сообщение с клавиатурой,
+     * далее кнопки обращаются к методу responseOnPressButton и он заменяет предыдущее сообщение новым с новой клавиатурой
+     */
     public void responseStartButton(long chatId, String messageText, InlineKeyboardMarkup inlineKeyboard) {
 
         SendMessage sendMess = new SendMessage(String.valueOf(chatId), messageText);
@@ -88,13 +92,9 @@ public class ButtonService {
         try {
             telegramBot.execute(sendMess);
         } catch (TelegramApiException e) {
-            logger.error("Произошла ошибка в методе responseOnPressButton: " + e.getMessage());
+            logger.error("Произошла ошибка в методе responseStartButton: " + e.getMessage());
         }
     }
-
-    /** responseStartButton отлаввливает сообщение старт и создает первое сообщение с клавиатурой,
-     * далее кнопки обращаются к данному методу и он заменяет предыдущее сообщение новым с новой клавиатурой
-     */
 
     public void responseOnPressButton(long chatId, long messageId, String messageText, InlineKeyboardMarkup inlineKeyboard) {
 
