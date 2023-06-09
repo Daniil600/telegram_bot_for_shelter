@@ -49,6 +49,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             long chatId = update.getMessage().getChatId();
 
 
+
             switch (messageText) {
                 case "/start":
                     botService.startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
@@ -62,16 +63,17 @@ public class TelegramBot extends TelegramLongPollingBot {
         } else if (update.hasCallbackQuery()) {
             String callbackQuery = update.getCallbackQuery().getData();
             Long chatId = update.getCallbackQuery().getMessage().getChatId();
+            long messageId = update.getCallbackQuery().getMessage().getMessageId();
 
             switch (callbackQuery) {
                 case "cat":
-                    botService.responseOnPressButtonCat(chatId);
+                    botService.responseOnPressButtonCat(chatId, messageId);
                     break;
                 case "dog":
-                    botService.responseOnPressButtonDog(chatId);
+                    botService.responseOnPressButtonDog(chatId, messageId);
                     break;
                 case "ABOUT_SHELTER_CAT":
-                    botService.responseOnPressButtonInfo(chatId);
+                    botService.responseOnPressButtonInfo(chatId, messageId);
                     break;
                 default:
                     sendMessage(chatId, "Поторите попытку, такой комманды нет");
@@ -100,7 +102,7 @@ public class TelegramBot extends TelegramLongPollingBot {
      */
 
     private void dummy(long chatId, String name) {
-        String answer = "Функция в стадии реализации";
+        String answer = name + ", Функция в стадии реализации";
         sendMessage(chatId, answer);
     }
 }

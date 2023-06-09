@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -80,9 +81,27 @@ public class ButtonService {
      * @param messageText    текст сообщения
      * @param inlineKeyboard клавиатура под сообщением
      */
-    public void responseOnPressButton(long chatId, String messageText, InlineKeyboardMarkup inlineKeyboard) {
+    public void responseStartButton(long chatId, String messageText, InlineKeyboardMarkup inlineKeyboard) {
 
         SendMessage sendMess = new SendMessage(String.valueOf(chatId), messageText);
+        sendMess.setReplyMarkup(inlineKeyboard);
+        try {
+            telegramBot.execute(sendMess);
+        } catch (TelegramApiException e) {
+            logger.error("Произошла ошибка в методе responseOnPressButton: " + e.getMessage());
+        }
+    }
+
+    /** responseStartButton отлаввливает сообщение старт и создает первое сообщение с клавиатурой,
+     * далее кнопки обращаются к данному методу и он заменяет предыдущее сообщение новым с новой клавиатурой
+     */
+
+    public void responseOnPressButton(long chatId, long messageId, String messageText, InlineKeyboardMarkup inlineKeyboard) {
+
+        EditMessageText sendMess = new EditMessageText();
+        sendMess.setChatId(String.valueOf(chatId));
+        sendMess.setText(messageText);
+        sendMess.setMessageId((int)messageId);
         sendMess.setReplyMarkup(inlineKeyboard);
         try {
             telegramBot.execute(sendMess);
