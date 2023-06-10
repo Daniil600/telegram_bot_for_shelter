@@ -67,10 +67,14 @@ public class TelegramBot extends TelegramLongPollingBot {
             String firstName = update.getCallbackQuery().getFrom().getFirstName();
 
             switch (callbackQuery) {
+                /** кпопки первого уровня*/
                 case "START_BUTTON_FOR_EDIT_MESSAGE":
                     botService.startCommandReceivedForEditMessage
                             (chatId, messageId, firstName);
                     break;
+
+
+                /** кпопки второго уровня*/
                 case "CHOOSE_A_SHELTER_CAT":
                     botService.responseOnPressButtonCat(chatId, messageId);
                     break;
@@ -79,8 +83,9 @@ public class TelegramBot extends TelegramLongPollingBot {
                     break;
 
 
+                /** кнопка Рассказ о приюте и ее подкнопки кошки*/
                 case "ABOUT_SHELTER_CAT":
-                    botService.responseOnPressButtonInfo(chatId, messageId);
+                    botService.responseOnPressButtonAboutShelterCat(chatId, messageId);
                     break;
                 case "HISTORY_OF_SHELTER_CAT":
                     botService.responseOnPressButtonHistoryOfShelterCat(chatId, messageId);
@@ -96,7 +101,25 @@ public class TelegramBot extends TelegramLongPollingBot {
                     break;
 
 
+                /** кнопка Рассказ о приюте и ее подкнопки собаки*/
+                case "ABOUT_SHELTER_DOG":
+                    botService.responseOnPressButtonAboutShelterDog(chatId, messageId);
+                    break;
+                case "HISTORY_OF_SHELTER_DOG":
+                    botService.responseOnPressButtonHistoryOfShelterDog(chatId, messageId);
+                    break;
+                case "SCHEDULE_AND_ADDRESS_DOG":
+                    botService.responseOnPressButtonScheduleAndAddressDog(chatId, messageId);
+                    break;
+                case "CONTACT_SECURITY_DOG":
+                    botService.responseOnPressButtonContactSecurityDog(chatId, messageId);
+                    break;
+                case "RECOMMENDATION_LEAFY_DOG":
+                    botService.responseOnPressButtonRecommendationLeafyDog(chatId, messageId);
+                    break;
 
+
+                /** кнопка Как взять питомца из приюта и ее подкнопки кошки*/
                 case "HOW_TAKE_CAT":
                     botService.responseOnPressButtonHowTakeCat(chatId, messageId);
                     break;
@@ -123,10 +146,45 @@ public class TelegramBot extends TelegramLongPollingBot {
                     break;
 
 
+                /** кнопка Как взять питомца из приюта и ее подкнопки собаки*/
+                case "HOW_TAKE_DOG":
+                    botService.responseOnPressButtonHowTakeDog(chatId, messageId);
+                    break;
+                case "DATING_RULES_DOG":
+                    botService.responseOnPressButtonDatingRulesDog(chatId, messageId);
+                    break;
+                case "LIST_OF_DOCUMENTS_FOR_ADOPTING_DOG":
+                    botService.responseOnPressButtonListOfDocumentsForAdoptingDog(chatId, messageId);
+                    break;
+                case "RECOMMENDATIONS_FOR_TRANSPORTATION_DOG":
+                    botService.responseOnPressButtonRecommendationsForTransportationDog(chatId, messageId);
+                    break;
+                case "RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_LITTLE_DOG":
+                    botService.responseOnPressButtonRecommendationsForHomeDesignForLittleDog(chatId, messageId);
+                    break;
+                case "RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_ADULT_DOG":
+                    botService.responseOnPressButtonRecommendationsForHomeDesignForAdultDog(chatId, messageId);
+                    break;
+                case "RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_DISABLED_DOG":
+                    botService.responseOnPressButtonRecommendationsForHomeDesignForDisabledDog(chatId, messageId);
+                    break;
+                case "LIST_OF_REASONS_FOR_ADOPTING_DOG":
+                    botService.responseOnPressButtonListOfReasonForAdoptingDog(chatId, messageId);
+                    break;
+                case "LIST_OF_VERIFIED_CYNOLOGISTS_DOG":
+                    botService.responseOnPressButtonListOfVerifiedCynologistDog(chatId, messageId);
+                    break;
+                case "CYNOLOGISTS_ADVICE_DOG":
+                    botService.responseOnPressButtonCynologistAdviceDog(chatId, messageId);
+                    break;
+
+
                 case "SEND_REPORT_CAT":
+                case "SEND_REPORT_DOG":
                     sendMessage(chatId, "Раздел в стадии разработки, " +
                             "тут вы сможете отправить отчет о том как питомец себя чувствует на новом месте");
                     break;
+
                 case "TAKE_CONTACT_FOR_FEEDBACK":
                     sendMessage(chatId, "Раздел в стадии разработки, " +
                             "тут вы сможете оставить свои данные для передачи их волонтеру");
