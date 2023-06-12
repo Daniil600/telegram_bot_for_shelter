@@ -1,7 +1,5 @@
-package skypro.teamwork.telegram_bot_for_shelter.model;
+package skypro.teamwork.telegram_bot_for_shelter.model.cat;
 
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -9,6 +7,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@Table(name = "cat")
 public class Cat {
 
     @Id

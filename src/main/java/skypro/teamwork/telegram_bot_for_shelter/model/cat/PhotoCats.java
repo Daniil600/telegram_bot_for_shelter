@@ -1,10 +1,11 @@
-package skypro.teamwork.telegram_bot_for_shelter.model;
+package skypro.teamwork.telegram_bot_for_shelter.model.cat;
 
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
+@Table(name = "photo_cats")
 public class PhotoCats {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,

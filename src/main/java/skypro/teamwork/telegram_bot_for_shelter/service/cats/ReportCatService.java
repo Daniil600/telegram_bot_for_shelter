@@ -1,7 +1,7 @@
-package skypro.teamwork.telegram_bot_for_shelter.service;
+package skypro.teamwork.telegram_bot_for_shelter.service.cats;
 
 import org.springframework.stereotype.Service;
-import skypro.teamwork.telegram_bot_for_shelter.model.ReportCat;
+import skypro.teamwork.telegram_bot_for_shelter.model.cat.ReportCat;
 import skypro.teamwork.telegram_bot_for_shelter.repository.ReportCatRepository;
 
 import java.util.Collection;
