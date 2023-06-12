@@ -9,8 +9,6 @@ public class TextVaultService {
     /**  CHOOSE_A_SHELTER_CAT  */
     public final String firstLineCat = "Меню приюта кошек";
 
-
-
     /**  ABOUT_SHELTER_CAT  */
     public final String aboutShelterCat = "Информация о приюте кошек";
 
