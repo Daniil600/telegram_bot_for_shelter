@@ -1,4 +1,4 @@
-package skypro.teamwork.telegram_bot_for_shelter.service.button;
+package skypro.teamwork.telegram_bot_for_shelter.service.function.button;
 
 import org.springframework.stereotype.Service;
 

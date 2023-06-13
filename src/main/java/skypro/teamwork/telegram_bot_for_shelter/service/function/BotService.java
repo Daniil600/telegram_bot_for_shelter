@@ -1,20 +1,11 @@
-package skypro.teamwork.telegram_bot_for_shelter.service;
+package skypro.teamwork.telegram_bot_for_shelter.service.function;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import skypro.teamwork.telegram_bot_for_shelter.service.button.ButtonCatService;
-import skypro.teamwork.telegram_bot_for_shelter.service.button.ButtonDogService;
-import skypro.teamwork.telegram_bot_for_shelter.service.button.ButtonService;
-
-import java.util.ArrayList;
-import java.util.List;
+import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonCatService;
+import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonDogService;
+import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonService;
 
 @Service
 public class BotService {

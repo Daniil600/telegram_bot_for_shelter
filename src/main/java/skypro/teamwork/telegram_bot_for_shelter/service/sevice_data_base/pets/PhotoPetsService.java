@@ -1,12 +1,12 @@
-package skypro.teamwork.telegram_bot_for_shelter.service.cats;
+package skypro.teamwork.telegram_bot_for_shelter.service.sevice_data_base.pets;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import skypro.teamwork.telegram_bot_for_shelter.model.cat.PhotoCatsReport;
-import skypro.teamwork.telegram_bot_for_shelter.model.cat.ReportCat;
-import skypro.teamwork.telegram_bot_for_shelter.repository.PhotoCatsReportRepository;
+import skypro.teamwork.telegram_bot_for_shelter.model.pet.Pet;
+import skypro.teamwork.telegram_bot_for_shelter.model.pet.PhotoPet;
+import skypro.teamwork.telegram_bot_for_shelter.repository.pets.PhotoPetsRepository;
 
 import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
@@ -21,26 +21,26 @@ import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
 @Service
 @Transactional
-public class PhotoCatsReportService {
-    @Value("${path.to.photocatsreport.folder}")
-    private String photoCatsReportDir;
+public class PhotoPetsService {
+    @Value("${path.to.photopats.folder}")
+    private String photoPetsDir;
 
-    private final ReportCatService reportCatService;
-    private final PhotoCatsReportRepository photoCatsReportRepository;
+    private final PetService petService;
+    private final PhotoPetsRepository photoPetsRepository;
 
-    public PhotoCatsReportService(PhotoCatsReportRepository photoCatsReportRepository, ReportCatService reportCatService) {
-        this.photoCatsReportRepository = photoCatsReportRepository;
-        this.reportCatService = reportCatService;
+    public PhotoPetsService(PhotoPetsRepository photoPetsRepository, PetService petService) {
+        this.photoPetsRepository = photoPetsRepository;
+        this.petService = petService;
     }
 
-    public PhotoCatsReport findPhotoByReportCat(long reportCatId) {
-        return photoCatsReportRepository.findPhotoCatsReportById(reportCatId).getPhotoCatsReport();
+    public PhotoPet findPhotoByPet(long pet_id) {
+        return photoPetsRepository.findPhotoPetById(pet_id).getPhotoPets();
     }
 
-    public void uploadPhotoCatsReport(Long reportCatId, MultipartFile file) throws IOException {
-        ReportCat reportCat = reportCatService.findReportCat(reportCatId);
+    public void uploadPhotoPets(Long petId, MultipartFile file) throws IOException {
+        Pet pet = petService.findPet(petId);
 
-        Path filePath = Path.of(photoCatsReportDir, reportCatId + "." + getExtension(file.getOriginalFilename()));
+        Path filePath = Path.of(photoPetsDir, petId + "." + getExtension(file.getOriginalFilename()));
         Files.createDirectories(filePath.getParent());
         Files.deleteIfExists(filePath);
 
@@ -52,14 +52,14 @@ public class PhotoCatsReportService {
             bis.transferTo(bos);
         }
 
-        PhotoCatsReport photoCatsReport = findPhotoByReportCat(reportCatId);
-        photoCatsReport.setReportCat(reportCat);
-        photoCatsReport.setFilePath(filePath.toString());
-        photoCatsReport.setFileSize(file.getSize());
-        photoCatsReport.setMediaType(file.getContentType());
-        photoCatsReport.setData(file.getBytes());
+        PhotoPet photoPets = findPhotoByPet(petId);
+        photoPets.setPet(pet);
+        photoPets.setFilePath(filePath.toString());
+        photoPets.setFileSize(file.getSize());
+        photoPets.setMediaType(file.getContentType());
+        photoPets.setData(file.getBytes());
 
-        photoCatsReportRepository.save(photoCatsReport);
+        photoPetsRepository.save(photoPets);
     }
 
     public String getExtension(String fileName) {
@@ -83,8 +83,8 @@ public class PhotoCatsReportService {
         }
     }
 
-    public Collection<PhotoCatsReport> getAllPhotoCatsReport(Integer pageNumber, Integer pageSize) {
+    public Collection<PhotoPet> getAllPhotoPets(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
-        return photoCatsReportRepository.findAll(pageRequest).getContent();
+        return photoPetsRepository.findAll(pageRequest).getContent();
     }
 }

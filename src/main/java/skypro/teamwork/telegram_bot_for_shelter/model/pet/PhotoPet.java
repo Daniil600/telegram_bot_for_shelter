@@ -1,15 +1,14 @@
-package skypro.teamwork.telegram_bot_for_shelter.model.cat;
+package skypro.teamwork.telegram_bot_for_shelter.model.pet;
 
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
-@Table(name = "photo_cats")
-public class PhotoCats {
+@Table(name = "photo_pet")
+public class PhotoPet {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "photoCats_seq")
+    @GeneratedValue(generator = "photo_pet_seq")
     private long id;
     private String filePath;
     private long fileSize;
@@ -17,19 +16,18 @@ public class PhotoCats {
     @Lob
     private byte[] data;
     @OneToOne
-    @JoinColumn(name = "cat_id")
-    private Cat cat;
+    private Pet pet;
 
-    public PhotoCats() {
+    public PhotoPet() {
 
     }
 
-    public PhotoCats(Long id, String filePath, String mediaType, long fileSize, Cat cat) {
+    public PhotoPet(Long id, String filePath, String mediaType, long fileSize, Pet pet) {
         this.id = id;
         this.filePath = filePath;
         this.mediaType = mediaType;
         this.fileSize = fileSize;
-        this.cat = cat;
+        this.pet = pet;
     }
 
     public long getId() {
@@ -72,36 +70,36 @@ public class PhotoCats {
         this.data = data;
     }
 
-    public Cat getCat() {
-        return cat;
+    public Pet getPet() {
+        return pet;
     }
 
-    public void setCat(Cat cat) {
-        this.cat = cat;
+    public void setPet(Pet pet) {
+        this.pet = pet;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PhotoCats)) return false;
-        PhotoCats photoCats = (PhotoCats) o;
-        return id == photoCats.id && fileSize == photoCats.fileSize && Objects.equals(filePath, photoCats.filePath) && Objects.equals(mediaType, photoCats.mediaType) && Arrays.equals(data, photoCats.data) && Objects.equals(cat, photoCats.cat);
+        if (!(o instanceof PhotoPet)) return false;
+        PhotoPet photoPets = (PhotoPet) o;
+        return id == photoPets.id && fileSize == photoPets.fileSize && Objects.equals(filePath, photoPets.filePath) && Objects.equals(mediaType, photoPets.mediaType) && Arrays.equals(data, photoPets.data) && Objects.equals(pet, photoPets.pet);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, filePath, fileSize, mediaType, cat);
+        return Objects.hash(id, filePath, fileSize, mediaType, pet);
     }
 
     @Override
     public String toString() {
-        return "PhotoCats{" +
+        return "PhotoPets{" +
                 "id=" + id +
                 ", filePath='" + filePath + '\'' +
                 ", fileSize=" + fileSize +
                 ", mediaType='" + mediaType + '\'' +
                 ", data=" + Arrays.toString(data) +
-                ", cat=" + cat +
+                ", pet=" + pet +
                 '}';
     }
 }

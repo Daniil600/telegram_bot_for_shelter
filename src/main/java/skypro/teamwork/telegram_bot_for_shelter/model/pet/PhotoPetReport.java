@@ -1,15 +1,14 @@
-package skypro.teamwork.telegram_bot_for_shelter.model.cat;
+package skypro.teamwork.telegram_bot_for_shelter.model.pet;
 
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
-@Table(name = "photo_cats_report")
-public class PhotoCatsReport {
+@Table(name = "photo_pets_report")
+public class PhotoPetReport {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "photoCatsReport_seq")
+    @GeneratedValue(generator = "photo_pets_report_seq")
     private long id;
     private String filePath;
     private long fileSize;
@@ -17,19 +16,19 @@ public class PhotoCatsReport {
     @Lob
     private byte[] data;
     @OneToOne
-    @JoinColumn(name = "catsReport_id")
-    private ReportCat reportCat;
+    @JoinColumn(name = "petsReport_id")
+    private ReportPet reportPet;
 
-    public PhotoCatsReport() {
+    public PhotoPetReport() {
 
     }
 
-    public PhotoCatsReport(Long id, String filePath, String mediaType, long fileSize, ReportCat reportCat) {
+    public PhotoPetReport(Long id, String filePath, String mediaType, long fileSize, ReportPet reportPet) {
         this.id = id;
         this.filePath = filePath;
         this.mediaType = mediaType;
         this.fileSize = fileSize;
-        this.reportCat = reportCat;
+        this.reportPet = reportPet;
     }
 
     public long getId() {
@@ -72,36 +71,37 @@ public class PhotoCatsReport {
         this.data = data;
     }
 
-    public ReportCat getReportCat() {
-        return reportCat;
+    public ReportPet getReportPet() {
+        return reportPet;
     }
 
-    public void setReportCat(ReportCat reportCat) {
-        this.reportCat = reportCat;
+    public void setReportPet(ReportPet reportPet) {
+        this.reportPet = reportPet;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PhotoCatsReport)) return false;
-        PhotoCatsReport that = (PhotoCatsReport) o;
-        return id == that.id && fileSize == that.fileSize && Objects.equals(filePath, that.filePath) && Objects.equals(mediaType, that.mediaType) && Arrays.equals(data, that.data) && Objects.equals(reportCat, that.reportCat);
+        if (!(o instanceof PhotoPetReport)) return false;
+        PhotoPetReport that = (PhotoPetReport) o;
+        return id == that.id && fileSize == that.fileSize && Objects.equals(filePath, that.filePath) && Objects.equals(mediaType, that.mediaType) && Arrays.equals(data, that.data) && Objects.equals(reportPet, that.reportPet);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, filePath, fileSize, mediaType, reportCat);
+        return Objects.hash(id, filePath, fileSize, mediaType, reportPet);
+
     }
 
     @Override
     public String toString() {
-        return "PhotoCatsReport{" +
+        return "PhotoPetReport{" +
                 "id=" + id +
                 ", filePath='" + filePath + '\'' +
                 ", fileSize=" + fileSize +
                 ", mediaType='" + mediaType + '\'' +
                 ", data=" + Arrays.toString(data) +
-                ", reportCat=" + reportCat +
+                ", reportPet=" + reportPet +
                 '}';
     }
 }

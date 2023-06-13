@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-import skypro.teamwork.telegram_bot_for_shelter.service.TelegramBot;
+import skypro.teamwork.telegram_bot_for_shelter.service.function.TelegramBot;
 
 @Component
 

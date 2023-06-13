@@ -1,4 +1,4 @@
-package skypro.teamwork.telegram_bot_for_shelter.service.button;
+package skypro.teamwork.telegram_bot_for_shelter.service.function.button;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,8 +8,7 @@ import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageTe
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import skypro.teamwork.telegram_bot_for_shelter.service.BotService;
-import skypro.teamwork.telegram_bot_for_shelter.service.TelegramBot;
+import skypro.teamwork.telegram_bot_for_shelter.service.function.TelegramBot;
 
 import java.util.ArrayList;
 import java.util.List;
