@@ -1,10 +1,7 @@
 package skypro.teamwork.telegram_bot_for_shelter.model.user;
 
 
-
 import skypro.teamwork.telegram_bot_for_shelter.model.pet.Pet;
-import skypro.teamwork.telegram_bot_for_shelter.model.pet.PhotoPet;
-import skypro.teamwork.telegram_bot_for_shelter.model.pet.ReportPet;
 import skypro.teamwork.telegram_bot_for_shelter.model.volunteer.Volunteer;
 
 import javax.persistence.*;
@@ -12,17 +9,27 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * Класс описывает таблицу user
+ */
 @Entity
 @Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(generator = "user_seq")
     private Long id;
+
+    /**
+     * к каждому пользователю прикрепляется один волонтер, зависимость OneToOne
+     */
     @OneToOne
     Volunteer volunteer;
     private String name;
     private LocalDateTime useDateTime;
 
+    /**
+     * к одному пользователю может быть прикреплены несколько питомцев, зависимость OneToMany
+     */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Collection<Pet> pet;
 
