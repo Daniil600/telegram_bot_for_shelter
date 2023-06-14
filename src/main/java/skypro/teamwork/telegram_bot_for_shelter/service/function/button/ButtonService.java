@@ -34,10 +34,13 @@ public class ButtonService {
             "CHOOSE_A_SHELTER_DOG"
     ));
 
-    private final TelegramBot telegramBot;
+    private TelegramBot telegramBot;
 
     public ButtonService(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
+    }
+
+    public ButtonService() {
     }
 
     /**
