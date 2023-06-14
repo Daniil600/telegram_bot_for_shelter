@@ -6,6 +6,9 @@ import skypro.teamwork.telegram_bot_for_shelter.model.user.User;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * класс описывает таблицу volunteer
+ */
 @Entity
 @Table(name = "volunteer")
 public class Volunteer {
@@ -14,6 +17,10 @@ public class Volunteer {
     private Long id;
     private String name;
     private boolean active;
+
+    /**
+     * к одному волонтёру прикреплен только один пользователь, зависимость OneToOne
+     */
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
