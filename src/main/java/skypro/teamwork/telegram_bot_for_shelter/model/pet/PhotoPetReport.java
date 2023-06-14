@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * эта модель описывает таблицу photo_pets_report
+ */
 @Entity
 @Table(name = "photo_pets_report")
 public class PhotoPetReport {
@@ -13,10 +16,18 @@ public class PhotoPetReport {
     private String filePath;
     private long fileSize;
     private String mediaType;
+
+    /**
+     * уменьшенная версия фото
+     */
     @Lob
     private byte[] data;
+
+    /**
+     * к каждому отчету по питомцу прикреплена одна фотография, зависимость OneToOne
+     */
     @OneToOne
-    @JoinColumn(name = "petsReport_id")
+    @JoinColumn(name = "pets_Report_id")
     private ReportPet reportPet;
 
     public PhotoPetReport() {
