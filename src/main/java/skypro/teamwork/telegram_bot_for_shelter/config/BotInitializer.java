@@ -9,10 +9,11 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import skypro.teamwork.telegram_bot_for_shelter.service.function.TelegramBot;
 
+/**
+ * Данный класс служит для инициализации бота, без него каждую команду придется оборачивать в try\catch
+ * для вылавливания TelegramApiException
+ */
 @Component
-
-/** Данный класс служит для инициализации бота, без него каждую комманду прийдется оборачивать в try\catch
- * для вылавливания TelegramApiException */
 public class BotInitializer {
     @Autowired
     TelegramBot bot;

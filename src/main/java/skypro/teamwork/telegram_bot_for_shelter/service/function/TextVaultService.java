@@ -2,8 +2,8 @@ package skypro.teamwork.telegram_bot_for_shelter.service.function;
 
 import org.springframework.stereotype.Service;
 
+/** Тут хранится текст, который будет выводиться пользователю при нажатии кнопки */
 @Service
-/** Тут хранится текст который будет выводиться пользователю при нажатии кнопки */
 public class TextVaultService {
 
     /**  CHOOSE_A_SHELTER_CAT  */
@@ -17,7 +17,7 @@ public class TextVaultService {
 
     /**  SCHEDULE_AND_ADDRESS_CAT  */
     public final String scheduleAndAddressCat = "В данном разделе должна храниться информация " +
-            "о расписании и адрессе приюта для кошек";
+            "о расписании и адресе приюта для кошек";
 
     /**  CONTACT_SECURITY_CAT  */
     public final String contactSecurityCat = "В данном разделе должна храниться информация " +
@@ -41,19 +41,19 @@ public class TextVaultService {
 
     /**  RECOMMENDATIONS_FOR_TRANSPORTATION_CAT  */
     public final String recommendationsForTransportationCat = "В данном разделе должен храниться " +
-            "список реккомендаций по транспортировке питомца";
+            "список рекомендаций по транспортировке питомца";
 
     /**  RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_LITTLE_CAT  */
     public final String recommendationsForHomeDesignForLittleCat = "В данном разделе должен храниться " +
-            "список реккомендаций по обустройству дома для юного питомца";
+            "список рекомендаций по обустройству дома для юного питомца";
 
     /**  RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_ADULT_CAT  */
     public final String recommendationsForHomeDesignForAdultCat = "В данном разделе должен храниться " +
-            "список реккомендаций по обустройству дома для взрослого питомца";
+            "список рекомендаций по обустройству дома для взрослого питомца";
 
     /**  RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_DISABLED_CAT  */
     public final String recommendationsForHomeDesignForDisabledCat = "В данном разделе должен храниться " +
-            "список реккомендаций по обустройству дома для питомца с ограниченными возможностями";
+            "список рекомендаций по обустройству дома для питомца с ограниченными возможностями";
 
     /**  LIST_OF_REASONS_FOR_ADOPTING_CAT  */
     public final String listOfReasonForAdoptingCat = "В данном разделе должен храниться " +
@@ -68,11 +68,11 @@ public class TextVaultService {
     public final String aboutShelterDog = "О собачьем приюте";
 
     /**  HISTORY_OF_SHELTER_DOG  */
-    public final String historyOfShelterDog = "В данном разделе должен храниться рассказ о  собачьем приюте";
+    public final String historyOfShelterDog = "В данном разделе должен храниться рассказ о собачьем приюте";
 
     /**  SCHEDULE_AND_ADDRESS_DOG  */
     public final String scheduleAndAddressDog = "В данном разделе должна храниться информация " +
-            "о расписании и адрессе приюта для собак";
+            "о расписании и адресе приюта для собак";
 
     /**  CONTACT_SECURITY_DOG  */
     public final String contactSecurityDog = "В данном разделе должна храниться информация " +
@@ -95,19 +95,19 @@ public class TextVaultService {
 
     /**  RECOMMENDATIONS_FOR_TRANSPORTATION_DOG  */
     public final String recommendationsForTransportationDog = "В данном разделе должен храниться " +
-            "список реккомендаций по транспортировке питомца";
+            "список рекомендаций по транспортировке питомца";
 
     /**  RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_LITTLE_DOG  */
     public final String recommendationsForHomeDesignForLittleDog = "В данном разделе должен храниться " +
-            "список реккомендаций по обустройству дома для юного питомца";
+            "список рекомендаций по обустройству дома для юного питомца";
 
     /**  RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_ADULT_DOG  */
     public final String recommendationsForHomeDesignForAdultDog = "В данном разделе должен храниться " +
-            "список реккомендаций по обустройству дома для взрослого питомца";
+            "список рекомендаций по обустройству дома для взрослого питомца";
 
     /**  RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_DISABLED_DOG  */
     public final String recommendationsForHomeDesignForDisabledDog = "В данном разделе должен храниться " +
-            "список реккомендаций по обустройству дома для питомца с ограниченными возможностями";
+            "список рекомендаций по обустройству дома для питомца с ограниченными возможностями";
 
     /**  LIST_OF_REASONS_FOR_ADOPTING_DOG  */
     public final String listOfReasonForAdoptingDog = "В данном разделе должен храниться " +
