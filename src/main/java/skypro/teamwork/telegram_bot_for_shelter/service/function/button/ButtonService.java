@@ -40,9 +40,6 @@ public class ButtonService {
         this.telegramBot = telegramBot;
     }
 
-    public ButtonService() {
-    }
-
     /**
      * Метод создает InlineKeyboardMarkup клавиатуру (в каждой строке одна кнопка)
      *
