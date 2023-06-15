@@ -3,14 +3,16 @@ package skypro.teamwork.telegram_bot_for_shelter.service.function.button;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ButtonCatService {
     /**
      * ArrayList c кнопками меню после нажатия кнопки "CHOOSE_A_SHELTER_CAT"
      */
-    public static final List<String> textButtonsAfterCommandCat = new ArrayList<>(List.of(
+    public static List<String> textButtonsAfterCommandCat = new ArrayList<>(List.of(
             "О приюте кошек",
             "Как взять питомца из приюта",
             "Прислать отчет о питомце",
