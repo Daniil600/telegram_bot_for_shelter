@@ -56,7 +56,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         if ((update.hasMessage() &&
                 reportService.activeReportUsers.containsKey(update.getMessage().getChatId()))) {
             logger.info(String.valueOf(update));
-            /*reportService.reportMessageChecker(update);*/
+            reportService.reportMessageChecker(update);
 
             reportService.activeReportCheck(update.getMessage().getChatId());
 

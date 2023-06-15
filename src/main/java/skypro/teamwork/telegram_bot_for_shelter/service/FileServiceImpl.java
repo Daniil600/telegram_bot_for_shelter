@@ -1,5 +1,6 @@
 package skypro.teamwork.telegram_bot_for_shelter.service;
 
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -11,6 +12,7 @@ import skypro.teamwork.telegram_bot_for_shelter.exceptions.UploadFileException;
 import skypro.teamwork.telegram_bot_for_shelter.model.AppDocument;
 import skypro.teamwork.telegram_bot_for_shelter.model.BinaryContent;
 import skypro.teamwork.telegram_bot_for_shelter.model.pet.PhotoPetReport;
+import skypro.teamwork.telegram_bot_for_shelter.model.pet.ReportPet;
 import skypro.teamwork.telegram_bot_for_shelter.repository.AppDocumentRepository;
 import skypro.teamwork.telegram_bot_for_shelter.repository.BinaryContentRepository;
 
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+
 
 @Service
 public class FileServiceImpl implements FileService {
@@ -45,16 +48,18 @@ public class FileServiceImpl implements FileService {
                     .getJSONObject("result")
                     .getString("file_path"));
             byte[] fileInByte = downloadFile(filePath);
+
+
+            ReportPet reportPet = new ReportPet();
+
+
+            PhotoPetReport report =
+                    new PhotoPetReport(1L,filePath,update.getMessage().getPhoto().get(0).getFileSize(),reportPet);
+
+
             BinaryContent transientBinaryContent = BinaryContent.builder()
                     .fileAsArrayOfBytes(fileInByte)
                     .build();
-
-            PhotoPetReport report =
-                    new PhotoPetReport(1L,filePath,update.getMessage().getPhoto().get(0).getFileSize(),)
-
-
-
-
             BinaryContent persistentBinaryContent = binaryContentRepository.save(transientBinaryContent);
             Document telegramDoc = update.getMessage().getDocument();
             AppDocument transientAppDoc = buildTransientAppDoc(telegramDoc, persistentBinaryContent);
