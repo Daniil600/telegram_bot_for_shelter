@@ -31,6 +31,13 @@ public class PhotoPetReport {
         this.reportPet = reportPet;
     }
 
+    public PhotoPetReport(Long id, String filePath, long fileSize, ReportPet reportPet) {
+        this.id = id;
+        this.filePath = filePath;
+        this.fileSize = fileSize;
+        this.reportPet = reportPet;
+    }
+
     public long getId() {
         return id;
     }
