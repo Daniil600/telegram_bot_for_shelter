@@ -2,8 +2,10 @@ package skypro.teamwork.telegram_bot_for_shelter.service;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import skypro.teamwork.telegram_bot_for_shelter.service.function.TelegramBot;
 import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonService;
 
 import java.util.ArrayList;
@@ -11,7 +13,10 @@ import java.util.List;
 
 public class ButtonServiceTest {
 
-    private final ButtonService buttonService = new ButtonService();
+    @MockBean
+    TelegramBot telegramBot;
+
+    private final ButtonService buttonService = new ButtonService(telegramBot);
 
     @Test
     void prepareKeyboardTest() {
