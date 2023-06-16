@@ -8,6 +8,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Этот класс реализует сущность питомец, описывает таблицу pet
+ */
 @Entity
 @Table(name = "pet")
 public class Pet {
@@ -17,14 +20,28 @@ public class Pet {
     private String animal;
     private String petPassport;
     private String name;
+
+    /**
+     * у каждого питомца в базе есть одно фото, зависимость OneToOne
+     * привязка фото к id питомца в колонке id в таблице photo_pet
+     */
     @OneToOne
     @JoinColumn(name = "photo_pet_id")
     private PhotoPet photoPet;
     private Date dateOfAdoption;
     private String description;
+
+    /**
+     * у одного питомца должны быть множество отчетов от усыновителя,
+     * присланных в период испытательного срока, зависимость OneToMany
+     */
     @OneToMany(mappedBy = "pet", fetch = FetchType.LAZY)
     private Collection<ReportPet> reportPets;
 
+    /**
+     * множество питомцев может быть у усыновителя, зависимость ManyToOne
+     * привязка коллекции питомцев к колонке id в таблице user
+     */
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

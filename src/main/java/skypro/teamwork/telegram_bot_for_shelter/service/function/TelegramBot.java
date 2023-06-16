@@ -1,38 +1,29 @@
 package skypro.teamwork.telegram_bot_for_shelter.service.function;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import skypro.teamwork.telegram_bot_for_shelter.config.BotConfig;
 
-import java.util.List;
-
+/**
+ * Данный класс наследуется из TelegramLongPollingBot и переопределяет методы в конструкторе
+ * для взаимодействия нашей программы с ботом через класс BotConfig
+ */
 @Component
-/** Данный класс наследуется из TelegramLongPollingBot и переопределяет методы в конструкторе
- * для взаимодействия нашей программы с ботом через класс BotConfig,
- * в котором имеются геттеры созданные библиотекой ломбок */
 public class TelegramBot extends TelegramLongPollingBot {
-
-    private final Logger logger = LoggerFactory.getLogger(TelegramBot.class);
 
     /**
      * Инициализация класса, в котором хранится имя и токен бота
      */
     private final BotConfig config;
     private final BotService botService;
-    private final ReportService reportService;
 
-    public TelegramBot(BotConfig config, BotService botService, ReportService reportService) {
+    public TelegramBot(BotConfig config, BotService botService) {
         this.config = config;
         this.botService = botService;
-        this.reportService = reportService;
     }
-
 
     /**
      * Переопределение методов под наши задачи из класса TelegramLongPollingBot
@@ -48,19 +39,13 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     /**
-     * Данный метод отслеживает какое сообщение пришло от пользователя в update и выполняет функционал взависимости
-     * от полученного сообщения путем свитч кейс
+     * Данный метод отслеживает какое сообщение пришло от пользователя в update и выполняет функционал в зависимости
+     * от полученного сообщения путем switch-case
      */
     @Override
     public void onUpdateReceived(Update update) {
-        if ((update.hasMessage() &&
-                reportService.activeReportUsers.containsKey(update.getMessage().getChatId()))) {
-            logger.info(String.valueOf(update));
-            reportService.reportMessageChecker(update);
 
-            reportService.activeReportCheck(update.getMessage().getChatId());
-
-        } else if (update.hasMessage() && update.getMessage().hasText()) {
+        if (update.hasMessage() && update.getMessage().hasText()) {
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
 
@@ -71,7 +56,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     break;
 
                 default:
-                    sendMessage(chatId, "Поторите попытку, такой комманды нет!"
+                    sendMessage(chatId, "Повторите попытку, такой команды нет!"
                             + "\nНажмите на /start для начала общения с ботом");
                     break;
             }
@@ -83,14 +68,14 @@ public class TelegramBot extends TelegramLongPollingBot {
             String firstName = update.getCallbackQuery().getFrom().getFirstName();
 
             switch (callbackQuery) {
-                /** кпопки первого уровня*/
+//                 кпопки первого уровня
                 case "START_BUTTON_FOR_EDIT_MESSAGE":
                     botService.startCommandReceivedForEditMessage
                             (chatId, messageId, firstName);
                     break;
 
 
-                /** кпопки второго уровня*/
+//                 кпопки второго уровня
                 case "CHOOSE_A_SHELTER_CAT":
                     botService.responseOnPressButtonCat(chatId, messageId);
                     break;
@@ -99,7 +84,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     break;
 
 
-                /** кнопка Рассказ о приюте и ее подкнопки кошки */
+//                кнопка Рассказ о приюте и ее подкнопки кошки
                 case "ABOUT_SHELTER_CAT":
                     botService.responseOnPressButtonAboutShelterCat(chatId, messageId);
                     break;
@@ -135,7 +120,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     break;
 
 
-                /** кнопка Как взять питомца из приюта и ее подкнопки кошки*/
+//                 кнопка Как взять питомца из приюта и ее подкнопки кошки
                 case "HOW_TAKE_CAT":
                     botService.responseOnPressButtonHowTakeCat(chatId, messageId);
                     break;
@@ -162,7 +147,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     break;
 
 
-                /** кнопка Как взять питомца из приюта и ее подкнопки собаки*/
+//                 кнопка Как взять питомца из приюта и ее подкнопки собаки
                 case "HOW_TAKE_DOG":
                     botService.responseOnPressButtonHowTakeDog(chatId, messageId);
                     break;
@@ -197,16 +182,8 @@ public class TelegramBot extends TelegramLongPollingBot {
 
                 case "SEND_REPORT_CAT":
                 case "SEND_REPORT_DOG":
-                    sendMessage(chatId, "Вас приветствует форма обработки отчета, " +
-                            "прошу Вас отправить три сообщения: \n" +
-                            "1. Номер документа питомца \n" +
-                            "2. Информацию о рационе, " +
-                            "Общее самочувствие и привыкиние к новому месту, " +
-                            "Изменение в поведении: отказ от старых\n" +
-                            "привычек, приобретение новых \n" +
-                            "3. Фото питомца");
-
-                    reportService.activeReportCheck(chatId);
+                    sendMessage(chatId, "Раздел в стадии разработки, " +
+                            "тут вы сможете отправить отчет о том как питомец себя чувствует на новом месте");
                     break;
 
                 case "TAKE_CONTACT_FOR_FEEDBACK":
@@ -217,7 +194,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     sendMessage(chatId, "Раздел в стадии разработки, тут вы сможете связаться с волонтером");
                     break;
                 default:
-                    sendMessage(chatId, "Поторите попытку, такой комманды нет");
+                    sendMessage(chatId, "Повторите попытку, такой команды нет");
                     break;
             }
         }

@@ -1,48 +1,39 @@
 package skypro.teamwork.telegram_bot_for_shelter.model.user;
 
 
-
 import skypro.teamwork.telegram_bot_for_shelter.model.pet.Pet;
-import skypro.teamwork.telegram_bot_for_shelter.model.pet.PhotoPet;
-import skypro.teamwork.telegram_bot_for_shelter.model.pet.ReportPet;
-import skypro.teamwork.telegram_bot_for_shelter.model.volunteer.Volunteer;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * Класс описывает таблицу user
+ */
 @Entity
 @Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(generator = "user_seq")
     private Long id;
-    @OneToOne
-    Volunteer volunteer;
     private String name;
     private LocalDateTime useDateTime;
 
+    /**
+     * к одному пользователю может быть прикреплены несколько питомцев, зависимость OneToMany
+     */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Collection<Pet> pet;
 
-    public User(Long id, Volunteer volunteer, String name, LocalDateTime useDateTime, Collection<Pet> pet) {
+    public User(Long id, String name, LocalDateTime useDateTime, Collection<Pet> pet) {
         this.id = id;
-        this.volunteer = volunteer;
         this.name = name;
         this.useDateTime = useDateTime;
         this.pet = pet;
     }
 
     public User() {
-    }
-
-    public Volunteer getVolunteer() {
-        return volunteer;
-    }
-
-    public void setVolunteer(Volunteer volunteer) {
-        this.volunteer = volunteer;
     }
 
     public String getName() {
@@ -82,19 +73,18 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(volunteer, user.volunteer) && Objects.equals(name, user.name) && Objects.equals(useDateTime, user.useDateTime) && Objects.equals(pet, user.pet);
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(useDateTime, user.useDateTime) && Objects.equals(pet, user.pet);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, volunteer, name, useDateTime, pet);
+        return Objects.hash(id, name, useDateTime, pet);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", volunteer=" + volunteer +
                 ", name='" + name + '\'' +
                 ", useDateTime=" + useDateTime +
                 ", pet=" + pet +

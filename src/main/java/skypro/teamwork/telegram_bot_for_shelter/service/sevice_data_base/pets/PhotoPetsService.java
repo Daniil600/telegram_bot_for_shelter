@@ -1,7 +1,6 @@
 package skypro.teamwork.telegram_bot_for_shelter.service.sevice_data_base.pets;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import skypro.teamwork.telegram_bot_for_shelter.model.pet.Pet;
@@ -15,13 +14,19 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collection;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
+/**
+ * сервис для реализации методов для фотографий питомцев
+ */
 @Service
 @Transactional
 public class PhotoPetsService {
+
+    /**
+     * путь к папке photopets, в котором хранятся фотографии
+     */
     @Value("${path.to.photopats.folder}")
     private String photoPetsDir;
 
@@ -33,10 +38,22 @@ public class PhotoPetsService {
         this.petService = petService;
     }
 
+    /**
+     * @param pet_id находит фотографию питомца по идентификатору питомца
+     * @return фотографию питомца
+     */
     public PhotoPet findPhotoByPet(long pet_id) {
         return photoPetsRepository.findPhotoPetById(pet_id).getPhotoPets();
     }
 
+    /**
+     * метод для загрузки в базу данных фотографии питомца
+     *
+     * @param petId идентификатор питомца
+     * @param file  файл, который необходимо загрузить
+     *              питомцу присваивается фотография, если она уже есть, заменяется
+     * @throws IOException генерирует ошибку ввода-вывода, если что-то пошло не так
+     */
     public void uploadPhotoPets(Long petId, MultipartFile file) throws IOException {
         Pet pet = petService.findPet(petId);
 
@@ -47,7 +64,7 @@ public class PhotoPetsService {
         try (InputStream is = file.getInputStream();
              OutputStream os = Files.newOutputStream(filePath, CREATE_NEW);
              BufferedInputStream bis = new BufferedInputStream(is, 1024);
-             BufferedOutputStream bos = new BufferedOutputStream(os, 1024);
+             BufferedOutputStream bos = new BufferedOutputStream(os, 1024)
         ) {
             bis.transferTo(bos);
         }
@@ -62,10 +79,22 @@ public class PhotoPetsService {
         photoPetsRepository.save(photoPets);
     }
 
+    /**
+     * получает расширение файла
+     * @param fileName название файла
+     * @return расширение
+     */
     public String getExtension(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
+    /**
+     * генерирует уменьшенную версию фотографии для просмотра
+     *
+     * @param filePath путь к файлу
+     * @return массив байтов
+     * @throws IOException генерирует ошибку ввода-вывода, если что-то пошло не так
+     */
     public byte[] generateImagePreview(Path filePath) throws IOException {
         try (InputStream is = Files.newInputStream(filePath);
              BufferedInputStream bis = new BufferedInputStream(is, 1024);
@@ -81,10 +110,5 @@ public class PhotoPetsService {
             ImageIO.write(preview, getExtension(filePath.getFileName().toString()), baos);
             return baos.toByteArray();
         }
-    }
-
-    public Collection<PhotoPet> getAllPhotoPets(Integer pageNumber, Integer pageSize) {
-        PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
-        return photoPetsRepository.findAll(pageRequest).getContent();
     }
 }
