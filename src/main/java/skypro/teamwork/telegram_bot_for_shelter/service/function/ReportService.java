@@ -27,6 +27,9 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * класс для реализации методов чтобы принять ежедневный отчет о животном от пользователя в течение испытательного срока
+ */
 @Service
 public class ReportService {
     private static final Logger logger = LoggerFactory.getLogger(ReportService.class);
@@ -48,6 +51,9 @@ public class ReportService {
     @Value("${service.file_storage.uri}")
     private String fileStorageUri;
 
+    /**
+     * здесь хранятся пользователи, которые обязаны присылать ежедневный отчет о животном в течение испытательного срока
+     */
     public Map<Long, Integer> activeReportUsers = new HashMap(Map.of());
 
     public ReportService(PetRepository petRepository,  PhotoPetReportRepository photoPetReportRepository, ReportPetRepository reportPetRepository) {
@@ -56,10 +62,20 @@ public class ReportService {
         this.reportPetRepository = reportPetRepository;
     }
 
+    /**
+     * проверяет, есть ли пользователь, отправляющий отчет, в списке тех, кто обязан его отправлять
+     * дает пользователю 3 возможности правильно прислать отчет
+     * @param chatId идентификатор чата пользователя
+     *               проверяется его наличие в списке пользователей
+     *               проверяется количество отправленных сообщений
+     * через 3 сообщения пользователь выходит из режима сдачи отчета
+     * если отчет сдать не удалось, нужно пробовать снова
+     */
     public void activeReportCheck(long chatId) {
         logger.info("Вызван метод обработки отчета пользователя об опеке");
         int countMessage = 3;
 
+        // TODO оптимизировать (== false) заменить на отрицание !
         if (activeReportUsers.containsKey(chatId) == false) {
             activeReportUsers.put(chatId, countMessage);
             logger.info("Пользователь был не найден, создается упоминание что он нажал кнопку сдачи отчета");
@@ -72,6 +88,12 @@ public class ReportService {
         }
     }
 
+    /**
+     * Проверяет входящее сообщение отчета
+     * @param update входящее сообщение пользователя
+     * извлекает из сообщения отдельно фото, отдельно номер паспорта, отдельно текстовое сопровождение
+     * сохраняет отчет в базу данных
+     */
     public void processDoc(Update update) {
         String fileId = update.getMessage().getPhoto().get(2).getFileId();
         ResponseEntity<String> response = getFilePath(fileId);
@@ -103,6 +125,11 @@ public class ReportService {
         }
     }
 
+    /**
+     * извлекает из сообщения текст и из него вычленяет номер паспорта
+     * @param incomeText входящее сообщение
+     * @return номер паспорта
+     */
     public static String extractPetPassport(String incomeText) {
         Pattern pattern = Pattern.compile("PS(\\d{6})\\s(.*)");
         Matcher matcher = pattern.matcher(incomeText);
@@ -118,6 +145,11 @@ public class ReportService {
 
     }
 
+    /**
+     * извлекает из входящего отчета путь к фотографии из телеграмма
+     * @param fileId идентификатор файла в телеграмме, содержащего фотографию
+     * @return возвращает путь к файлу
+     */
     private ResponseEntity<String> getFilePath(String fileId) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -132,6 +164,11 @@ public class ReportService {
         );
     }
 
+    /**
+     * скачивает фотографию отчета в базу данных
+     * @param filePath путь к файлу
+     * @return возвращает массив байтов
+     */
     private byte[] downloadFile(String filePath) {
         String fullUri = fileStorageUri.replace("{bot.token}", token)
                 .replace("{filePath}", filePath);

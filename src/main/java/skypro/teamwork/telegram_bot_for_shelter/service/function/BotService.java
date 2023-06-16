@@ -7,6 +7,7 @@ import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonCa
 import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonDogService;
 import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonService;
 
+// TODO оптимизовать повторяющиеся куски методов
 @Service
 public class BotService {
 
