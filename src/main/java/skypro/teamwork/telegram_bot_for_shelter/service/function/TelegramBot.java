@@ -1,5 +1,7 @@
 package skypro.teamwork.telegram_bot_for_shelter.service.function;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -13,16 +15,20 @@ import skypro.teamwork.telegram_bot_for_shelter.config.BotConfig;
  */
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
+    private final Logger logger = LoggerFactory.getLogger(TelegramBot.class);
+
 
     /**
      * Инициализация класса, в котором хранится имя и токен бота
      */
     private final BotConfig config;
     private final BotService botService;
+    private final ReportService reportService;
 
-    public TelegramBot(BotConfig config, BotService botService) {
+    public TelegramBot(BotConfig config, BotService botService, ReportService reportService) {
         this.config = config;
         this.botService = botService;
+        this.reportService = reportService;
     }
 
     /**
@@ -45,7 +51,14 @@ public class TelegramBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
 
-        if (update.hasMessage() && update.getMessage().hasText()) {
+        if ((update.hasMessage() &&
+                reportService.activeReportUsers.containsKey(update.getMessage().getChatId()))) {
+            logger.info(String.valueOf(update));
+            reportService.processDoc(update);
+
+            reportService.activeReportCheck(update.getMessage().getChatId());
+
+        } else if (update.hasMessage() && update.getMessage().hasText()) {
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
 
@@ -182,8 +195,16 @@ public class TelegramBot extends TelegramLongPollingBot {
 
                 case "SEND_REPORT_CAT":
                 case "SEND_REPORT_DOG":
-                    sendMessage(chatId, "Раздел в стадии разработки, " +
-                            "тут вы сможете отправить отчет о том как питомец себя чувствует на новом месте");
+                    sendMessage(chatId, "Вас приветствует форма обработки отчета, " +
+                            "прошу Вас отправить три сообщения: \n" +
+                            "1. Номер документа питомца \n" +
+                            "2. Информацию о рационе, " +
+                            "Общее самочувствие и привыкиние к новому месту, " +
+                            "Изменение в поведении: отказ от старых\n" +
+                            "привычек, приобретение новых \n" +
+                            "3. Фото питомца");
+
+                    reportService.activeReportCheck(chatId);
                     break;
 
                 case "TAKE_CONTACT_FOR_FEEDBACK":

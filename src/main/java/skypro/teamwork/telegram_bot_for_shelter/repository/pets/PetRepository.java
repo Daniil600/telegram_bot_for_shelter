@@ -9,4 +9,6 @@ import skypro.teamwork.telegram_bot_for_shelter.model.pet.Pet;
  */
 @Repository
 public interface PetRepository extends JpaRepository<Pet, Long> {
+
+    Pet findByPetPassport (String petPassport);
 }
