@@ -416,4 +416,5 @@ public class BotService {
         );
         buttonService.responseOnPressButton(chatId, messageId, textVaultService.cynologistAdviceDog, inlineKeyboard);
     }
+
 }

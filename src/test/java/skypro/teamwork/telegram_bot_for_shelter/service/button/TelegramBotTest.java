@@ -5,18 +5,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.slf4j.Logger;
-import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
-import org.telegram.telegrambots.meta.api.objects.Chat;
-import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import skypro.teamwork.telegram_bot_for_shelter.config.BotConfig;
 import skypro.teamwork.telegram_bot_for_shelter.service.function.BotService;
 import skypro.teamwork.telegram_bot_for_shelter.service.function.ReportService;
 import skypro.teamwork.telegram_bot_for_shelter.service.function.TelegramBot;
+import skypro.teamwork.telegram_bot_for_shelter.service.function.UserFunction;
 import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonService;
 
 import static org.mockito.Mockito.*;
@@ -44,10 +40,11 @@ public class TelegramBotTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+        UserFunction userFunction = Mockito.mock(UserFunction.class);
         BotConfig botConfig = new BotConfig();
         botConfig.setBotName(BOT_NAME);
         botConfig.setToken(TOKEN);
-        telegramBot = new TelegramBot(botConfig, mockBotService, mockReportService);
+        telegramBot = new TelegramBot(botConfig, mockBotService, mockReportService, userFunction);
     }
 
     @Test

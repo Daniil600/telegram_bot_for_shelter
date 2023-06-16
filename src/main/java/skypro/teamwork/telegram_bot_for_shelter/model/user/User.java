@@ -27,6 +27,20 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Collection<Pet> pet;
 
+    private String contact;
+
+    public User(Long id, Long chatId, String name, LocalDateTime useDateTime, Collection<Pet> pet, String contact) {
+        this.id = id;
+        this.chatId = chatId;
+        this.name = name;
+        this.useDateTime = useDateTime;
+        this.pet = pet;
+        this.contact = contact;
+    }
+
+    public User() {
+    }
+
     public Long getChatId() {
         return chatId;
     }
@@ -35,15 +49,12 @@ public class User {
         this.chatId = chatId;
     }
 
-    public User(Long id, String name, Long chatId, LocalDateTime useDateTime, Collection<Pet> pet) {
-        this.id = id;
-        this.chatId = chatId;
-        this.name = name;
-        this.useDateTime = useDateTime;
-        this.pet = pet;
+    public String getContact() {
+        return contact;
     }
 
-    public User() {
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public String getName() {
@@ -83,22 +94,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(chatId, user.chatId) && Objects.equals(name, user.name) && Objects.equals(useDateTime, user.useDateTime) && Objects.equals(pet, user.pet);
+        return Objects.equals(id, user.id) && Objects.equals(chatId, user.chatId) && Objects.equals(name, user.name) && Objects.equals(useDateTime, user.useDateTime) && Objects.equals(pet, user.pet) && Objects.equals(contact, user.contact);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, chatId, name, useDateTime, pet);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", chatId=" + chatId +
-                ", name='" + name + '\'' +
-                ", useDateTime=" + useDateTime +
-                ", pet=" + pet +
-                '}';
+        return Objects.hash(id, chatId, name, useDateTime, pet, contact);
     }
 }
