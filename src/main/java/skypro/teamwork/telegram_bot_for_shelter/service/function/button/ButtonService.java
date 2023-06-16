@@ -27,7 +27,7 @@ public class ButtonService {
     ));
 
     /**
-     * ArrayList c индификаторами кнопок меню после команды "start"
+     * ArrayList c идентификаторами кнопок меню после команды "start"
      */
     public static final List<String> callbackQueryAfterCommandStart = new ArrayList<>(List.of(
             "CHOOSE_A_SHELTER_CAT",
@@ -46,6 +46,13 @@ public class ButtonService {
      * @param buttonsTexts    текст на кнопках
      * @param buttonsCallback идентификаторы кнопок
      * @return инлайн клавитура c кнопками
+     *
+     * создаем клавиатуру
+     * создаем список строк
+     * в цикле:
+     * создаем кнопки и добавляем их в строку, а строки в лист строк
+     * за один проход цикла создается одна кнопка в каждой строке
+     * количество кнопок определяется входящим параметром buttonsTexts (количеством записей)
      */
 
     public InlineKeyboardMarkup prepareKeyboard(List<String> buttonsTexts, List<String> buttonsCallback) {
@@ -79,9 +86,8 @@ public class ButtonService {
      * @param chatId         идентификатор чата для отправки сообщения
      * @param messageText    текст сообщения
      * @param inlineKeyboard клавиатура под сообщением
-     */
-
-    /** responseStartButton отлаввливает сообщение старт и создает первое сообщение с клавиатурой,
+     *
+     * responseStartButton отлавливает сообщение старт и создает первое сообщение с клавиатурой,
      * далее кнопки обращаются к методу responseOnPressButton и он заменяет предыдущее сообщение новым с новой клавиатурой
      */
     public void responseStartButton(long chatId, String messageText, InlineKeyboardMarkup inlineKeyboard) {

@@ -19,7 +19,7 @@ public class ButtonDogService {
     ));
 
     /**
-     * ArrayList c индификаторами кнопок меню после нажатия кнопки "CHOOSE_A_SHELTER_DOG"
+     * ArrayList c идентификаторами кнопок меню после нажатия кнопки "CHOOSE_A_SHELTER_DOG"
      */
     public static final List<String> callbackQueryAfterCommandDog = new ArrayList<>(List.of(
             "ABOUT_SHELTER_DOG",
@@ -45,7 +45,7 @@ public class ButtonDogService {
     ));
 
     /**
-     * ArrayList c индификаторами кнопок меню после нажатия кнопки "ABOUT_SHELTER_DOG"
+     * ArrayList c идентификаторами кнопок меню после нажатия кнопки "ABOUT_SHELTER_DOG"
      */
     public static final List<String> callbackQueryAfterCommandAboutShelterDog = new ArrayList<>(List.of(
             "HISTORY_OF_SHELTER_DOG",
@@ -77,7 +77,7 @@ public class ButtonDogService {
     ));
 
     /**
-     * ArrayList c индификаторами кнопок меню после нажатия кнопки "HOW_TAKE_DOG"
+     * ArrayList c идентификаторами кнопок меню после нажатия кнопки "HOW_TAKE_DOG"
      */
     public static final List<String> callbackQueryAfterCommandHowTakeDog = new ArrayList<>(List.of(
             "DATING_RULES_DOG",
@@ -96,7 +96,7 @@ public class ButtonDogService {
 
 
     /**
-     * ArrayList c кнопками меню после нажатия кнопок выдаваемых кнопкой  ABOUT_SHELTER_DOG"
+     * ArrayList c кнопками меню после нажатия кнопок выдаваемых кнопкой  "ABOUT_SHELTER_DOG"
      * список кнопок
      * HISTORY_OF_SHELTER_DOG
      * SCHEDULE_AND_ADDRESS_DOG
@@ -109,7 +109,7 @@ public class ButtonDogService {
     ));
 
     /**
-     * ArrayList c индификаторами кнопок меню после нажатия кнопок выдаваемых кнопкой  ABOUT_SHELTER_DOG
+     * ArrayList c идентификаторами кнопок меню после нажатия кнопок выдаваемых кнопкой  "ABOUT_SHELTER_DOG"
      * список кнопок
      * HISTORY_OF_SHELTER_DOG
      * SCHEDULE_AND_ADDRESS_DOG
@@ -123,7 +123,7 @@ public class ButtonDogService {
 
 
     /**
-     * ArrayList c кнопками меню после нажатия кнопок выдаваемых кнопкой  HOW_TAKE_DOG
+     * ArrayList c кнопками меню после нажатия кнопок выдаваемых кнопкой  "HOW_TAKE_DOG"
      * список кнопок
      * DATING_RULES_DOG
      * LIST_OF_DOCUMENTS_FOR_ADOPTING_DOG
@@ -141,7 +141,7 @@ public class ButtonDogService {
     ));
 
     /**
-     * ArrayList c индификаторами кнопок меню после нажатия кнопок выдаваемых кнопкой  HOW_TAKE_DOG
+     * ArrayList c идентификаторами кнопок меню после нажатия кнопок выдаваемых кнопкой  "HOW_TAKE_DOG"
      * список кнопок
      * DATING_RULES_DOG
      * LIST_OF_DOCUMENTS_FOR_ADOPTING_DOG
