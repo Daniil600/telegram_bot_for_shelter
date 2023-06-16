@@ -40,7 +40,6 @@ public class ReportService {
     public String petPassport;
     public String textReport;
 
-
     @Value("${bot.token}")
     private String token;
     @Value("${service.file_info.uri}")
