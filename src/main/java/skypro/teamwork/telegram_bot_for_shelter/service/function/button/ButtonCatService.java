@@ -19,7 +19,7 @@ public class ButtonCatService {
     ));
 
     /**
-     * ArrayList c индификаторами кнопок меню после нажатия кнопки "CHOOSE_A_SHELTER_CAT"
+     * ArrayList c идентификаторами кнопок меню после нажатия кнопки "CHOOSE_A_SHELTER_CAT"
      */
     public static final List<String> callbackQueryAfterCommandCat = new ArrayList<>(List.of(
             "ABOUT_SHELTER_CAT",
@@ -45,7 +45,7 @@ public class ButtonCatService {
     ));
 
     /**
-     * ArrayList c индификаторами кнопок меню после нажатия кнопки "ABOUT_SHELTER_CAT"
+     * ArrayList c идентификаторами кнопок меню после нажатия кнопки "ABOUT_SHELTER_CAT"
      */
     public static final List<String> callbackQueryAfterCommandAboutShelterCat = new ArrayList<>(List.of(
             "HISTORY_OF_SHELTER_CAT",
@@ -75,7 +75,7 @@ public class ButtonCatService {
     ));
 
     /**
-     * ArrayList c индификаторами кнопок меню после нажатия кнопки "HOW_TAKE_CAT"
+     * ArrayList c идентификаторами кнопок меню после нажатия кнопки "HOW_TAKE_CAT"
      */
     public static final List<String> callbackQueryAfterCommandHowTakeCat = new ArrayList<>(List.of(
             "DATING_RULES_CAT",
@@ -92,7 +92,7 @@ public class ButtonCatService {
 
 
     /**
-     * ArrayList c кнопками меню после нажатия кнопок выдаваемых кнопкой  ABOUT_SHELTER_CAT"
+     * ArrayList c кнопками меню после нажатия кнопок выдаваемых кнопкой  "ABOUT_SHELTER_CAT"
      * список кнопок
      * HISTORY_OF_SHELTER_CAT
      * SCHEDULE_AND_ADDRESS_CAT
@@ -105,7 +105,7 @@ public class ButtonCatService {
     ));
 
     /**
-     * ArrayList c индификаторами кнопок меню после нажатия кнопок выдаваемых кнопкой  ABOUT_SHELTER_CAT"
+     * ArrayList c идентификаторами кнопок меню после нажатия кнопок выдаваемых кнопкой  "ABOUT_SHELTER_CAT"
      * список кнопок
      * HISTORY_OF_SHELTER_CAT
      * SCHEDULE_AND_ADDRESS_CAT
@@ -119,7 +119,7 @@ public class ButtonCatService {
 
 
     /**
-     * ArrayList c кнопками меню после нажатия кнопок выдаваемых кнопкой  HOW_TAKE_CAT"
+     * ArrayList c кнопками меню после нажатия кнопок выдаваемых кнопкой  "HOW_TAKE_CAT"
      * список кнопок
      * DATING_RULES_CAT
      * LIST_OF_DOCUMENTS_FOR_ADOPTING_A_CAT
@@ -135,7 +135,7 @@ public class ButtonCatService {
     ));
 
     /**
-     * ArrayList c индификаторами кнопок меню после нажатия кнопок выдаваемых кнопкой  HOW_TAKE_CAT"
+     * ArrayList c идентификаторами кнопок меню после нажатия кнопок выдаваемых кнопкой  "HOW_TAKE_CAT"
      * список кнопок
      * DATING_RULES_CAT
      * LIST_OF_DOCUMENTS_FOR_ADOPTING_A_CAT
