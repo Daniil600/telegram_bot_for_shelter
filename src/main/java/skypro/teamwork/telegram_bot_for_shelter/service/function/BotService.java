@@ -49,12 +49,12 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта кошек
      */
     public void responseOnPressButtonCat(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardCat = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonCatService.textButtonsAfterCommandCat,
                 ButtonCatService.callbackQueryAfterCommandCat
         );
 
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.firstLineCat, inlineKeyboardCat);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.firstLineCat, inlineKeyboard);
     }
 
     /**
@@ -62,11 +62,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта кошек
      */
     public void responseOnPressButtonAboutShelterCat(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonCatService.textButtonsAfterCommandAboutShelterCat,
                 ButtonCatService.callbackQueryAfterCommandAboutShelterCat
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.aboutShelterCat, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.aboutShelterCat, inlineKeyboard);
     }
 
     /**
@@ -74,12 +74,12 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта кошек
      */
     public void responseOnPressButtonHistoryOfShelterCat(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardCat = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonCatService.textButtonsAfterCommandGroupAboutShelterCat,
                 ButtonCatService.callbackQueryAfterCommandGroupAboutShelterCat
         );
 
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.historyOfShelterCat, inlineKeyboardCat);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.historyOfShelterCat, inlineKeyboard);
     }
 
     /**
@@ -87,12 +87,12 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта кошек
      */
     public void responseOnPressButtonScheduleAndAddressCat(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardCat = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonCatService.textButtonsAfterCommandGroupAboutShelterCat,
                 ButtonCatService.callbackQueryAfterCommandGroupAboutShelterCat
         );
 
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.scheduleAndAddressCat, inlineKeyboardCat);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.scheduleAndAddressCat, inlineKeyboard);
     }
 
     /**
@@ -100,12 +100,12 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта кошек
      */
     public void responseOnPressButtonContactSecurityCat(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardCat = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonCatService.textButtonsAfterCommandGroupAboutShelterCat,
                 ButtonCatService.callbackQueryAfterCommandGroupAboutShelterCat
         );
 
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.contactSecurityCat, inlineKeyboardCat);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.contactSecurityCat, inlineKeyboard);
     }
 
     /**
@@ -113,12 +113,12 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта кошек
      */
     public void responseOnPressButtonRecommendationLeafyCat(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardCat = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonCatService.textButtonsAfterCommandGroupAboutShelterCat,
                 ButtonCatService.callbackQueryAfterCommandGroupAboutShelterCat
         );
 
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationLeafyCat, inlineKeyboardCat);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationLeafyCat, inlineKeyboard);
     }
 
 
@@ -127,11 +127,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта кошек
      */
     public void responseOnPressButtonHowTakeCat(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonCatService.textButtonsAfterCommandHowTakeCat,
                 ButtonCatService.callbackQueryAfterCommandHowTakeCat
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.howToTakeCat, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.howToTakeCat, inlineKeyboard);
     }
 
     /**
@@ -139,11 +139,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта кошек
      */
     public void responseOnPressButtonDatingRulesCat(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonCatService.textButtonsAfterCommandGroupHowTakeCat,
                 ButtonCatService.callbackQueryAfterCommandGroupHowTakeCat
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.datingRulesCat, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.datingRulesCat, inlineKeyboard);
     }
 
     /**
@@ -151,11 +151,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта кошек
      */
     public void responseOnPressButtonListOfDocumentsForAdoptingCat(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonCatService.textButtonsAfterCommandGroupHowTakeCat,
                 ButtonCatService.callbackQueryAfterCommandGroupHowTakeCat
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.listOfDocumentsForAdoptingCat, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.listOfDocumentsForAdoptingCat, inlineKeyboard);
     }
 
     /**
@@ -163,11 +163,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта кошек
      */
     public void responseOnPressButtonRecommendationsForTransportationCat(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonCatService.textButtonsAfterCommandGroupHowTakeCat,
                 ButtonCatService.callbackQueryAfterCommandGroupHowTakeCat
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForTransportationCat, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForTransportationCat, inlineKeyboard);
     }
 
     /**
@@ -175,11 +175,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта кошек
      */
     public void responseOnPressButtonRecommendationsForHomeDesignForLittleCat(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonCatService.textButtonsAfterCommandGroupHowTakeCat,
                 ButtonCatService.callbackQueryAfterCommandGroupHowTakeCat
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForHomeDesignForLittleCat, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForHomeDesignForLittleCat, inlineKeyboard);
     }
 
     /**
@@ -187,11 +187,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта кошек
      */
     public void responseOnPressButtonRecommendationsForHomeDesignForAdultCat(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonCatService.textButtonsAfterCommandGroupHowTakeCat,
                 ButtonCatService.callbackQueryAfterCommandGroupHowTakeCat
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForHomeDesignForAdultCat, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForHomeDesignForAdultCat, inlineKeyboard);
     }
 
     /**
@@ -199,11 +199,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта кошек
      */
     public void responseOnPressButtonRecommendationsForHomeDesignForDisabledCat(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonCatService.textButtonsAfterCommandGroupHowTakeCat,
                 ButtonCatService.callbackQueryAfterCommandGroupHowTakeCat
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForHomeDesignForDisabledCat, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForHomeDesignForDisabledCat, inlineKeyboard);
     }
 
     /**
@@ -211,11 +211,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта кошек
      */
     public void responseOnPressButtonListOfReasonForAdoptingCat(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonCatService.textButtonsAfterCommandGroupHowTakeCat,
                 ButtonCatService.callbackQueryAfterCommandGroupHowTakeCat
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.listOfReasonForAdoptingCat, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.listOfReasonForAdoptingCat, inlineKeyboard);
     }
 
 
@@ -224,12 +224,12 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта собак
      */
     public void responseOnPressButtonDog(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonDogService.textButtonsAfterCommandDog,
                 ButtonDogService.callbackQueryAfterCommandDog
         );
 
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.firstLineDog, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.firstLineDog, inlineKeyboard);
 
     }
 
@@ -238,11 +238,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта собак
      */
     public void responseOnPressButtonAboutShelterDog(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonDogService.textButtonsAfterCommandAboutShelterDog,
                 ButtonDogService.callbackQueryAfterCommandAboutShelterDog
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.aboutShelterDog, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.aboutShelterDog, inlineKeyboard);
     }
 
     /**
@@ -250,12 +250,12 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта собак
      */
     public void responseOnPressButtonHistoryOfShelterDog(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardCat = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonDogService.textButtonsAfterCommandGroupAboutShelterDog,
                 ButtonDogService.callbackQueryAfterCommandGroupAboutShelterDog
         );
 
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.historyOfShelterDog, inlineKeyboardCat);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.historyOfShelterDog, inlineKeyboard);
     }
 
     /**
@@ -263,12 +263,12 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта собак
      */
     public void responseOnPressButtonScheduleAndAddressDog(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardCat = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonDogService.textButtonsAfterCommandGroupAboutShelterDog,
                 ButtonDogService.callbackQueryAfterCommandGroupAboutShelterDog
         );
 
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.scheduleAndAddressDog, inlineKeyboardCat);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.scheduleAndAddressDog, inlineKeyboard);
     }
 
     /**
@@ -276,12 +276,12 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта собак
      */
     public void responseOnPressButtonContactSecurityDog(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardCat = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonDogService.textButtonsAfterCommandGroupAboutShelterDog,
                 ButtonDogService.callbackQueryAfterCommandGroupAboutShelterDog
         );
 
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.contactSecurityDog, inlineKeyboardCat);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.contactSecurityDog, inlineKeyboard);
     }
 
     /**
@@ -289,12 +289,12 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта собак
      */
     public void responseOnPressButtonRecommendationLeafyDog(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardCat = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonDogService.textButtonsAfterCommandGroupAboutShelterDog,
                 ButtonDogService.callbackQueryAfterCommandGroupAboutShelterDog
         );
 
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationLeafyDog, inlineKeyboardCat);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationLeafyDog, inlineKeyboard);
     }
 
     /**
@@ -302,11 +302,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта собак
      */
     public void responseOnPressButtonHowTakeDog(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonDogService.textButtonsAfterCommandHowTakeDog,
                 ButtonDogService.callbackQueryAfterCommandHowTakeDog
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.howToTakeDog, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.howToTakeDog, inlineKeyboard);
     }
 
     /**
@@ -314,11 +314,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта собак
      */
     public void responseOnPressButtonDatingRulesDog(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonDogService.textButtonsAfterCommandGroupHowTakeDog,
                 ButtonDogService.callbackQueryAfterCommandGroupHowTakeDog
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.datingRulesDog, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.datingRulesDog, inlineKeyboard);
     }
 
     /**
@@ -326,11 +326,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта собак
      */
     public void responseOnPressButtonListOfDocumentsForAdoptingDog(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonDogService.textButtonsAfterCommandGroupHowTakeDog,
                 ButtonDogService.callbackQueryAfterCommandGroupHowTakeDog
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.listOfDocumentsForAdoptingDog, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.listOfDocumentsForAdoptingDog, inlineKeyboard);
     }
 
     /**
@@ -338,11 +338,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта собак
      */
     public void responseOnPressButtonRecommendationsForTransportationDog(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonDogService.textButtonsAfterCommandGroupHowTakeDog,
                 ButtonDogService.callbackQueryAfterCommandGroupHowTakeDog
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForTransportationDog, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForTransportationDog, inlineKeyboard);
     }
 
     /**
@@ -350,11 +350,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта собак
      */
     public void responseOnPressButtonRecommendationsForHomeDesignForLittleDog(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonDogService.textButtonsAfterCommandGroupHowTakeDog,
                 ButtonDogService.callbackQueryAfterCommandGroupHowTakeDog
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForHomeDesignForLittleDog, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForHomeDesignForLittleDog, inlineKeyboard);
     }
 
     /**
@@ -362,11 +362,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта собак
      */
     public void responseOnPressButtonRecommendationsForHomeDesignForAdultDog(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonDogService.textButtonsAfterCommandGroupHowTakeDog,
                 ButtonDogService.callbackQueryAfterCommandGroupHowTakeDog
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForHomeDesignForAdultDog, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForHomeDesignForAdultDog, inlineKeyboard);
     }
 
     /**
@@ -374,11 +374,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта собак
      */
     public void responseOnPressButtonRecommendationsForHomeDesignForDisabledDog(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonDogService.textButtonsAfterCommandGroupHowTakeDog,
                 ButtonDogService.callbackQueryAfterCommandGroupHowTakeDog
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForHomeDesignForDisabledDog, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.recommendationsForHomeDesignForDisabledDog, inlineKeyboard);
     }
 
     /**
@@ -386,11 +386,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта собак
      */
     public void responseOnPressButtonListOfReasonForAdoptingDog(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonDogService.textButtonsAfterCommandGroupHowTakeDog,
                 ButtonDogService.callbackQueryAfterCommandGroupHowTakeDog
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.listOfReasonForAdoptingDog, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.listOfReasonForAdoptingDog, inlineKeyboard);
     }
 
     /**
@@ -398,11 +398,11 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта собак
      */
     public void responseOnPressButtonListOfVerifiedCynologistDog(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonDogService.textButtonsAfterCommandGroupHowTakeDog,
                 ButtonDogService.callbackQueryAfterCommandGroupHowTakeDog
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.listOfVerifiedCynologistDog, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.listOfVerifiedCynologistDog, inlineKeyboard);
     }
 
     /**
@@ -410,10 +410,10 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта собак
      */
     public void responseOnPressButtonCynologistAdviceDog(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboardDog = buttonService.prepareKeyboard(
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonDogService.textButtonsAfterCommandGroupHowTakeDog,
                 ButtonDogService.callbackQueryAfterCommandGroupHowTakeDog
         );
-        buttonService.responseOnPressButton(chatId, messageId, textVaultService.cynologistAdviceDog, inlineKeyboardDog);
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.cynologistAdviceDog, inlineKeyboard);
     }
 }
