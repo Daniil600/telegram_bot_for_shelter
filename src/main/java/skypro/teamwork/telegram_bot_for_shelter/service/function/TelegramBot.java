@@ -25,11 +25,13 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final BotService botService;
     private final ReportService reportService;
 
+
     public TelegramBot(BotConfig config, BotService botService, ReportService reportService) {
         this.config = config;
         this.botService = botService;
         this.reportService = reportService;
     }
+
 
     /**
      * Переопределение методов под наши задачи из класса TelegramLongPollingBot
@@ -54,8 +56,12 @@ public class TelegramBot extends TelegramLongPollingBot {
         if ((update.hasMessage() &&
                 reportService.activeReportUsers.containsKey(update.getMessage().getChatId()))) {
             logger.info(String.valueOf(update));
-            reportService.processDoc(update);
-
+            if (update.getMessage().getCaption() != null && !update.getMessage().getPhoto().isEmpty()) {
+                reportService.processDoc(update);
+            } else {
+                sendMessage(update.getMessage().getChatId(), "Данное сообщение не удовлетворяет требованиям отчета");
+                reportService.activeReportCheck(update.getMessage().getChatId());
+            }
             reportService.activeReportCheck(update.getMessage().getChatId());
 
         } else if (update.hasMessage() && update.getMessage().hasText()) {
@@ -195,14 +201,14 @@ public class TelegramBot extends TelegramLongPollingBot {
 
                 case "SEND_REPORT_CAT":
                 case "SEND_REPORT_DOG":
+
                     sendMessage(chatId, "Вас приветствует форма обработки отчета, " +
-                            "прошу Вас отправить три сообщения: \n" +
+                            "прошу Вас отправить фотографию питомца с приложенной к ней информацией: \n" +
                             "1. Номер документа питомца \n" +
-                            "2. Информацию о рационе, " +
-                            "Общее самочувствие и привыкиние к новому месту, " +
-                            "Изменение в поведении: отказ от старых\n" +
-                            "привычек, приобретение новых \n" +
-                            "3. Фото питомца");
+                            "2. Информацию о рационе \n" +
+                            "3. Общее самочувствие и привыкиние к новому месту \n" +
+                            "4. Изменение в поведении: отказ от старых " +
+                            "привычек, приобретение новых");
 
                     reportService.activeReportCheck(chatId);
                     break;
