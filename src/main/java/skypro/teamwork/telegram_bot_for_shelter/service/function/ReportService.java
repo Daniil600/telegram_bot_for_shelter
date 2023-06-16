@@ -18,7 +18,6 @@ import skypro.teamwork.telegram_bot_for_shelter.repository.pets.PhotoPetReportRe
 import skypro.teamwork.telegram_bot_for_shelter.repository.pets.ReportPetRepository;
 
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -35,14 +34,12 @@ public class ReportService {
     private static final Logger logger = LoggerFactory.getLogger(ReportService.class);
 
     private final PetRepository petRepository;
-
     private final PhotoPetReportRepository photoPetReportRepository;
     private final ReportPetRepository reportPetRepository;
 
 
     public String petPassport;
     public String textReport;
-
 
     @Value("${bot.token}")
     private String token;
@@ -73,12 +70,14 @@ public class ReportService {
      */
     public void activeReportCheck(long chatId) {
         logger.info("Вызван метод обработки отчета пользователя об опеке");
-        int countMessage = 3;
+        int countMessage = 1;
 
         // TODO оптимизировать (== false) заменить на отрицание !
         if (activeReportUsers.containsKey(chatId) == false) {
             activeReportUsers.put(chatId, countMessage);
-            logger.info("Пользователь был не найден, создается упоминание что он нажал кнопку сдачи отчета");
+            logger.info("Пользователь в данный момент не в режиме сдачи отчета," +
+                    " создается упоминание что он нажал кнопку сдачи отчета");
+
         } else if (activeReportUsers.containsKey(chatId) && activeReportUsers.get(chatId) > 1) {
             activeReportUsers.put(chatId, activeReportUsers.get(chatId) - 1);
             logger.info("Проверка количества сообщений написанных пользователем не превышает лимит");
@@ -131,7 +130,7 @@ public class ReportService {
      * @return номер паспорта
      */
     public static String extractPetPassport(String incomeText) {
-        Pattern pattern = Pattern.compile("PS(\\d{6})\\s(.*)");
+        Pattern pattern = Pattern.compile("(\\d{6})\\s(.*)");
         Matcher matcher = pattern.matcher(incomeText);
 
         if (matcher.matches()) {

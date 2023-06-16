@@ -2,7 +2,10 @@ package skypro.teamwork.telegram_bot_for_shelter.service.sevice_data_base.pets;
 
 import org.springframework.stereotype.Service;
 import skypro.teamwork.telegram_bot_for_shelter.model.pet.ReportPet;
+import skypro.teamwork.telegram_bot_for_shelter.repository.pets.PetRepository;
+import skypro.teamwork.telegram_bot_for_shelter.repository.pets.PhotoPetReportRepository;
 import skypro.teamwork.telegram_bot_for_shelter.repository.pets.ReportPetRepository;
+import skypro.teamwork.telegram_bot_for_shelter.service.function.ReportService;
 
 import java.util.Collection;
 
