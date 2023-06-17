@@ -1,6 +1,7 @@
 package skypro.teamwork.telegram_bot_for_shelter.model.pet;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -13,6 +14,8 @@ public class ReportPet {
     @Id
     @GeneratedValue(generator = "report_pet_seq")
     private long id;
+
+    private LocalDate date;
 
     /**
      * к каждому отчету прикладывается фото питомца, зависимость OneToOne
@@ -29,8 +32,9 @@ public class ReportPet {
     @JoinColumn(name = "pet_id")
     private Pet pet;
 
-    public ReportPet(long id, PhotoPetReport photoPetReport, String rept, Pet pet) {
+    public ReportPet(long id, LocalDate date, PhotoPetReport photoPetReport, String rept, Pet pet) {
         this.id = id;
+        this.date = date;
         this.photoPetReport = photoPetReport;
         this.rept = rept;
         this.pet = pet;
@@ -41,6 +45,22 @@ public class ReportPet {
 
     public long getId() {
         return id;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public PhotoPetReport getPhotoPetReport() {
+        return photoPetReport;
+    }
+
+    public void setPhotoPetReport(PhotoPetReport photoPetReport) {
+        this.photoPetReport = photoPetReport;
     }
 
     public void setId(long id) {
@@ -87,7 +107,7 @@ public class ReportPet {
     @Override
     public String toString() {
         return "ReportPet{" +
-                "photoPetsReport=" + photoPetReport+
+                "photoPetsReport=" + photoPetReport +
                 ", rept='" + rept + '\'' +
                 ", pet=" + pet +
                 '}';

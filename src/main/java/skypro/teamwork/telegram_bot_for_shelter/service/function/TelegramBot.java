@@ -231,7 +231,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     /**
      * Данный метод получает входящие данные и несет в себе функционал отправки их пользователю
      */
-    private void sendMessage(long chatId, String textToSend) {
+    public void sendMessage(long chatId, String textToSend) {
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
         message.setText(textToSend);
