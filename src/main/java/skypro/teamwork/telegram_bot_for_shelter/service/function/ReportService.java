@@ -53,7 +53,11 @@ public class ReportService {
         this.reportPetRepository = reportPetRepository;
     }
 
-
+    /*
+    activeReportCheck  -это метод, который проверяет, что пользователь находится в состоянии сдачи отчета
+    об опеке и записывает его в activeReportUsers. Этот метод также удаляет пользователя из activeReportUsers,
+    если он завершает сдачу отчета.
+     */
     public void activeReportCheck(long chatId) {
         logger.info("Вызван метод обработки отчета пользователя об опеке");
         int countMessage = 1;
@@ -118,7 +122,7 @@ public class ReportService {
 
     }
 
-    private ResponseEntity<String> getFilePath(String fileId) {
+    public ResponseEntity<String> getFilePath(String fileId) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> request = new HttpEntity<>(headers);
@@ -132,7 +136,7 @@ public class ReportService {
         );
     }
 
-    private byte[] downloadFile(String filePath) {
+    public byte[] downloadFile(String filePath) {
         String fullUri = fileStorageUri.replace("{bot.token}", token)
                 .replace("{filePath}", filePath);
         URL urlObj = null;

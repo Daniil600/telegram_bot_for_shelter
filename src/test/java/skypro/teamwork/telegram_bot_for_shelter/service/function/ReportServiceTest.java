@@ -1,43 +1,23 @@
 package skypro.teamwork.telegram_bot_for_shelter.service.function;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.telegram.telegrambots.meta.api.objects.Message;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.telegram.telegrambots.meta.api.objects.PhotoSize;
-import skypro.teamwork.telegram_bot_for_shelter.model.pet.Pet;
+import org.telegram.telegrambots.meta.api.objects.Update;
 import skypro.teamwork.telegram_bot_for_shelter.model.pet.PhotoPetReport;
 import skypro.teamwork.telegram_bot_for_shelter.model.pet.ReportPet;
 import skypro.teamwork.telegram_bot_for_shelter.repository.pets.PetRepository;
 import skypro.teamwork.telegram_bot_for_shelter.repository.pets.PhotoPetReportRepository;
 import skypro.teamwork.telegram_bot_for_shelter.repository.pets.ReportPetRepository;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import org.telegram.telegrambots.meta.api.objects.Update;
-
-import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.mockito.Mockito.mock;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 import static skypro.teamwork.telegram_bot_for_shelter.service.function.ReportService.extractPetPassport;
 
 @ContextConfiguration(classes = {ReportService.class})

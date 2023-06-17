@@ -29,6 +29,17 @@ public class ButtonCatService {
             "START_BUTTON_FOR_EDIT_MESSAGE"
     ));
 
+     /*
+       - HashMap c кнопками меню и идентификаторами кнопок меню после нажатия кнопки "CHOOSE_A_SHELTER_CAT"
+
+    public static final Map<String, String> textButtonsAfterCommandCat = new HashMap<String, String>() {{
+        put("О приюте кошек", "ABOUT_SHELTER_CAT");
+        put("Как взять питомца из приюта", "HOW_TAKE_CAT");
+        put("Прислать отчет о питомце", "SEND_REPORT_CAT");
+        put("Позвать волонтёра", "VOLUNTEER");
+        put("Назад", "START_BUTTON_FOR_EDIT_MESSAGE");
+    }};*/
+
 
     /**
      * ArrayList c кнопками меню после нажатия кнопки "ABOUT_SHELTER_CAT"
@@ -57,6 +68,19 @@ public class ButtonCatService {
             "CHOOSE_A_SHELTER_CAT"
     ));
 
+
+    /*
+       * HashMap c кнопками меню и идентификаторами кнопок меню после нажатия кнопки "ABOUT_SHELTER_CAT"
+
+    public static final Map<String, String> textButtonsAfterCommandAboutShelterCat = new HashMap<String, String>() {{
+        put("Рассказ о приюте", "HISTORY_OF_SHELTER_CAT");
+        put("Расписание и адрес", "SCHEDULE_AND_ADDRESS_CAT");
+        put("Контактные данные охраны", "CONTACT_SECURITY_CAT");
+        put("Рекомандация по технике безопасности на территории", "RECOMMENDATION_LEAFY_CAT");
+        put("Принять контактные данные для связи", "TAKE_CONTACT_FOR_FEEDBACK");
+        put("Вызвать волонтёра", "VOLUNTEER");
+        put("Назад", "CHOOSE_A_SHELTER_CAT");
+    }};*/
 
     /**
      * ArrayList c кнопками меню после нажатия кнопки "HOW_TAKE_CAT"
@@ -90,6 +114,22 @@ public class ButtonCatService {
             "CHOOSE_A_SHELTER_CAT"
     ));
 
+    /*
+       * HashMap c кнопками меню и идентификаторами кнопок меню после нажатия кнопки "HOW_TAKE_CAT"
+
+    public static final Map<String, String> textButtonsAfterCommandHowTakeCat = new HashMap<String, String>() {{
+        put("Правила знакомства с животным", "DATING_RULES_CAT");
+        put("Список документов для опеки", "LIST_OF_DOCUMENTS_FOR_ADOPTING_A_CAT");
+        put("Рекоммендации по транспортировке", "RECOMMENDATIONS_FOR_TRANSPORTATION_CAT");
+        put("Рекомандации по обустройству дома для юного питомца", "RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_LITTLE_CAT");
+        put("Рекомандации по обустройству дома для взрослого питомца", "RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_ADULT_CAT");
+        put("Рекомандации по обустройству дома для питомца с ограниченными возможностями", "RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_DISABLED_CAT");
+        put("Список причин отказа в опеке", "LIST_OF_REASONS_FOR_ADOPTING_CAT");
+        put("Принять контактные данные для связи", "TAKE_CONTACT_FOR_FEEDBACK");
+        put("Вызвать волонтёра", "VOLUNTEER");
+        put("Назад", "CHOOSE_A_SHELTER_CAT");
+    }};*/
+
 
     /**
      * ArrayList c кнопками меню после нажатия кнопок выдаваемых кнопкой  "ABOUT_SHELTER_CAT"
@@ -116,6 +156,19 @@ public class ButtonCatService {
             "ABOUT_SHELTER_CAT",
             "START_BUTTON_FOR_EDIT_MESSAGE"
     ));
+
+    /*
+     * HashMap c кнопками меню и идентификаторами кнопок меню после нажатия кнопок выдаваемых кнопкой "ABOUT_SHELTER_CAT"
+     * список кнопок
+     * HISTORY_OF_SHELTER_CAT
+     * SCHEDULE_AND_ADDRESS_CAT
+     * CONTACT_SECURITY_CAT
+     * RECOMMENDATION_LEAFY_CAT"
+
+    public static final Map<String, String> textButtonsAfterCommandGroupAboutShelterCat = new HashMap<String, String>() {{
+        put("Назад", "ABOUT_SHELTER_CAT");
+        put("Вернуться в начало", "START_BUTTON_FOR_EDIT_MESSAGE");
+    }};*/
 
 
     /**
@@ -149,4 +202,20 @@ public class ButtonCatService {
             "HOW_TAKE_CAT",
             "START_BUTTON_FOR_EDIT_MESSAGE"
     ));
+
+    /*
+     * HashMap c кнопками меню и идентификаторами кнопок меню после нажатия кнопок выдаваемых кнопкой "HOW_TAKE_CAT"
+     * список кнопок
+     * DATING_RULES_CAT
+     * LIST_OF_DOCUMENTS_FOR_ADOPTING_A_CAT
+     * RECOMMENDATIONS_FOR_TRANSPORTATION_CAT
+     * RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_LITTLE_CAT
+     * RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_ADULT_CAT
+     * RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_DISABLED_CAT
+     * LIST_OF_REASONS_FOR_ADOPTING_CAT
+
+    public static final Map<String, String> textButtonsAfterCommandGroupHowTakeCat = new HashMap<String, String>() {{
+        put("Назад", "HOW_TAKE_CAT");
+        put("Вернуться в начало", "START_BUTTON_FOR_EDIT_MESSAGE");
+    }};*/
 }

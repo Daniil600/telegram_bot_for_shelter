@@ -34,6 +34,14 @@ public class ButtonService {
             "CHOOSE_A_SHELTER_DOG"
     ));
 
+    /*
+     * HashMap c кнопками меню и идентификаторами кнопок меню после нажатия команды "/start"
+
+    public static final Map<String, String> textButtonsAfterCommandStart = new HashMap<String, String>() {{
+        put("Приют для кошек ", "CHOOSE_A_SHELTER_CAT");
+        put("Приют для собак ", "CHOOSE_A_SHELTER_DOG");
+    }};*/
+
     private TelegramBot telegramBot;
 
     public ButtonService(TelegramBot telegramBot) {
