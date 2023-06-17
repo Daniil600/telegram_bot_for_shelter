@@ -138,6 +138,7 @@ public class Pet {
                 ", dateOfAdoption=" + dateOfAdoption +
                 ", description='" + description + '\'' +
                 ", reportPets=" + reportPets +
+                ", user=" + user +
                 '}';
     }
 }
