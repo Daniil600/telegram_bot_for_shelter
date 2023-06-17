@@ -25,7 +25,6 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final BotService botService;
     private final ReportService reportService;
 
-
     public TelegramBot(BotConfig config, BotService botService, ReportService reportService) {
         this.config = config;
         this.botService = botService;
@@ -54,15 +53,30 @@ public class TelegramBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
 
         if ((update.hasMessage() &&
-                reportService.activeReportUsers.containsKey(update.getMessage().getChatId()))) {
-            logger.info(String.valueOf(update));
-            if (update.getMessage().getCaption() != null && !update.getMessage().getPhoto().isEmpty()) {
-                reportService.processDoc(update);
+                reportService.activeReportUsers.contains(update.getMessage().getChatId()))) {
+
+
+            if (reportService.verifyPetPassportWithoutErrors(update)) {
+                if (reportService.verifyPetPassport(update)) {
+
+                    if (update.getMessage().getCaption() != null && !update.getMessage().getPhoto().isEmpty()) {
+                        reportService.processDoc(update);
+                        sendMessage(update.getMessage().getChatId(), "Ваш отчет сохранен");
+                    } else {
+                        sendMessage(update.getMessage().getChatId(), "Данное сообщение не удовлетворяет требованиям отчета");
+                        reportService.activeReportCheck(update.getMessage().getChatId());
+                    }
+                    reportService.activeReportCheck(update.getMessage().getChatId());
+
+                } else {
+                    sendMessage(update.getMessage().getChatId(), "Ваш питомец не найден");
+
+
+                }
             } else {
-                sendMessage(update.getMessage().getChatId(), "Данное сообщение не удовлетворяет требованиям отчета");
-                reportService.activeReportCheck(update.getMessage().getChatId());
+                sendMessage(update.getMessage().getChatId(), "Вначале сообщения должны быть 6 цифр номера паспорта питомца, далее отчет");
+
             }
-            reportService.activeReportCheck(update.getMessage().getChatId());
 
         } else if (update.hasMessage() && update.getMessage().hasText()) {
             String messageText = update.getMessage().getText();
@@ -201,16 +215,19 @@ public class TelegramBot extends TelegramLongPollingBot {
 
                 case "SEND_REPORT_CAT":
                 case "SEND_REPORT_DOG":
+                    if (reportService.verifyUserByChatId(chatId)) {
+                        sendMessage(chatId, "Вас приветствует форма обработки отчета, " +
+                                "прошу Вас отправить фотографию питомца с приложенной к ней информацией: \n" +
+                                "1. Номер документа питомца \n" +
+                                "2. Информацию о рационе \n" +
+                                "3. Общее самочувствие и привыкиние к новому месту \n" +
+                                "4. Изменение в поведении: отказ от старых " +
+                                "привычек, приобретение новых");
+                        reportService.activeReportCheck(chatId);
+                    } else {
+                        sendMessage(chatId, "Данный аккаунт не числится в баззе опекунов");
+                    }
 
-                    sendMessage(chatId, "Вас приветствует форма обработки отчета, " +
-                            "прошу Вас отправить фотографию питомца с приложенной к ней информацией: \n" +
-                            "1. Номер документа питомца \n" +
-                            "2. Информацию о рационе \n" +
-                            "3. Общее самочувствие и привыкиние к новому месту \n" +
-                            "4. Изменение в поведении: отказ от старых " +
-                            "привычек, приобретение новых");
-
-                    reportService.activeReportCheck(chatId);
                     break;
 
                 case "TAKE_CONTACT_FOR_FEEDBACK":
