@@ -25,11 +25,14 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final BotService botService;
     private final ReportService reportService;
 
+    private final UserFunction userFunction;
 
-    public TelegramBot(BotConfig config, BotService botService, ReportService reportService) {
+
+    public TelegramBot(BotConfig config, BotService botService, ReportService reportService, UserFunction userFunction) {
         this.config = config;
         this.botService = botService;
         this.reportService = reportService;
+        this.userFunction = userFunction;
     }
 
 
@@ -52,6 +55,12 @@ public class TelegramBot extends TelegramLongPollingBot {
      */
     @Override
     public void onUpdateReceived(Update update) {
+        if(update.getMessage().hasContact() && UserFunction.getLast_message().containsKey(update.getMessage().getChatId())){
+        userFunction.saveUserInDB(update.getMessage().getChatId(),
+                update.getMessage().getChatId(),
+                update.getMessage().getChat().getFirstName(),
+                update.getMessage().getContact().getPhoneNumber());
+        }
 
         if ((update.hasMessage() &&
                 reportService.activeReportUsers.containsKey(update.getMessage().getChatId()))) {
@@ -217,7 +226,10 @@ public class TelegramBot extends TelegramLongPollingBot {
                             "тут вы сможете оставить свои данные для передачи их волонтеру");
                     break;
                 case "VOLUNTEER":
-                    sendMessage(chatId, "Раздел в стадии разработки, тут вы сможете связаться с волонтером");
+                    sendMessage(chatId, "Пришлите свой контакт для связи с волонтёром");
+                    if(UserFunction.getLast_message().isEmpty()){
+                        UserFunction.setLastMessage(update.getMessage().getChatId(), update.getMessage().getText());
+                    }
                     break;
                 default:
                     sendMessage(chatId, "Повторите попытку, такой команды нет");

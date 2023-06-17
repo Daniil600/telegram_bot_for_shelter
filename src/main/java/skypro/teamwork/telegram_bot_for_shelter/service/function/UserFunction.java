@@ -13,7 +13,7 @@ import java.util.Map;
 @Service
 public class UserFunction {
     private static final Logger logger = LoggerFactory.getLogger(UserFunction.class);
-private UserService userService;
+    private UserService userService;
     private final UserRepository userRepository;
     private static Map<Long, String> last_message = new HashMap<>();
 
@@ -32,19 +32,20 @@ private UserService userService;
             last_message.put(chat_id, message);
         }
     }
-    public static void last_message_clear() {
-        last_message.clear();
+
+    public static void last_message_clear(Long chatId) {
+        last_message.remove(chatId);
     }
-    public void saveUserInDB(Long chatId, Long id, String contact, String name) {
+
+    public void saveUserInDB(Long chatId, String contact, String name) {
         User user = new User();
         user.setChatId(chatId);
-        user.setId(id);
         user.setContact(contact);
         user.setName(name);
 
-        userRepository.save(user);
+        userService.addUser(user);
 
-        UserFunction.last_message_clear();
+        UserFunction.last_message_clear(chatId);
     }
 
 }

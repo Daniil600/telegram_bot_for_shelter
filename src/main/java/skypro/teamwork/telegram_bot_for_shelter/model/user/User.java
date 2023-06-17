@@ -15,9 +15,7 @@ import java.util.Objects;
 @Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue(generator = "user_seq")
     private Long id;
-    private Long chatId;
     private String name;
     private LocalDateTime useDateTime;
 
@@ -29,9 +27,8 @@ public class User {
 
     private String contact;
 
-    public User(Long id, Long chatId, String name, LocalDateTime useDateTime, Collection<Pet> pet, String contact) {
+    public User(Long id, String name, LocalDateTime useDateTime, Collection<Pet> pet, String contact) {
         this.id = id;
-        this.chatId = chatId;
         this.name = name;
         this.useDateTime = useDateTime;
         this.pet = pet;
@@ -41,12 +38,12 @@ public class User {
     public User() {
     }
 
-    public Long getChatId() {
-        return chatId;
+    public Long getId() {
+        return id;
     }
 
     public void setChatId(Long chatId) {
-        this.chatId = chatId;
+        this.id = chatId;
     }
 
     public String getContact() {
@@ -81,24 +78,17 @@ public class User {
         this.pet = pet;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(chatId, user.chatId) && Objects.equals(name, user.name) && Objects.equals(useDateTime, user.useDateTime) && Objects.equals(pet, user.pet) && Objects.equals(contact, user.contact);
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(useDateTime, user.useDateTime) && Objects.equals(pet, user.pet) && Objects.equals(contact, user.contact);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, chatId, name, useDateTime, pet, contact);
+        return Objects.hash(id, name, useDateTime, pet, contact);
     }
 }
