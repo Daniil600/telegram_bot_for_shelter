@@ -68,8 +68,10 @@ public class TelegramBotTest {
     public void testOnUpdateReceived() {
         BotConfig botConfig = Mockito.mock(BotConfig.class);
         BotService botService = Mockito.mock(BotService.class);
+        ReportService reportService = Mockito.mock(ReportService.class);
+        UserFunction userFunction = Mockito.mock(UserFunction.class);
 
-        TelegramBot telegramBot = new TelegramBot(botConfig, botService);
+        TelegramBot telegramBot = new TelegramBot(botConfig, botService,reportService,userFunction);
 
         Message message = Mockito.mock(Message.class);
         Mockito.when(message.getText()).thenReturn("/start");

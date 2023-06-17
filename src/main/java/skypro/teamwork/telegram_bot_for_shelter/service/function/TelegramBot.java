@@ -24,7 +24,6 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final BotConfig config;
     private final BotService botService;
     private final ReportService reportService;
-
     private final UserFunction userFunction;
 
 
