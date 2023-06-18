@@ -25,7 +25,7 @@ public class ButtonDogService {
             "ABOUT_SHELTER_DOG",
             "HOW_TAKE_DOG",
             "SEND_REPORT_DOG",
-            "VOLUNTEER",
+            "VOLUNTEER_DOG",
             "START_BUTTON_FOR_EDIT_MESSAGE"
     ));
 
@@ -53,7 +53,7 @@ public class ButtonDogService {
             "CONTACT_SECURITY_DOG",
             "RECOMMENDATION_LEAFY_DOG",
             "TAKE_CONTACT_FOR_FEEDBACK",
-            "VOLUNTEER",
+            "VOLUNTEER_DOG",
             "CHOOSE_A_SHELTER_DOG"
     ));
 
@@ -90,7 +90,7 @@ public class ButtonDogService {
             "LIST_OF_VERIFIED_CYNOLOGISTS_DOG",
             "CYNOLOGISTS_ADVICE_DOG",
             "TAKE_CONTACT_FOR_FEEDBACK",
-            "VOLUNTEER",
+            "VOLUNTEER_DOG",
             "CHOOSE_A_SHELTER_DOG"
     ));
 
@@ -156,6 +156,13 @@ public class ButtonDogService {
     public static final List<String> callbackQueryAfterCommandGroupHowTakeDog = new ArrayList<>(List.of(
             "HOW_TAKE_DOG",
             "START_BUTTON_FOR_EDIT_MESSAGE"
+    ));
+
+    public static final List<String> textButtonsAfterCommandVollunterDog = new ArrayList<>(List.of(
+            "Назад",
+            "Вернуться в начало"));
+    public static final List<String> callbackQueryAfterCommandVollunterDog = new ArrayList<>(List.of(
+            "CHOOSE_A_SHELTER_DOG",        "START_BUTTON_FOR_EDIT_MESSAGE"
     ));
 
 }

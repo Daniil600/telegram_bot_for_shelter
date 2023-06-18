@@ -166,7 +166,7 @@ public class ReportService {
     }
 
     public boolean verifyUserByChatId(Long chatId) {
-        return userRepository.findByChatId(chatId) != null;
+        return userRepository.findById(chatId).isPresent();
     }
 
     public boolean verifyPetPassport(Update update) {

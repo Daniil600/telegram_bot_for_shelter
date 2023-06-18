@@ -59,8 +59,6 @@ public class TextVaultService {
     public final String listOfReasonForAdoptingCat = "В данном разделе должен храниться " +
             "список причин отказа в опеке питомца";
 
-
-
     /**  CHOOSE_A_SHELTER_DOG  */
     public final String firstLineDog = "Меню приюта собак";
 
@@ -81,7 +79,6 @@ public class TextVaultService {
     /**  RECOMMENDATION_LEAFY_DOG  */
     public final String recommendationLeafyDog = "В данном разделе должна храниться рекомендация " +
             "по технике безопасности на территории приюта для собак";
-
 
     /**  HOW_TAKE_DOG  */
     public final String howToTakeDog = "Как взять питомца из приюта";
@@ -120,4 +117,7 @@ public class TextVaultService {
     /**  CYNOLOGISTS_ADVICE_DOG  */
     public final String cynologistAdviceDog = "В данном разделе должны храниться " +
             "советы кинологов по первичному общению с питомцем";
+
+    public final String ansewerToUserFromVolunnetBefore = "Отправьте Ваши контактные данные для связи с волонтером";
+    public final String ansewerToUserFromVolunnetAfter = "Ваши контактные данные записаны. Скоро волонтер с Вами свяжется";
 }
