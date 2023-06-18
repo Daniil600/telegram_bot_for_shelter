@@ -70,10 +70,6 @@ public class ReportPet {
         this.photoPetReport = photoPetReport;
     }
 
-    public String getRept() {
-        return rept;
-    }
-
     public void setRept(String rept) {
         this.rept = rept;
     }

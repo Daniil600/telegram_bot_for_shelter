@@ -8,13 +8,16 @@ import skypro.teamwork.telegram_bot_for_shelter.repository.user.UserRepository;
 import skypro.teamwork.telegram_bot_for_shelter.service.sevice_data_base.user.UserService;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.time.LocalDateTime;
 import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.Optional;
 
 @Service
 public class UserFunction {
+
+
+    private static long messageID;
 
     static class UserForMap{
         private LocalDateTime localDateTime;
@@ -53,7 +56,6 @@ public class UserFunction {
         }
     }
 
-    private static long messageID;
     private UserService userService;
     private static Map<Long, UserForMap> last_message = new HashMap<>();
 
@@ -74,7 +76,7 @@ public class UserFunction {
         return last_message;
     }
 
-    public static void setLastMessage(Long chat_id,LocalDateTime localDateTime, String message) {
+    public static void setLastMessage(Long chat_id, LocalDateTime localDateTime, String message) {
         if (chat_id != null && message != null) {
             UserForMap userForMap = new UserForMap();
             userForMap.setLocalDateTime(localDateTime);
@@ -84,8 +86,7 @@ public class UserFunction {
     }
 
     public static void last_message_clear(Long chatId) {
-        last_message.entrySet().removeIf(entry -> entry.getKey().equals(chatId));
-//        last_message.remove(chatId);
+        last_message.remove(chatId);
     }
 
     public void saveUserInDB(Long chatId, String contact, String name) {
@@ -95,6 +96,8 @@ public class UserFunction {
         user.setName(name);
 
         userService.addUser(user);
+
+        UserFunction.last_message_clear(chatId);
     }
 
 }

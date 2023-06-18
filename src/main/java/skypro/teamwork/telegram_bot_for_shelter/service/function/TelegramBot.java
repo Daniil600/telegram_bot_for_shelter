@@ -75,11 +75,8 @@ public class TelegramBot extends TelegramLongPollingBot {
             }
             UserFunction.last_message_clear(chatId);
         }
-
-
         if ((update.hasMessage() &&
-                reportService.activeReportUsers.containsKey(update.getMessage().getChatId()))) {
-            logger.info(String.valueOf(update));
+                reportService.activeReportUsers.contains(update.getMessage().getChatId()))) {
             if (update.getMessage().getCaption() != null && !update.getMessage().getPhoto().isEmpty()) {
                 reportService.processDoc(update);
             } else {
