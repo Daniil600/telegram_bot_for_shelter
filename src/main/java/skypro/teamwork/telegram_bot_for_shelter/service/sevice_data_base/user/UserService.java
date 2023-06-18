@@ -33,7 +33,8 @@ public class UserService {
      * @return возвращает найденного пользователя
      */
     public User findUser(long id) {
-        return userRepository.findById(id).orElse(null);
+
+        return userRepository.findById(id).get();
     }
 
     /**
@@ -60,6 +61,5 @@ public class UserService {
     public Collection<User> getAll() {
         return userRepository.findAll();
     }
-
 
 }

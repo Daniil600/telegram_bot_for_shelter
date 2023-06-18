@@ -5,9 +5,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import skypro.teamwork.telegram_bot_for_shelter.config.BotConfig;
+import skypro.teamwork.telegram_bot_for_shelter.repository.user.UserRepository;
+import skypro.teamwork.telegram_bot_for_shelter.service.sevice_data_base.user.UserService;
+
+import java.time.LocalDateTime;
+import java.util.Iterator;
 
 /**
  * Данный класс наследуется из TelegramLongPollingBot и переопределяет методы в конструкторе
@@ -24,13 +30,15 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final BotConfig config;
     private final BotService botService;
     private final ReportService reportService;
+    private final UserFunction userFunction;
 
-    public TelegramBot(BotConfig config, BotService botService, ReportService reportService) {
+
+    public TelegramBot(BotConfig config, BotService botService, ReportService reportService, UserFunction userFunction) {
         this.config = config;
         this.botService = botService;
         this.reportService = reportService;
+        this.userFunction = userFunction;
     }
-
 
     /**
      * Переопределение методов под наши задачи из класса TelegramLongPollingBot
@@ -51,11 +59,32 @@ public class TelegramBot extends TelegramLongPollingBot {
      */
     @Override
     public void onUpdateReceived(Update update) {
+        /***/
+
+        if ((update.hasMessage()
+                && UserFunction.getLast_message().containsKey(update.getMessage().getChatId())
+                && update.getMessage().hasContact())) {
+            Long chatId = update.getMessage().getChatId();
+            System.out.println(UserFunction.getLast_message());
+            userFunction.saveUserInDB(
+                    update.getMessage().getChatId(),
+                    update.getMessage().getContact().getPhoneNumber(),
+                    update.getMessage().getChat().getFirstName());
+
+
+            String tag = UserFunction.getLast_message().get(chatId).getMessageCommand();
+            if (tag.equals("VOLUNTEER_DOG")) {
+                botService.responseOnPressButtonVollunterDogAfter(chatId, UserFunction.getMessageID());
+            }
+            if (tag.equals("VOLUNTEER_CAT")) {
+                botService.responseOnPressButtonVollunterCatAfter(chatId, UserFunction.getMessageID());
+            }
+            UserFunction.last_message_clear(chatId);
+        }
+
 
         if ((update.hasMessage() &&
                 reportService.activeReportUsers.contains(update.getMessage().getChatId()))) {
-
-
             if (reportService.verifyPetPassportWithoutErrors(update)) {
                 if (reportService.verifyPetPassport(update)) {
 
@@ -87,7 +116,6 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "/start":
                     botService.startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
                     break;
-
                 default:
                     sendMessage(chatId, "Повторите попытку, такой команды нет!"
                             + "\nНажмите на /start для начала общения с ботом");
@@ -226,6 +254,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                         reportService.activeReportCheck(chatId);
                     } else {
                         sendMessage(chatId, "Данный аккаунт не числится в баззе опекунов");
+                        break;
                     }
 
                     break;
@@ -234,8 +263,18 @@ public class TelegramBot extends TelegramLongPollingBot {
                     sendMessage(chatId, "Раздел в стадии разработки, " +
                             "тут вы сможете оставить свои данные для передачи их волонтеру");
                     break;
-                case "VOLUNTEER":
-                    sendMessage(chatId, "Раздел в стадии разработки, тут вы сможете связаться с волонтером");
+
+                case "VOLUNTEER_CAT":
+                    botService.responseOnPressButtonVollunterCatBefore(chatId, messageId);
+                    LocalDateTime ldt = LocalDateTime.now();
+                    UserFunction.setLastMessage(chatId, ldt, "VOLUNTEER_CAT");
+                    UserFunction.setMessageID(messageId);
+                    break;
+                case "VOLUNTEER_DOG":
+                    botService.responseOnPressButtonVollunterDogBefore(chatId, messageId);
+                    LocalDateTime ldt1 = LocalDateTime.now();
+                    UserFunction.setLastMessage(chatId, ldt1, "VOLUNTEER_DOG");
+                    UserFunction.setMessageID(messageId);
                     break;
                 default:
                     sendMessage(chatId, "Повторите попытку, такой команды нет");
