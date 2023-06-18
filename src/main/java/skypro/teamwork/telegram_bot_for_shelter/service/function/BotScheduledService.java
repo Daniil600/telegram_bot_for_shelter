@@ -14,8 +14,10 @@ import skypro.teamwork.telegram_bot_for_shelter.service.sevice_data_base.pets.Re
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BotScheduledService {
@@ -78,6 +80,15 @@ public class BotScheduledService {
             }
         }
         return sendMessage;
+    }
+
+    @Scheduled(cron = "0 0/5 * * * *")
+    public void clearMapGetLastMessage() {
+        for (Map.Entry<Long, UserFunction.UserForMap> entry : UserFunction.getLast_message().entrySet()) {
+            if (entry.getValue().getLocalDateTime().plusMinutes(5).isAfter(LocalDateTime.now())) {
+                UserFunction.last_message_clear(entry.getKey());
+            }
+        }
     }
 }
 
