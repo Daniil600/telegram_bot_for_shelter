@@ -130,7 +130,7 @@ public class ReportService {
 
     }
 
-    private ResponseEntity<String> getFilePath(String fileId) {
+    public ResponseEntity<String> getFilePath(String fileId) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> request = new HttpEntity<>(headers);
@@ -148,7 +148,7 @@ public class ReportService {
     /**
      * метод преобразует файл в массив байтов
      */
-    private byte[] downloadFile(String filePath) {
+    public byte[] downloadFile(String filePath) {
         String fullUri = fileStorageUri.replace("{bot.token}", token)
                 .replace("{filePath}", filePath);
         URL urlObj = null;

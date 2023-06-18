@@ -1,4 +1,4 @@
-package skypro.teamwork.telegram_bot_for_shelter.service.button;
+package skypro.teamwork.telegram_bot_for_shelter.service.function;
 
 
 import org.junit.jupiter.api.BeforeEach;

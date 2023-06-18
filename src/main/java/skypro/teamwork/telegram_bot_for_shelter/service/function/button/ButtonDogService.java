@@ -52,7 +52,7 @@ public class ButtonDogService {
             "SCHEDULE_AND_ADDRESS_DOG",
             "CONTACT_SECURITY_DOG",
             "RECOMMENDATION_LEAFY_DOG",
-            "TAKE_CONTACT_FOR_FEEDBACK",
+            "VOLUNTEER_DOG",
             "VOLUNTEER_DOG",
             "CHOOSE_A_SHELTER_DOG"
     ));
@@ -89,7 +89,7 @@ public class ButtonDogService {
             "LIST_OF_REASONS_FOR_ADOPTING_DOG",
             "LIST_OF_VERIFIED_CYNOLOGISTS_DOG",
             "CYNOLOGISTS_ADVICE_DOG",
-            "TAKE_CONTACT_FOR_FEEDBACK",
+            "VOLUNTEER_DOG",
             "VOLUNTEER_DOG",
             "CHOOSE_A_SHELTER_DOG"
     ));

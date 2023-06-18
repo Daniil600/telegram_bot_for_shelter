@@ -1,9 +1,10 @@
 package skypro.teamwork.telegram_bot_for_shelter.service.function;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /** Тут хранится текст, который будет выводиться пользователю при нажатии кнопки */
-@Service
+@Component
 public class TextVaultService {
 
     /**  CHOOSE_A_SHELTER_CAT  */
@@ -26,8 +27,6 @@ public class TextVaultService {
     /**  RECOMMENDATION_LEAFY_CAT  */
     public final String recommendationLeafyCat = "В данном разделе должна храниться рекомендация " +
             "по технике безопасности на территории приюта для кошек";
-
-
 
     /**  HOW_TAKE_CAT  */
     public final String howToTakeCat = "Как взять питомца из приюта";

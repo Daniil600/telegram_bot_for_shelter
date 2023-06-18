@@ -1,7 +1,6 @@
 package skypro.teamwork.telegram_bot_for_shelter.model.user;
 
 
-import liquibase.pro.packaged.S;
 import skypro.teamwork.telegram_bot_for_shelter.model.pet.Pet;
 
 import javax.persistence.*;

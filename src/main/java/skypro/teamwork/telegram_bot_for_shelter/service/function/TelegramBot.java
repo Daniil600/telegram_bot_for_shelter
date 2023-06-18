@@ -5,9 +5,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import skypro.teamwork.telegram_bot_for_shelter.config.BotConfig;
+import skypro.teamwork.telegram_bot_for_shelter.repository.user.UserRepository;
+import skypro.teamwork.telegram_bot_for_shelter.service.sevice_data_base.user.UserService;
 
 import java.time.LocalDateTime;
 import java.util.Iterator;
@@ -28,6 +31,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final BotService botService;
     private final ReportService reportService;
     private final UserFunction userFunction;
+
 
     public TelegramBot(BotConfig config, BotService botService, ReportService reportService, UserFunction userFunction) {
         this.config = config;
@@ -55,6 +59,7 @@ public class TelegramBot extends TelegramLongPollingBot {
      */
     @Override
     public void onUpdateReceived(Update update) {
+        /***/
 
         if ((update.hasMessage()
                 && UserFunction.getLast_message().containsKey(update.getMessage().getChatId())
@@ -111,7 +116,6 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "/start":
                     botService.startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
                     break;
-
                 default:
                     sendMessage(chatId, "Повторите попытку, такой команды нет!"
                             + "\nНажмите на /start для начала общения с ботом");
@@ -250,6 +254,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                         reportService.activeReportCheck(chatId);
                     } else {
                         sendMessage(chatId, "Данный аккаунт не числится в баззе опекунов");
+                        break;
                     }
 
                     break;
