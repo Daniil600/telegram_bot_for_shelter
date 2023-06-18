@@ -120,4 +120,7 @@ public class TextVaultService {
     /**  CYNOLOGISTS_ADVICE_DOG  */
     public final String cynologistAdviceDog = "В данном разделе должны храниться " +
             "советы кинологов по первичному общению с питомцем";
+
+    public final String ansewerToUserFromVolunnetBefore = "Отправьте Ваши контактные данные для связи с волонтером";
+    public final String ansewerToUserFromVolunnetAfter = "Ваши контактные данные записаны. Скоро волонтер с Вами свяжется";
 }

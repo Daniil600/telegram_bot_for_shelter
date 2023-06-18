@@ -38,7 +38,7 @@ public class User {
     public User() {
     }
 
-    public Long getId() {
+    public Long getChatId() {
         return id;
     }
 
