@@ -1,18 +1,17 @@
 package skypro.teamwork.telegram_bot_for_shelter.service.function;
 
-import liquibase.pro.packaged.S;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import skypro.teamwork.telegram_bot_for_shelter.model.user.User;
-import skypro.teamwork.telegram_bot_for_shelter.repository.user.UserRepository;
 import skypro.teamwork.telegram_bot_for_shelter.service.sevice_data_base.user.UserService;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Optional;
+
+/**
+ *
+ *
+ * */
 
 @Service
 public class UserFunction {

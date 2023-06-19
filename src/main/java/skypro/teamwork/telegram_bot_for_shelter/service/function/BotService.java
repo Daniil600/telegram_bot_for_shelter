@@ -6,6 +6,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonCatService;
 import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonDogService;
 import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonService;
+import skypro.teamwork.telegram_bot_for_shelter.service.function.button.TextVaultService;
 
 @Service
 public class BotService {
