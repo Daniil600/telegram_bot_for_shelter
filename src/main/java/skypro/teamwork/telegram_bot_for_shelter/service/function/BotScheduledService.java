@@ -12,12 +12,14 @@ import skypro.teamwork.telegram_bot_for_shelter.model.pet.ReportPet;
 import skypro.teamwork.telegram_bot_for_shelter.repository.pets.PetRepository;
 import skypro.teamwork.telegram_bot_for_shelter.service.sevice_data_base.pets.ReportPetService;
 
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import static skypro.teamwork.telegram_bot_for_shelter.service.function.UserFunction.*;
 
 @Service
 public class BotScheduledService {
@@ -81,16 +83,25 @@ public class BotScheduledService {
         }
         return sendMessage;
     }
-
+    /**
+     * Проверяет что больше 5 минут в HashMap {@link = skypro/teamwork/telegram_bot_for_shelter/service/function/UserFunction.java} для питомца
+     * Если отчета нет, создает SendMessage для отправки пользователю напоминания
+     *
+     * @return List of SendMessage
+     */
     @Scheduled(cron = "0 0/5 * * * *")
     public void clearMapGetLastMessage() {
-        for (Map.Entry<Long, UserFunction.UserForMap> entry : UserFunction.getLast_message().entrySet()) {
+        System.out.println(UserFunction.getLast_message());
+        Iterator<Map.Entry<Long, UserFunction.UserForMap>> entryIterator = getLast_message().entrySet().iterator();
+        while (entryIterator.hasNext()) {
+            Map.Entry<Long, UserFunction.UserForMap> entry = entryIterator.next();
             if (entry.getValue().getLocalDateTime().plusMinutes(5).isAfter(LocalDateTime.now())) {
                 UserFunction.last_message_clear(entry.getKey());
             }
         }
     }
 }
+
 
 
 

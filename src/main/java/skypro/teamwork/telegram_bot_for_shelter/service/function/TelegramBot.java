@@ -61,12 +61,15 @@ public class TelegramBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
 
-
+        /*
+        VOLUNTEER_DOG, VOLUNTEER_CAT после того как произошла регистрация в HashMap(находится в классе UserFunction)
+        происходит проверка на наличие контакта
+         */
         if ((update.hasMessage()
                 && UserFunction.getLast_message().containsKey(update.getMessage().getChatId())
                 && update.getMessage().hasContact())) {
             Long chatId = update.getMessage().getChatId();
-            System.out.println(UserFunction.getLast_message());
+
             userFunction.saveUserInDB(
                     update.getMessage().getChatId(),
                     update.getMessage().getContact().getPhoneNumber(),
@@ -277,12 +280,16 @@ public class TelegramBot extends TelegramLongPollingBot {
                     sendMessage(chatId, "Раздел в стадии разработки, " +
                             "тут вы сможете оставить свои данные для передачи их волонтеру");
                     break;
-
+                /*
+                  Здесь происходит регистрация события готовности пользователя
+                  отправить контакт для связи с волонтером
+                 */
                 case "VOLUNTEER_CAT":
                     botService.responseOnPressButtonVollunterCatBefore(chatId, messageId);
                     LocalDateTime ldt = LocalDateTime.now();
                     UserFunction.setLastMessage(chatId, ldt, "VOLUNTEER_CAT");
                     UserFunction.setMessageID(messageId);
+                    System.out.println(UserFunction.getLast_message());
                     break;
                 case "VOLUNTEER_DOG":
                     botService.responseOnPressButtonVollunterDogBefore(chatId, messageId);

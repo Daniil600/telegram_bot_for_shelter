@@ -45,7 +45,7 @@ public class UserFunction {
                     '}';
         }
     }
-
+    // Сохранение сообщения отправленное ботом для изменения меню приюта
     private static long messageID;
     private UserService userService;
     private static Map<Long, UserForMap> last_message = new HashMap<>();
