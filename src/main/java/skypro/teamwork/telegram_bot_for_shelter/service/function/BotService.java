@@ -6,7 +6,9 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonCatService;
 import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonDogService;
 import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonService;
+import skypro.teamwork.telegram_bot_for_shelter.service.function.button.TextVaultService;
 
+// TODO оптимизовать повторяющиеся куски методов
 @Service
 public class BotService {
 
@@ -398,10 +400,8 @@ public class BotService {
      * вызывает новый набор кнопок для меню приюта собак
      */
     public void responseOnPressButtonListOfVerifiedCynologistDog(long chatId, long messageId) {
-        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
-                ButtonDogService.textButtonsAfterCommandGroupHowTakeDog,
-                ButtonDogService.callbackQueryAfterCommandGroupHowTakeDog
-        );
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(ButtonDogService.textButtonsAfterCommandGroupHowTakeDog,
+                ButtonDogService.callbackQueryAfterCommandGroupHowTakeDog);
         buttonService.responseOnPressButton(chatId, messageId, textVaultService.listOfVerifiedCynologistDog, inlineKeyboard);
     }
 
@@ -416,4 +416,50 @@ public class BotService {
         );
         buttonService.responseOnPressButton(chatId, messageId, textVaultService.cynologistAdviceDog, inlineKeyboard);
     }
+
+    public void responseOnPressButtonVollunterCatBefore(long chatId, long messageId) {
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
+                ButtonCatService.textButtonsAfterCommandVollunterCat,
+                ButtonCatService.callbackQueryAfterCommandVollunterCat
+        );
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.ansewerToUserFromVolunnetBefore, inlineKeyboard);
+    }
+    public void responseOnPressButtonVollunterDogBefore(long chatId, long messageId) {
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
+                ButtonDogService.textButtonsAfterCommandVollunterDog,
+                ButtonDogService.callbackQueryAfterCommandVollunterDog
+        );
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.ansewerToUserFromVolunnetBefore, inlineKeyboard);
+    }
+    public void responseOnPressButtonVollunterCatAfter(long chatId, long messageId) {
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
+                ButtonCatService.textButtonsAfterCommandVollunterCat,
+                ButtonCatService.callbackQueryAfterCommandVollunterCat
+        );
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.ansewerToUserFromVolunnetAfter, inlineKeyboard);
+    }
+    public void responseOnPressButtonVollunterDogAfter(long chatId, long messageId) {
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
+                ButtonDogService.textButtonsAfterCommandVollunterDog,
+                ButtonDogService.callbackQueryAfterCommandVollunterDog
+        );
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.ansewerToUserFromVolunnetAfter, inlineKeyboard);
+    }
+
+    public void responseOnPressButtonSendReportCat(long chatId, long messageId) {
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
+                ButtonCatService.textButtonsAfterCommandSendReportCat,
+                ButtonCatService.callbackQueryAfterCommandSendReportCat
+        );
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.sendReportFormText, inlineKeyboard);
+    }
+
+    public void responseOnPressButtonSendReportDog(long chatId, long messageId) {
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
+                ButtonDogService.textButtonsAfterCommandSendReportDog,
+                ButtonDogService.callbackQueryAfterCommandSendReportDog
+        );
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.sendReportFormText, inlineKeyboard);
+    }
+
 }

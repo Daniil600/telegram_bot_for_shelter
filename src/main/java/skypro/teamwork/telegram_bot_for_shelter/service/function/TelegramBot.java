@@ -2,18 +2,21 @@ package skypro.teamwork.telegram_bot_for_shelter.service.function;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import skypro.teamwork.telegram_bot_for_shelter.config.BotConfig;
+
+import java.time.LocalDateTime;
 
 /**
  * Данный класс наследуется из TelegramLongPollingBot и переопределяет методы в конструкторе
  * для взаимодействия нашей программы с ботом через класс BotConfig
  */
-@Component
+@Service
 public class TelegramBot extends TelegramLongPollingBot {
     private final Logger logger = LoggerFactory.getLogger(TelegramBot.class);
 
@@ -24,11 +27,14 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final BotConfig config;
     private final BotService botService;
     private final ReportService reportService;
+    private final UserFunction userFunction;
 
-    public TelegramBot(BotConfig config, BotService botService, ReportService reportService) {
+
+    public TelegramBot(BotConfig config, BotService botService, ReportService reportService, UserFunction userFunction) {
         this.config = config;
         this.botService = botService;
         this.reportService = reportService;
+        this.userFunction = userFunction;
     }
 
     /**
@@ -51,29 +57,80 @@ public class TelegramBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
 
-        if ((update.hasMessage() &&
-                reportService.activeReportUsers.containsKey(update.getMessage().getChatId()))) {
-            logger.info(String.valueOf(update));
-            reportService.processDoc(update);
+        /*
+        VOLUNTEER_DOG, VOLUNTEER_CAT после того как произошла регистрация в HashMap(находится в классе UserFunction)
+        происходит проверка на наличие контакта
+         */
+        if ((update.hasMessage()
+                && UserFunction.getLast_message().containsKey(update.getMessage().getChatId())
+                && update.getMessage().hasContact())) {
+            Long chatId = update.getMessage().getChatId();
 
-            reportService.activeReportCheck(update.getMessage().getChatId());
+            // Идёт сохраниение в БД
+            userFunction.saveUserInDB(
+                    update.getMessage().getChatId(),
+                    update.getMessage().getContact().getPhoneNumber(),
+                    update.getMessage().getChat().getFirstName());
+            //Удаление сообщения отправденное пользователем
+            DeleteMessage deleteMessage = new DeleteMessage(String.valueOf(chatId), update.getMessage().getMessageId());
+            try {
+                execute(deleteMessage);
+            } catch (TelegramApiException e) {
+                logger.error(e.getMessage());
+            }
+            //Отправка сообщения пользователю об успешном сохраниении в БД
+            String tag = UserFunction.getLast_message().get(chatId).getMessageCommand();
+            if (tag.equals("VOLUNTEER_DOG")) {
+                botService.responseOnPressButtonVollunterDogAfter(chatId, UserFunction.getMessageID());
+            }
+            if (tag.equals("VOLUNTEER_CAT")) {
+                botService.responseOnPressButtonVollunterCatAfter(chatId, UserFunction.getMessageID());
+            }
+            UserFunction.last_message_clear(chatId);
+        }
+
+
+        /**
+         * Данный иф делает ряд проверок
+         * 1. Находится ли пользователь в режиме сдачи отчета
+         * 2. Соответствует ли введенный номер паспорта животного стандарту
+         * 3. Есть ли питомец с таким номером паспорта в базе
+         * 4. Что фото и текст были переданы в сообщении
+         */
+        if ((update.hasMessage() &&
+                reportService.activeReportUsers.contains(update.getMessage().getChatId()))) {
+            if (reportService.verifyPetPassportWithoutErrors(update)) {
+                if (reportService.verifyPetPassport(update)) {
+
+                    if (update.getMessage().getCaption() != null && !update.getMessage().getPhoto().isEmpty()) {
+                        reportService.processDoc(update);
+                        sendMessage(update.getMessage().getChatId(), "Ваш отчет сохранен");
+                    } else {
+                        sendMessage(update.getMessage().getChatId(), "Данное сообщение не удовлетворяет требованиям отчета");
+                        reportService.activeReportCheck(update.getMessage().getChatId());
+                    }
+                    reportService.activeReportCheck(update.getMessage().getChatId());
+
+                } else {
+                    sendMessage(update.getMessage().getChatId(), "Ваш питомец не найден");
+
+
+                }
+            } else {
+                sendMessage(update.getMessage().getChatId(), "Вначале сообщения должны быть 6 цифр номера паспорта питомца, далее отчет");
+
+            }
 
         } else if (update.hasMessage() && update.getMessage().hasText()) {
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
-
-
-            switch (messageText) {
-                case "/start":
-                    botService.startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
-                    break;
-
-                default:
-                    sendMessage(chatId, "Повторите попытку, такой команды нет!"
-                            + "\nНажмите на /start для начала общения с ботом");
-                    break;
+            botService.startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
+            DeleteMessage deleteMessage1 = new DeleteMessage(String.valueOf(chatId), update.getMessage().getMessageId());
+            try {
+                execute(deleteMessage1);
+            } catch (TelegramApiException e) {
+                logger.error(e.getMessage());
             }
-
         } else if (update.hasCallbackQuery()) {
             String callbackQuery = update.getCallbackQuery().getData();
             Long chatId = update.getCallbackQuery().getMessage().getChatId();
@@ -159,8 +216,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     botService.responseOnPressButtonListOfReasonForAdoptingCat(chatId, messageId);
                     break;
 
-
-//                 кнопка Как взять питомца из приюта и ее подкнопки собаки
+                //Кнопка Как взять питомца из приюта и ее подкнопки собаки
                 case "HOW_TAKE_DOG":
                     botService.responseOnPressButtonHowTakeDog(chatId, messageId);
                     break;
@@ -195,15 +251,26 @@ public class TelegramBot extends TelegramLongPollingBot {
 
                 case "SEND_REPORT_CAT":
                 case "SEND_REPORT_DOG":
-                    sendMessage(chatId, "Вас приветствует форма обработки отчета, " +
-                            "прошу Вас отправить три сообщения: \n" +
-                            "1. Номер документа питомца \n" +
-                            "2. Информацию о рационе, " +
-                            "Общее самочувствие и привыкиние к новому месту, " +
-                            "Изменение в поведении: отказ от старых\n" +
-                            "привычек, приобретение новых \n" +
-                            "3. Фото питомца");
+                    if (reportService.verifyUserByChatId(chatId)) {
+                        botService.responseOnPressButtonSendReportDog(chatId, messageId);
+                        reportService.activeReportCheck(chatId);
 
+                    } else {
+                        sendMessage(chatId, "Данный аккаунт не числится в баззе опекунов");
+                        break;
+                    }
+                    break;
+                case "SEND_REPORT_CAT_BACK":
+                    botService.responseOnPressButtonCat(chatId, messageId);
+                    reportService.activeReportCheck(chatId);
+                    break;
+                case "SEND_REPORT_DOG_BACK":
+                    botService.responseOnPressButtonDog(chatId, messageId);
+                    reportService.activeReportCheck(chatId);
+                    break;
+                case "SEND_REPORT_CAT_HOME":
+                case "SEND_REPORT_DOG_HOME":
+                    botService.startCommandReceivedForEditMessage(chatId, messageId, firstName);
                     reportService.activeReportCheck(chatId);
                     break;
 
@@ -211,8 +278,22 @@ public class TelegramBot extends TelegramLongPollingBot {
                     sendMessage(chatId, "Раздел в стадии разработки, " +
                             "тут вы сможете оставить свои данные для передачи их волонтеру");
                     break;
-                case "VOLUNTEER":
-                    sendMessage(chatId, "Раздел в стадии разработки, тут вы сможете связаться с волонтером");
+                /*
+                  Здесь происходит регистрация события готовности пользователя
+                  отправить контакт для связи с волонтером
+                 */
+                case "VOLUNTEER_CAT":
+                    botService.responseOnPressButtonVollunterCatBefore(chatId, messageId);
+                    LocalDateTime ldt = LocalDateTime.now();
+                    UserFunction.setLastMessage(chatId, ldt, "VOLUNTEER_CAT");
+                    UserFunction.setMessageID(messageId);
+                    System.out.println(UserFunction.getLast_message());
+                    break;
+                case "VOLUNTEER_DOG":
+                    botService.responseOnPressButtonVollunterDogBefore(chatId, messageId);
+                    LocalDateTime ldt1 = LocalDateTime.now();
+                    UserFunction.setLastMessage(chatId, ldt1, "VOLUNTEER_DOG");
+                    UserFunction.setMessageID(messageId);
                     break;
                 default:
                     sendMessage(chatId, "Повторите попытку, такой команды нет");
@@ -225,7 +306,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     /**
      * Данный метод получает входящие данные и несет в себе функционал отправки их пользователю
      */
-    private void sendMessage(long chatId, String textToSend) {
+    public void sendMessage(long chatId, String textToSend) {
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
         message.setText(textToSend);

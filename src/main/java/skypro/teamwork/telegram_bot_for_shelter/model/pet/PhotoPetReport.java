@@ -34,9 +34,10 @@ public class PhotoPetReport {
 
     }
 
-    public PhotoPetReport(Long id, String filePath, String mediaType, long fileSize, ReportPet reportPet) {
+    public PhotoPetReport(Long id, String filePath, byte[] data, String mediaType, long fileSize, ReportPet reportPet) {
         this.id = id;
         this.filePath = filePath;
+        this.data = data;
         this.mediaType = mediaType;
         this.fileSize = fileSize;
         this.reportPet = reportPet;

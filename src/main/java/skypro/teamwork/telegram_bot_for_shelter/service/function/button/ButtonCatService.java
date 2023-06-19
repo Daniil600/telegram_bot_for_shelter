@@ -1,11 +1,14 @@
 package skypro.teamwork.telegram_bot_for_shelter.service.function.button;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+/**
+ * класс содержит названия кнопок для приюта кошек
+ */
+@Component
 public class ButtonCatService {
     /**
      * ArrayList c кнопками меню после нажатия кнопки "CHOOSE_A_SHELTER_CAT"
@@ -25,7 +28,7 @@ public class ButtonCatService {
             "ABOUT_SHELTER_CAT",
             "HOW_TAKE_CAT",
             "SEND_REPORT_CAT",
-            "VOLUNTEER",
+            "VOLUNTEER_CAT",
             "START_BUTTON_FOR_EDIT_MESSAGE"
     ));
 
@@ -52,8 +55,8 @@ public class ButtonCatService {
             "SCHEDULE_AND_ADDRESS_CAT",
             "CONTACT_SECURITY_CAT",
             "RECOMMENDATION_LEAFY_CAT",
-            "TAKE_CONTACT_FOR_FEEDBACK",
-            "VOLUNTEER",
+            "VOLUNTEER_CAT",
+            "VOLUNTEER_CAT",
             "CHOOSE_A_SHELTER_CAT"
     ));
 
@@ -85,8 +88,8 @@ public class ButtonCatService {
             "RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_ADULT_CAT",
             "RECOMMENDATIONS_FOR_HOME_DESIGN_FOR_DISABLED_CAT",
             "LIST_OF_REASONS_FOR_ADOPTING_CAT",
-            "TAKE_CONTACT_FOR_FEEDBACK",
-            "VOLUNTEER",
+            "VOLUNTEER_CAT",
+            "VOLUNTEER_CAT",
             "CHOOSE_A_SHELTER_CAT"
     ));
 
@@ -148,5 +151,19 @@ public class ButtonCatService {
     public static final List<String> callbackQueryAfterCommandGroupHowTakeCat = new ArrayList<>(List.of(
             "HOW_TAKE_CAT",
             "START_BUTTON_FOR_EDIT_MESSAGE"
+    ));
+
+    public static final List<String> textButtonsAfterCommandVollunterCat = new ArrayList<>(List.of(
+            "Назад",
+            "Вернуться в начало"));
+    public static final List<String> callbackQueryAfterCommandVollunterCat = new ArrayList<>(List.of(
+            "CHOOSE_A_SHELTER_CAT", "START_BUTTON_FOR_EDIT_MESSAGE"
+    ));
+
+    public static final List<String> textButtonsAfterCommandSendReportCat = new ArrayList<>(List.of(
+            "Назад",
+            "Вернуться в начало"));
+    public static final List<String> callbackQueryAfterCommandSendReportCat = new ArrayList<>(List.of(
+            "SEND_REPORT_CAT_BACK", "SEND_REPORT_CAT_HOME"
     ));
 }
