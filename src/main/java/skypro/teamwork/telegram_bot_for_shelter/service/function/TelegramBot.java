@@ -5,7 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import skypro.teamwork.telegram_bot_for_shelter.config.BotConfig;
@@ -70,8 +72,12 @@ public class TelegramBot extends TelegramLongPollingBot {
                     update.getMessage().getChatId(),
                     update.getMessage().getContact().getPhoneNumber(),
                     update.getMessage().getChat().getFirstName());
-
-
+            DeleteMessage deleteMessage = new DeleteMessage(String.valueOf(chatId), update.getMessage().getMessageId());
+            try {
+                execute(deleteMessage);
+            } catch (TelegramApiException e) {
+                logger.error(e.getMessage());
+            }
             String tag = UserFunction.getLast_message().get(chatId).getMessageCommand();
             if (tag.equals("VOLUNTEER_DOG")) {
                 botService.responseOnPressButtonVollunterDogAfter(chatId, UserFunction.getMessageID());
@@ -110,18 +116,13 @@ public class TelegramBot extends TelegramLongPollingBot {
         } else if (update.hasMessage() && update.getMessage().hasText()) {
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
-
-
-            switch (messageText) {
-                case "/start":
                     botService.startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
-                    break;
-                default:
-                    sendMessage(chatId, "Повторите попытку, такой команды нет!"
-                            + "\nНажмите на /start для начала общения с ботом");
-                    break;
-            }
-
+                    DeleteMessage deleteMessage1 = new DeleteMessage(String.valueOf(chatId), update.getMessage().getMessageId());
+                    try {
+                        execute(deleteMessage1);
+                    } catch (TelegramApiException e) {
+                        logger.error(e.getMessage());
+                    }
         } else if (update.hasCallbackQuery()) {
             String callbackQuery = update.getCallbackQuery().getData();
             Long chatId = update.getCallbackQuery().getMessage().getChatId();
