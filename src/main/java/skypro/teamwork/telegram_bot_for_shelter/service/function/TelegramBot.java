@@ -5,11 +5,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
+import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import skypro.teamwork.telegram_bot_for_shelter.config.BotConfig;
-import java.time.LocalDateTime;
+import skypro.teamwork.telegram_bot_for_shelter.repository.user.UserRepository;
+import skypro.teamwork.telegram_bot_for_shelter.service.sevice_data_base.user.UserService;
 
+import java.time.LocalDateTime;
+import java.util.Iterator;
 
 /**
  * Данный класс наследуется из TelegramLongPollingBot и переопределяет методы в конструкторе
@@ -66,8 +71,12 @@ public class TelegramBot extends TelegramLongPollingBot {
                     update.getMessage().getChatId(),
                     update.getMessage().getContact().getPhoneNumber(),
                     update.getMessage().getChat().getFirstName());
-
-
+            DeleteMessage deleteMessage = new DeleteMessage(String.valueOf(chatId), update.getMessage().getMessageId());
+            try {
+                execute(deleteMessage);
+            } catch (TelegramApiException e) {
+                logger.error(e.getMessage());
+            }
             String tag = UserFunction.getLast_message().get(chatId).getMessageCommand();
             if (tag.equals("VOLUNTEER_DOG")) {
                 botService.responseOnPressButtonVollunterDogAfter(chatId, UserFunction.getMessageID());
@@ -113,18 +122,13 @@ public class TelegramBot extends TelegramLongPollingBot {
         } else if (update.hasMessage() && update.getMessage().hasText()) {
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
-
-
-            switch (messageText) {
-                case "/start":
                     botService.startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
-                    break;
-                default:
-                    sendMessage(chatId, "Повторите попытку, такой команды нет!"
-                            + "\nНажмите на /start для начала общения с ботом");
-                    break;
-            }
-
+                    DeleteMessage deleteMessage1 = new DeleteMessage(String.valueOf(chatId), update.getMessage().getMessageId());
+                    try {
+                        execute(deleteMessage1);
+                    } catch (TelegramApiException e) {
+                        logger.error(e.getMessage());
+                    }
         } else if (update.hasCallbackQuery()) {
             String callbackQuery = update.getCallbackQuery().getData();
             Long chatId = update.getCallbackQuery().getMessage().getChatId();
@@ -245,15 +249,6 @@ public class TelegramBot extends TelegramLongPollingBot {
 
 
                 case "SEND_REPORT_CAT":
-                    if (reportService.verifyUserByChatId(chatId)) {
-                        botService.responseOnPressButtonSendReportCat(chatId, messageId);
-                        reportService.activeReportCheck(chatId);
-
-                    } else {
-                        sendMessage(chatId, "Данный аккаунт не числится в баззе опекунов");
-                        break;
-                    }
-                    break;
                 case "SEND_REPORT_DOG":
                     if (reportService.verifyUserByChatId(chatId)) {
                         botService.responseOnPressButtonSendReportDog(chatId, messageId);
@@ -277,7 +272,6 @@ public class TelegramBot extends TelegramLongPollingBot {
                     botService.startCommandReceivedForEditMessage(chatId, messageId, firstName);
                     reportService.activeReportCheck(chatId);
                     break;
-
 
                 case "TAKE_CONTACT_FOR_FEEDBACK":
                     sendMessage(chatId, "Раздел в стадии разработки, " +
