@@ -55,7 +55,7 @@ public class TelegramBot extends TelegramLongPollingBot {
      */
     @Override
     public void onUpdateReceived(Update update) {
-        /***/
+
 
         if ((update.hasMessage()
                 && UserFunction.getLast_message().containsKey(update.getMessage().getChatId())
@@ -79,6 +79,13 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
 
 
+        /**
+         * Данный иф делает ряд проверок
+         * 1. Находится ли пользователь в режиме сдачи отчета
+         * 2. Соответствует ли введенный номер паспорта животного стандарту
+         * 3. Есть ли питомец с таким номером паспорта в базе
+         * 4. Что фото и текст были переданы в сообщении
+         */
         if ((update.hasMessage() &&
                 reportService.activeReportUsers.contains(update.getMessage().getChatId()))) {
             if (reportService.verifyPetPassportWithoutErrors(update)) {
@@ -235,20 +242,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "CYNOLOGISTS_ADVICE_DOG":
                     botService.responseOnPressButtonCynologistAdviceDog(chatId, messageId);
                     break;
-                case "SEND_REPORT_CAT_BACK":
-                    botService.responseOnPressButtonCat(chatId, messageId);
-                    reportService.activeReportCheck(chatId);
-                    break;
-                case "SEND_REPORT_CAT_HOME":
-                case "SEND_REPORT_DOG_HOME":
-                    botService.startCommandReceivedForEditMessage
-                            (chatId, messageId, firstName);
-                    reportService.activeReportCheck(chatId);
-                    break;
-                case "SEND_REPORT_DOG_BACK":
-                    botService.responseOnPressButtonDog(chatId, messageId);
-                    reportService.activeReportCheck(chatId);
-                    break;
+
+
                 case "SEND_REPORT_CAT":
                     if (reportService.verifyUserByChatId(chatId)) {
                         botService.responseOnPressButtonSendReportCat(chatId, messageId);
@@ -258,7 +253,6 @@ public class TelegramBot extends TelegramLongPollingBot {
                         sendMessage(chatId, "Данный аккаунт не числится в баззе опекунов");
                         break;
                     }
-
                     break;
                 case "SEND_REPORT_DOG":
                     if (reportService.verifyUserByChatId(chatId)) {
@@ -269,7 +263,19 @@ public class TelegramBot extends TelegramLongPollingBot {
                         sendMessage(chatId, "Данный аккаунт не числится в баззе опекунов");
                         break;
                     }
-
+                    break;
+                case "SEND_REPORT_CAT_BACK":
+                    botService.responseOnPressButtonCat(chatId, messageId);
+                    reportService.activeReportCheck(chatId);
+                    break;
+                case "SEND_REPORT_DOG_BACK":
+                    botService.responseOnPressButtonDog(chatId, messageId);
+                    reportService.activeReportCheck(chatId);
+                    break;
+                case "SEND_REPORT_CAT_HOME":
+                case "SEND_REPORT_DOG_HOME":
+                    botService.startCommandReceivedForEditMessage(chatId, messageId, firstName);
+                    reportService.activeReportCheck(chatId);
                     break;
 
 

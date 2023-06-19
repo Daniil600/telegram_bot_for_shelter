@@ -56,6 +56,11 @@ public class ReportService {
         this.userRepository = userRepository;
     }
 
+
+    /**
+     * метод работает с хешсетом по принципу шлакбаума, если человек в сете значит режим сдачи отчета активен
+     * если его нет в сете то добавляет, если он есть в сете то удаляет при сл вызове метода
+     */
     public void activeReportCheck(long chatId) {
         logger.info("Вызван метод обработки отчета пользователя об опеке");
 
@@ -71,6 +76,12 @@ public class ReportService {
     }
 
 
+    /**
+     * основной метод данного класса
+     * Получает по из апдейта файл айди, вызывает метод нахождения файла по файл айди
+     * вызывает метод превращения полученного файла в массив байтов
+     * создает сущность отчета наполняя его информацией для создания отчета
+     */
     public void processDoc(Update update) {
         String fileId = update.getMessage().getPhoto().get(2).getFileId();
         ResponseEntity<String> response = getFilePath(fileId);
@@ -115,6 +126,9 @@ public class ReportService {
     }
 
 
+    /**
+     * метод достает из сообзщения номер паспорта животного
+     */
     public static String extractPetPassport(String incomeText) {
         Pattern pattern = Pattern.compile("(\\d{6})\\s(.*)");
         Matcher matcher = pattern.matcher(incomeText);
@@ -130,6 +144,9 @@ public class ReportService {
 
     }
 
+    /**
+     * метод получает ссылку на файл делая запрос по file id фотографии в телеграмм хранилище
+     */
     public ResponseEntity<String> getFilePath(String fileId) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -165,10 +182,16 @@ public class ReportService {
         }
     }
 
+    /**
+     * метод проверяет в базе есть ли питомец с подходящим номером паспорта, если нет отчет бракуется
+     */
     public boolean verifyUserByChatId(Long chatId) {
         return userRepository.findById(chatId).isPresent();
     }
 
+    /**
+     * метод проверяет в базе есть ли пользователь с таким чат айди, если нет, то прием отчета не начинается
+     */
     public boolean verifyPetPassport(Update update) {
         petPassport = extractPetPassport(update.getMessage().getCaption());
         try {
@@ -179,6 +202,10 @@ public class ReportService {
         return true;
     }
 
+    /**
+     * метод проверяет являются ли первые 6 знаков в сообщении номером паспорта питомца,
+     * нужен чтобы лишний раз не обращаться к базе с очевидно неправильным номером паспорта
+     */
     public static boolean verifyPetPassportWithoutErrors(Update update) {
         String incomeText = update.getMessage().getCaption();
 
