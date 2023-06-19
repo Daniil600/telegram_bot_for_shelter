@@ -1,6 +1,7 @@
 package skypro.teamwork.telegram_bot_for_shelter.model.pet;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -20,6 +21,7 @@ public class ReportPet {
     @OneToOne
     private PhotoPetReport photoPetReport;
     private String rept;
+    private LocalDateTime time;
 
     /**
      * Отчет привязан к конкретному питомцу, у каждого питомца множество отчетов, зависимость ManyToOne
@@ -29,9 +31,22 @@ public class ReportPet {
     @JoinColumn(name = "pet_id")
     private Pet pet;
 
-    public ReportPet(long id, PhotoPetReport photoPetReport, String rept, Pet pet) {
+    public ReportPet(LocalDateTime time) {
+
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    public ReportPet(long id, PhotoPetReport photoPetReport, LocalDateTime time, String rept, Pet pet) {
         this.id = id;
         this.photoPetReport = photoPetReport;
+        this.time = time;
         this.rept = rept;
         this.pet = pet;
     }
@@ -55,10 +70,6 @@ public class ReportPet {
         this.photoPetReport = photoPetReport;
     }
 
-    public String getRept() {
-        return rept;
-    }
-
     public void setRept(String rept) {
         this.rept = rept;
     }
@@ -74,21 +85,23 @@ public class ReportPet {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ReportPet)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         ReportPet reportPet = (ReportPet) o;
-        return Objects.equals(photoPetReport, reportPet.photoPetReport) && Objects.equals(rept, reportPet.rept) && Objects.equals(pet, reportPet.pet);
+        return id == reportPet.id && Objects.equals(photoPetReport, reportPet.photoPetReport) && Objects.equals(rept, reportPet.rept) && Objects.equals(time, reportPet.time) && Objects.equals(pet, reportPet.pet);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(photoPetReport, rept, pet);
+        return Objects.hash(id, photoPetReport, rept, time, pet);
     }
 
     @Override
     public String toString() {
         return "ReportPet{" +
-                "photoPetsReport=" + photoPetReport+
+                "id=" + id +
+                ", photoPetReport=" + photoPetReport +
                 ", rept='" + rept + '\'' +
+                ", time=" + time +
                 ", pet=" + pet +
                 '}';
     }

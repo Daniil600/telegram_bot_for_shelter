@@ -57,6 +57,7 @@ public class BotService {
         buttonService.responseOnPressButton(chatId, messageId, textVaultService.firstLineCat, inlineKeyboard);
     }
 
+
     /**
      * Данный метод реагирует на нажатие кнопки с идентификатором "ABOUT_SHELTER_CAT"
      * вызывает новый набор кнопок для меню приюта кошек
@@ -416,4 +417,39 @@ public class BotService {
         );
         buttonService.responseOnPressButton(chatId, messageId, textVaultService.cynologistAdviceDog, inlineKeyboard);
     }
+
+    /**
+     * Данный метод реагирует на регистрацию пользвателя в БД в случаи отправки контакта для связи с волонтером
+     */
+
+
+    public void responseOnPressButtonVollunterCatBefore(long chatId, long messageId) {
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
+                ButtonCatService.textButtonsAfterCommandGroupHowTakeCat,
+                ButtonCatService.callbackQueryAfterCommandGroupHowTakeCat
+        );
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.ansewerToUserFromVolunnetBefore, inlineKeyboard);
+    }
+    public void responseOnPressButtonVollunterDogBefore(long chatId, long messageId) {
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
+                ButtonDogService.textButtonsAfterCommandGroupHowTakeDog,
+                ButtonDogService.callbackQueryAfterCommandGroupHowTakeDog
+        );
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.ansewerToUserFromVolunnetBefore, inlineKeyboard);
+    }
+    public void responseOnPressButtonVollunterCatAfter(long chatId, long messageId) {
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
+                ButtonCatService.textButtonsAfterCommandGroupHowTakeCat,
+                ButtonCatService.callbackQueryAfterCommandGroupHowTakeCat
+        );
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.ansewerToUserFromVolunnetAfter, inlineKeyboard);
+    }
+    public void responseOnPressButtonVollunterDogAfter(long chatId, long messageId) {
+        InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
+                ButtonDogService.textButtonsAfterCommandGroupHowTakeDog,
+                ButtonDogService.callbackQueryAfterCommandGroupHowTakeDog
+        );
+        buttonService.responseOnPressButton(chatId, messageId, textVaultService.ansewerToUserFromVolunnetAfter, inlineKeyboard);
+    }
+
 }

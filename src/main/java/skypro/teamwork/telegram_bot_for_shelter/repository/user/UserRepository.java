@@ -9,4 +9,5 @@ import skypro.teamwork.telegram_bot_for_shelter.model.user.User;
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-}
+    User findByChatId(Long chatId);
+        }

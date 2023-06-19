@@ -15,7 +15,6 @@ import java.util.Objects;
 @Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue(generator = "user_seq")
     private Long id;
     private String name;
     private LocalDateTime useDateTime;
@@ -26,14 +25,33 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Collection<Pet> pet;
 
-    public User(Long id, String name, LocalDateTime useDateTime, Collection<Pet> pet) {
+    private String contact;
+
+    public User(Long id, String name, LocalDateTime useDateTime, Collection<Pet> pet, String contact) {
         this.id = id;
         this.name = name;
         this.useDateTime = useDateTime;
         this.pet = pet;
+        this.contact = contact;
     }
 
     public User() {
+    }
+
+    public Long getChatId() {
+        return id;
+    }
+
+    public void setChatId(Long chatId) {
+        this.id = chatId;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public String getName() {
@@ -60,34 +78,17 @@ public class User {
         this.pet = pet;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(useDateTime, user.useDateTime) && Objects.equals(pet, user.pet);
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(useDateTime, user.useDateTime) && Objects.equals(pet, user.pet) && Objects.equals(contact, user.contact);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, useDateTime, pet);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", useDateTime=" + useDateTime +
-                ", pet=" + pet +
-                '}';
+        return Objects.hash(id, name, useDateTime, pet, contact);
     }
 }
