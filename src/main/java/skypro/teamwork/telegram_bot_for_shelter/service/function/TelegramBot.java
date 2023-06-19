@@ -5,15 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import skypro.teamwork.telegram_bot_for_shelter.config.BotConfig;
-import skypro.teamwork.telegram_bot_for_shelter.repository.user.UserRepository;
-import skypro.teamwork.telegram_bot_for_shelter.service.sevice_data_base.user.UserService;
-
 import java.time.LocalDateTime;
-import java.util.Iterator;
+
 
 /**
  * Данный класс наследуется из TelegramLongPollingBot и переопределяет методы в конструкторе
@@ -239,25 +235,43 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "CYNOLOGISTS_ADVICE_DOG":
                     botService.responseOnPressButtonCynologistAdviceDog(chatId, messageId);
                     break;
-
-
+                case "SEND_REPORT_CAT_BACK":
+                    botService.responseOnPressButtonCat(chatId, messageId);
+                    reportService.activeReportCheck(chatId);
+                    break;
+                case "SEND_REPORT_CAT_HOME":
+                case "SEND_REPORT_DOG_HOME":
+                    botService.startCommandReceivedForEditMessage
+                            (chatId, messageId, firstName);
+                    reportService.activeReportCheck(chatId);
+                    break;
+                case "SEND_REPORT_DOG_BACK":
+                    botService.responseOnPressButtonDog(chatId, messageId);
+                    reportService.activeReportCheck(chatId);
+                    break;
                 case "SEND_REPORT_CAT":
-                case "SEND_REPORT_DOG":
                     if (reportService.verifyUserByChatId(chatId)) {
-                        sendMessage(chatId, "Вас приветствует форма обработки отчета, " +
-                                "прошу Вас отправить фотографию питомца с приложенной к ней информацией: \n" +
-                                "1. Номер документа питомца \n" +
-                                "2. Информацию о рационе \n" +
-                                "3. Общее самочувствие и привыкиние к новому месту \n" +
-                                "4. Изменение в поведении: отказ от старых " +
-                                "привычек, приобретение новых");
+                        botService.responseOnPressButtonSendReportCat(chatId, messageId);
                         reportService.activeReportCheck(chatId);
+
                     } else {
                         sendMessage(chatId, "Данный аккаунт не числится в баззе опекунов");
                         break;
                     }
 
                     break;
+                case "SEND_REPORT_DOG":
+                    if (reportService.verifyUserByChatId(chatId)) {
+                        botService.responseOnPressButtonSendReportDog(chatId, messageId);
+                        reportService.activeReportCheck(chatId);
+
+                    } else {
+                        sendMessage(chatId, "Данный аккаунт не числится в баззе опекунов");
+                        break;
+                    }
+
+                    break;
+
 
                 case "TAKE_CONTACT_FOR_FEEDBACK":
                     sendMessage(chatId, "Раздел в стадии разработки, " +

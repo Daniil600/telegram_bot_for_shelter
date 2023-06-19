@@ -165,4 +165,10 @@ public class ButtonDogService {
             "CHOOSE_A_SHELTER_DOG",        "START_BUTTON_FOR_EDIT_MESSAGE"
     ));
 
+    public static final List<String> textButtonsAfterCommandSendReportDog = new ArrayList<>(List.of(
+            "Назад",
+            "Вернуться в начало"));
+    public static final List<String> callbackQueryAfterCommandSendReportDog = new ArrayList<>(List.of(
+            "SEND_REPORT_DOG_BACK", "SEND_REPORT_DOG_HOME"
+    ));
 }
