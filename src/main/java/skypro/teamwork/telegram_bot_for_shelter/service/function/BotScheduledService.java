@@ -21,6 +21,9 @@ import java.util.Map;
 
 import static skypro.teamwork.telegram_bot_for_shelter.service.function.UserFunction.*;
 
+/**
+ * сервис для рассылки напоминания пользователям о необходимости прислать ежедневный отчет
+ */
 @Service
 public class BotScheduledService {
 
@@ -39,11 +42,9 @@ public class BotScheduledService {
      * Метод каждый день в 21:00 проверяет БД, чтобы убедиться,
      * что все вчерашние отчеты присутствуют в БД
      * Если отчетов нет, направляет пользователям напоминания
-     *
-     * @return
      */
     @Scheduled(cron = "${cron.report.user}")
-    public List<SendMessage> sendToUserIfNoReport() {
+    public void sendToUserIfNoReport() {
         List<SendMessage> messageList = checkReportsForTheLastDay();
         for (SendMessage message : messageList) {
             message.getText();
@@ -53,7 +54,6 @@ public class BotScheduledService {
                 logger.error("Произошла ошибка в методе sendToUserIfNoReport: " + e.getMessage());
             }
         }
-        return messageList;
     }
 
     /**
@@ -86,11 +86,9 @@ public class BotScheduledService {
         }
         return sendMessage;
     }
+
     /**
-     * Проверяет что больше 5 минут в HashMap {@link = UserFunction.java} для питомца
-     * Если отчета нет, создает SendMessage для отправки пользователю напоминания
-     *
-     * @return List of SendMessage
+     * Если пользователь больше 5 минут находится во временной базе в HashMap {@link = UserFunction.java} , удаляется из базы
      */
     @Scheduled(cron = "0 0/5 * * * *")
     public void clearMapGetLastMessage() {

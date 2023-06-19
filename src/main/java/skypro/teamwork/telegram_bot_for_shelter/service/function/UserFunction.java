@@ -9,13 +9,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
- *
- * */
+ * этот сервис создает временную базу, в котором хранятся пользователи
+ * с того момента как решили связаться с волонтёром и до того как
+ * будут внесены в полноценную базу пользователей или будут удалены по какой-либо причине
+ */
 
 @Service
 public class UserFunction {
 
+    /**
+     * класс создания модели пользователей, которые захотели связаться с волонтёром
+     * и прислали свои контактные данные, но еще не внесены в модель усыновителей
+     * временная база пользователей
+     */
     static class UserForMap{
         private LocalDateTime localDateTime;
         private String messageCommand;
@@ -44,9 +50,12 @@ public class UserFunction {
                     '}';
         }
     }
+
     // Сохранение сообщения отправленное ботом для изменения меню приюта
     private static long messageID;
     private UserService userService;
+
+
     private static Map<Long, UserForMap> last_message = new HashMap<>();
 
 
@@ -75,10 +84,20 @@ public class UserFunction {
         }
     }
 
+    /**
+     * удаляет из временной базы пользователей
+     * @param chatId идентификатор пользователя в телеграмм
+     */
     public static void last_message_clear(Long chatId) {
         last_message.entrySet().removeIf(entry -> entry.getKey().equals(chatId));
     }
 
+    /**
+     * вносит в модель полноценных пользователей, взявших из приюта животное
+     * @param chatId идентификатор чата с пользователем в телеграмме
+     * @param contact контактные данные пользователя
+     * @param name имя пользователя
+     */
     public void saveUserInDB(Long chatId, String contact, String name) {
         User user = new User();
         user.setChatId(chatId);
