@@ -1,6 +1,6 @@
 package skypro.teamwork.telegram_bot_for_shelter.service.function.button;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * класс содержит названия кнопок для приюта собак
  */
-@Service
+@Component
 public class ButtonDogService {
     /**
      * ArrayList c кнопками меню после нажатия кнопки "CHOOSE_A_SHELTER_DOG"

@@ -2,25 +2,21 @@ package skypro.teamwork.telegram_bot_for_shelter.service.function;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
-import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import skypro.teamwork.telegram_bot_for_shelter.config.BotConfig;
-import skypro.teamwork.telegram_bot_for_shelter.repository.user.UserRepository;
-import skypro.teamwork.telegram_bot_for_shelter.service.sevice_data_base.user.UserService;
 
 import java.time.LocalDateTime;
-import java.util.Iterator;
 
 /**
  * Данный класс наследуется из TelegramLongPollingBot и переопределяет методы в конструкторе
  * для взаимодействия нашей программы с ботом через класс BotConfig
  */
-@Component
+@Service
 public class TelegramBot extends TelegramLongPollingBot {
     private final Logger logger = LoggerFactory.getLogger(TelegramBot.class);
 
@@ -70,16 +66,19 @@ public class TelegramBot extends TelegramLongPollingBot {
                 && update.getMessage().hasContact())) {
             Long chatId = update.getMessage().getChatId();
 
+            // Идёт сохраниение в БД
             userFunction.saveUserInDB(
                     update.getMessage().getChatId(),
                     update.getMessage().getContact().getPhoneNumber(),
                     update.getMessage().getChat().getFirstName());
+            //Удаление сообщения отправденное пользователем
             DeleteMessage deleteMessage = new DeleteMessage(String.valueOf(chatId), update.getMessage().getMessageId());
             try {
                 execute(deleteMessage);
             } catch (TelegramApiException e) {
                 logger.error(e.getMessage());
             }
+            //Отправка сообщения пользователю об успешном сохраниении в БД
             String tag = UserFunction.getLast_message().get(chatId).getMessageCommand();
             if (tag.equals("VOLUNTEER_DOG")) {
                 botService.responseOnPressButtonVollunterDogAfter(chatId, UserFunction.getMessageID());
@@ -125,13 +124,13 @@ public class TelegramBot extends TelegramLongPollingBot {
         } else if (update.hasMessage() && update.getMessage().hasText()) {
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
-                    botService.startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
-                    DeleteMessage deleteMessage1 = new DeleteMessage(String.valueOf(chatId), update.getMessage().getMessageId());
-                    try {
-                        execute(deleteMessage1);
-                    } catch (TelegramApiException e) {
-                        logger.error(e.getMessage());
-                    }
+            botService.startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
+            DeleteMessage deleteMessage1 = new DeleteMessage(String.valueOf(chatId), update.getMessage().getMessageId());
+            try {
+                execute(deleteMessage1);
+            } catch (TelegramApiException e) {
+                logger.error(e.getMessage());
+            }
         } else if (update.hasCallbackQuery()) {
             String callbackQuery = update.getCallbackQuery().getData();
             Long chatId = update.getCallbackQuery().getMessage().getChatId();
@@ -217,8 +216,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     botService.responseOnPressButtonListOfReasonForAdoptingCat(chatId, messageId);
                     break;
 
-
-//                 кнопка Как взять питомца из приюта и ее подкнопки собаки
+                //Кнопка Как взять питомца из приюта и ее подкнопки собаки
                 case "HOW_TAKE_DOG":
                     botService.responseOnPressButtonHowTakeDog(chatId, messageId);
                     break;
