@@ -7,7 +7,6 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import skypro.teamwork.telegram_bot_for_shelter.config.BotConfig;
@@ -61,7 +60,7 @@ public class TelegramBot extends TelegramLongPollingBot {
      */
     @Override
     public void onUpdateReceived(Update update) {
-        /***/
+
 
         if ((update.hasMessage()
                 && UserFunction.getLast_message().containsKey(update.getMessage().getChatId())
@@ -89,6 +88,13 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
 
 
+        /**
+         * Данный иф делает ряд проверок
+         * 1. Находится ли пользователь в режиме сдачи отчета
+         * 2. Соответствует ли введенный номер паспорта животного стандарту
+         * 3. Есть ли питомец с таким номером паспорта в базе
+         * 4. Что фото и текст были переданы в сообщении
+         */
         if ((update.hasMessage() &&
                 reportService.activeReportUsers.contains(update.getMessage().getChatId()))) {
             if (reportService.verifyPetPassportWithoutErrors(update)) {
@@ -245,19 +251,26 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "SEND_REPORT_CAT":
                 case "SEND_REPORT_DOG":
                     if (reportService.verifyUserByChatId(chatId)) {
-                        sendMessage(chatId, "Вас приветствует форма обработки отчета, " +
-                                "прошу Вас отправить фотографию питомца с приложенной к ней информацией: \n" +
-                                "1. Номер документа питомца \n" +
-                                "2. Информацию о рационе \n" +
-                                "3. Общее самочувствие и привыкиние к новому месту \n" +
-                                "4. Изменение в поведении: отказ от старых " +
-                                "привычек, приобретение новых");
+                        botService.responseOnPressButtonSendReportDog(chatId, messageId);
                         reportService.activeReportCheck(chatId);
+
                     } else {
                         sendMessage(chatId, "Данный аккаунт не числится в баззе опекунов");
                         break;
                     }
-
+                    break;
+                case "SEND_REPORT_CAT_BACK":
+                    botService.responseOnPressButtonCat(chatId, messageId);
+                    reportService.activeReportCheck(chatId);
+                    break;
+                case "SEND_REPORT_DOG_BACK":
+                    botService.responseOnPressButtonDog(chatId, messageId);
+                    reportService.activeReportCheck(chatId);
+                    break;
+                case "SEND_REPORT_CAT_HOME":
+                case "SEND_REPORT_DOG_HOME":
+                    botService.startCommandReceivedForEditMessage(chatId, messageId, firstName);
+                    reportService.activeReportCheck(chatId);
                     break;
 
                 case "TAKE_CONTACT_FOR_FEEDBACK":

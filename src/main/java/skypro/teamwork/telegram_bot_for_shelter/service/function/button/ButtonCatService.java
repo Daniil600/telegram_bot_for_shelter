@@ -150,9 +150,17 @@ public class ButtonCatService {
             "START_BUTTON_FOR_EDIT_MESSAGE"
     ));
 
-    public static final List<String> textButtonsAfterCommandVollunterCat = new ArrayList<>(List.of(        "Назад",
+    public static final List<String> textButtonsAfterCommandVollunterCat = new ArrayList<>(List.of(
+            "Назад",
             "Вернуться в начало"));
     public static final List<String> callbackQueryAfterCommandVollunterCat = new ArrayList<>(List.of(
-            "CHOOSE_A_SHELTER_CAT",        "START_BUTTON_FOR_EDIT_MESSAGE"
+            "CHOOSE_A_SHELTER_CAT", "START_BUTTON_FOR_EDIT_MESSAGE"
+    ));
+
+    public static final List<String> textButtonsAfterCommandSendReportCat = new ArrayList<>(List.of(
+            "Назад",
+            "Вернуться в начало"));
+    public static final List<String> callbackQueryAfterCommandSendReportCat = new ArrayList<>(List.of(
+            "SEND_REPORT_CAT_BACK", "SEND_REPORT_CAT_HOME"
     ));
 }
