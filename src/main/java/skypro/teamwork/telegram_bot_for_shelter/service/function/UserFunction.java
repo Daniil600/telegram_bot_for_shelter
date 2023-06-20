@@ -22,7 +22,7 @@ public class UserFunction {
      * и прислали свои контактные данные, но еще не внесены в модель усыновителей
      * временная база пользователей
      */
-    static class UserForMap{
+    static class UserForMap {
         private LocalDateTime localDateTime;
         private String messageCommand;
 
@@ -75,7 +75,7 @@ public class UserFunction {
         return last_message;
     }
 
-    public static void setLastMessage(Long chat_id,LocalDateTime localDateTime, String message) {
+    public static void setLastMessage(Long chat_id, LocalDateTime localDateTime, String message) {
         if (chat_id != null && message != null) {
             UserForMap userForMap = new UserForMap();
             userForMap.setLocalDateTime(localDateTime);
@@ -86,6 +86,7 @@ public class UserFunction {
 
     /**
      * удаляет из временной базы пользователей
+     *
      * @param chatId идентификатор пользователя в телеграмм
      */
     public static void last_message_clear(Long chatId) {
@@ -94,9 +95,10 @@ public class UserFunction {
 
     /**
      * вносит в модель полноценных пользователей, взявших из приюта животное
-     * @param chatId идентификатор чата с пользователем в телеграмме
+     *
+     * @param chatId  идентификатор чата с пользователем в телеграмме
      * @param contact контактные данные пользователя
-     * @param name имя пользователя
+     * @param name    имя пользователя
      */
     public void saveUserInDB(Long chatId, String contact, String name) {
         User user = new User();

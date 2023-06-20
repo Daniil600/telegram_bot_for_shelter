@@ -81,6 +81,7 @@ public class PhotoPetsService {
 
     /**
      * получает расширение файла
+     *
      * @param fileName название файла
      * @return расширение
      */

@@ -8,7 +8,6 @@ import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonDo
 import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonService;
 import skypro.teamwork.telegram_bot_for_shelter.service.function.button.TextVaultService;
 
-// TODO оптимизовать повторяющиеся куски методов
 @Service
 public class BotService {
 
@@ -424,6 +423,7 @@ public class BotService {
         );
         buttonService.responseOnPressButton(chatId, messageId, textVaultService.ansewerToUserFromVolunnetBefore, inlineKeyboard);
     }
+
     public void responseOnPressButtonVollunterDogBefore(long chatId, long messageId) {
         InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonDogService.textButtonsAfterCommandVollunterDog,
@@ -431,6 +431,7 @@ public class BotService {
         );
         buttonService.responseOnPressButton(chatId, messageId, textVaultService.ansewerToUserFromVolunnetBefore, inlineKeyboard);
     }
+
     public void responseOnPressButtonVollunterCatAfter(long chatId, long messageId) {
         InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonCatService.textButtonsAfterCommandVollunterCat,
@@ -438,6 +439,7 @@ public class BotService {
         );
         buttonService.responseOnPressButton(chatId, messageId, textVaultService.ansewerToUserFromVolunnetAfter, inlineKeyboard);
     }
+
     public void responseOnPressButtonVollunterDogAfter(long chatId, long messageId) {
         InlineKeyboardMarkup inlineKeyboard = buttonService.prepareKeyboard(
                 ButtonDogService.textButtonsAfterCommandVollunterDog,

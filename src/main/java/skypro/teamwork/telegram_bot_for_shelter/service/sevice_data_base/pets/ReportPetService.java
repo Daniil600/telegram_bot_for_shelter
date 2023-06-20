@@ -3,10 +3,7 @@ package skypro.teamwork.telegram_bot_for_shelter.service.sevice_data_base.pets;
 import org.springframework.stereotype.Service;
 import skypro.teamwork.telegram_bot_for_shelter.model.pet.Pet;
 import skypro.teamwork.telegram_bot_for_shelter.model.pet.ReportPet;
-import skypro.teamwork.telegram_bot_for_shelter.repository.pets.PetRepository;
-import skypro.teamwork.telegram_bot_for_shelter.repository.pets.PhotoPetReportRepository;
 import skypro.teamwork.telegram_bot_for_shelter.repository.pets.ReportPetRepository;
-import skypro.teamwork.telegram_bot_for_shelter.service.function.ReportService;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -24,6 +21,7 @@ public class ReportPetService {
 
     /**
      * метод для добавления очета в базу данных
+     *
      * @param reportPet отчет, который необходимо добавить
      * @return добавленный отчет
      */
@@ -33,6 +31,7 @@ public class ReportPetService {
 
     /**
      * метод для поиска отчета по идентификатору
+     *
      * @param id идентификатор отчета
      * @return найденный отчет
      */
@@ -42,6 +41,7 @@ public class ReportPetService {
 
     /**
      * находит отчет с таким же идентификатором и заменяет его
+     *
      * @param reportPet все параметры отчета по питомцу
      * @return питомца, которого внесли в базу данных
      */
@@ -51,6 +51,7 @@ public class ReportPetService {
 
     /**
      * находит питомца по идентификатору и удаляет его
+     *
      * @param id идентификатор питомца
      */
     public void deletePet(long id) {
@@ -59,6 +60,7 @@ public class ReportPetService {
 
     /**
      * выводит коллекцию всех питомцев
+     *
      * @return коллекция всех питомцев
      */
     public Collection<ReportPet> getAll() {
@@ -69,7 +71,7 @@ public class ReportPetService {
      * получить отчет из базы данных по Pet и LocalDateTime
      * используется метод ReportPetRepository  {@link ReportPetRepository#findReportPetByPetAndTime(Pet, LocalDate)} (<ReportPet>)}
      *
-     * @param pet (object)
+     * @param pet          (object)
      * @param dateOfReport дата отчета
      * @return ReportPet с User And dateOfReport
      */
