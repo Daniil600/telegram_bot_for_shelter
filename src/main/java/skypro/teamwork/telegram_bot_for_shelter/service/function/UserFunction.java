@@ -25,6 +25,7 @@ public class UserFunction {
     static class UserForMap {
         private LocalDateTime localDateTime;
         private String messageCommand;
+        private int idMessageToUser;
 
         public LocalDateTime getLocalDateTime() {
             return localDateTime;
@@ -42,11 +43,20 @@ public class UserFunction {
             this.messageCommand = messageCommand;
         }
 
+        public int getIdMessageToUser() {
+            return idMessageToUser;
+        }
+
+        public void setIdMessageToUser(int idMessageToUser) {
+            this.idMessageToUser = idMessageToUser;
+        }
+
         @Override
         public String toString() {
             return "UserForMap{" +
                     "localDateTime=" + localDateTime +
                     ", messageCommand='" + messageCommand + '\'' +
+                    ", idMessageToUser=" + idMessageToUser +
                     '}';
         }
     }
@@ -63,6 +73,7 @@ public class UserFunction {
         this.userService = userService;
     }
 
+
     public static long getMessageID() {
         return messageID;
     }
@@ -75,10 +86,11 @@ public class UserFunction {
         return last_message;
     }
 
-    public static void setLastMessage(Long chat_id, LocalDateTime localDateTime, String message) {
+    public static void setLastMessage(Long chat_id, LocalDateTime localDateTime, int idMessageToUser, String message) {
         if (chat_id != null && message != null) {
             UserForMap userForMap = new UserForMap();
             userForMap.setLocalDateTime(localDateTime);
+            userForMap.setIdMessageToUser(idMessageToUser);
             userForMap.setMessageCommand(message);
             last_message.put(chat_id, userForMap);
         }

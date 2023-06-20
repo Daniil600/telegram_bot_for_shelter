@@ -6,11 +6,17 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import skypro.teamwork.telegram_bot_for_shelter.config.BotConfig;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Данный класс наследуется из TelegramLongPollingBot и переопределяет методы в конструкторе
@@ -65,7 +71,6 @@ public class TelegramBot extends TelegramLongPollingBot {
                 && UserFunction.getLast_message().containsKey(update.getMessage().getChatId())
                 && update.getMessage().hasContact())) {
             Long chatId = update.getMessage().getChatId();
-
             // Идёт сохраниение в БД
             userFunction.saveUserInDB(
                     update.getMessage().getChatId(),
@@ -73,8 +78,11 @@ public class TelegramBot extends TelegramLongPollingBot {
                     update.getMessage().getChat().getFirstName());
             //Удаление сообщения отправденное пользователем
             DeleteMessage deleteMessage = new DeleteMessage(String.valueOf(chatId), update.getMessage().getMessageId());
+            DeleteMessage deleteMessageSendedToUser = new DeleteMessage(String.valueOf(chatId),
+                    UserFunction.getLast_message().get(chatId).getIdMessageToUser());
             try {
                 execute(deleteMessage);
+                execute(deleteMessageSendedToUser);
             } catch (TelegramApiException e) {
                 logger.error(e.getMessage());
             }
@@ -285,14 +293,16 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "VOLUNTEER_CAT":
                     botService.responseOnPressButtonVollunterCatBefore(chatId, messageId);
                     LocalDateTime ldt = LocalDateTime.now();
-                    UserFunction.setLastMessage(chatId, ldt, "VOLUNTEER_CAT");
+                    UserFunction.setLastMessage(chatId, ldt, responseOnPressButtonForVolunteer(chatId,
+                                    new TelegramBot(config, botService, reportService, userFunction)),
+                            "VOLUNTEER_CAT");
                     UserFunction.setMessageID(messageId);
-                    System.out.println(UserFunction.getLast_message());
                     break;
                 case "VOLUNTEER_DOG":
                     botService.responseOnPressButtonVollunterDogBefore(chatId, messageId);
                     LocalDateTime ldt1 = LocalDateTime.now();
-                    UserFunction.setLastMessage(chatId, ldt1, "VOLUNTEER_DOG");
+                    UserFunction.setLastMessage(chatId, ldt1, responseOnPressButtonForVolunteer(chatId,
+                            new TelegramBot(config, botService, reportService, userFunction)), "VOLUNTEER_DOG");
                     UserFunction.setMessageID(messageId);
                     break;
                 default:
@@ -316,5 +326,41 @@ public class TelegramBot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
 
         }
+    }
+
+    /**
+     * Этот метод создаёт кнопку контакта для удобства пользователя.
+     * Она позоволяет с помощью клавиатуры отправить пользователю свой контакт
+     */
+    public static Integer responseOnPressButtonForVolunteer(long chatId, TelegramBot telegramBot) {
+        SendMessage message = new SendMessage();
+        message.setChatId(String.valueOf(chatId));
+        message.setText("Вы можете кнопкой отправить свой контакт"); // Set a whitespace character as the message text
+
+        //Создать объект KeyboardButton
+        KeyboardButton keyboardButton = new KeyboardButton("Отправить контакт");
+        keyboardButton.setRequestContact(true);
+
+        //Создайте объект KeyboardRow и добавьте к нему KeyboardButton
+        KeyboardRow keyboardRow = new KeyboardRow();
+        keyboardRow.add(keyboardButton);
+
+        //Создайте список объектов KeyboardRow и добавьте в него строку
+        List<KeyboardRow> keyboardRows = new ArrayList<>();
+        keyboardRows.add(keyboardRow);
+
+        //Создайте объект ReplyKeyboardMarkup и установите клавиатуру
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+        replyKeyboardMarkup.setKeyboard(keyboardRows);
+
+        //Установливает разметку клавиатуры для ответа в сообщении
+        message.setReplyMarkup(replyKeyboardMarkup);
+        try {
+            Message messageInfo = telegramBot.execute(message);
+            return messageInfo.getMessageId();
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }

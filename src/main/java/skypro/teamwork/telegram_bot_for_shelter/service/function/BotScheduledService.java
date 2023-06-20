@@ -19,7 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import static skypro.teamwork.telegram_bot_for_shelter.service.function.UserFunction.*;
+import static skypro.teamwork.telegram_bot_for_shelter.service.function.UserFunction.getLast_message;
 
 /**
  * сервис для рассылки напоминания пользователям о необходимости прислать ежедневный отчет

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.telegram.telegrambots.meta.api.objects.*;
+import org.telegram.telegrambots.meta.api.objects.Update;
 import skypro.teamwork.telegram_bot_for_shelter.exceptions.UploadFileException;
 import skypro.teamwork.telegram_bot_for_shelter.model.pet.Pet;
 import skypro.teamwork.telegram_bot_for_shelter.model.pet.PhotoPetReport;
@@ -18,13 +18,13 @@ import skypro.teamwork.telegram_bot_for_shelter.repository.pets.PhotoPetReportRe
 import skypro.teamwork.telegram_bot_for_shelter.repository.pets.ReportPetRepository;
 import skypro.teamwork.telegram_bot_for_shelter.repository.user.UserRepository;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

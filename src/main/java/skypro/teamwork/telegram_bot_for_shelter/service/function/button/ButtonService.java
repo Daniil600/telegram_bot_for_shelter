@@ -106,7 +106,6 @@ public class ButtonService {
     }
 
     public void responseOnPressButton(long chatId, long messageId, String messageText, InlineKeyboardMarkup inlineKeyboard) {
-
         EditMessageText sendMess = new EditMessageText();
         sendMess.setChatId(String.valueOf(chatId));
         sendMess.setText(messageText);

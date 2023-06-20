@@ -40,7 +40,7 @@ public class UserFunctionTest {
         Long chatId = 12345L;
         LocalDateTime localDateTime = LocalDateTime.now();
         String message = "test_message";
-        UserFunction.setLastMessage(chatId, localDateTime, message);
+        UserFunction.setLastMessage(chatId, localDateTime, 1, message);
 
         UserFunction.UserForMap userForMap = UserFunction.getLast_message().get(chatId);
 
@@ -51,7 +51,7 @@ public class UserFunctionTest {
     @Test
     public void testLastMessageClear() {
         Long chatId = 12345L;
-        UserFunction.setLastMessage(chatId, LocalDateTime.now(), "test_message");
+        UserFunction.setLastMessage(chatId, LocalDateTime.now(), 1, "test_message");
 
 
         UserFunction.last_message_clear(chatId);
