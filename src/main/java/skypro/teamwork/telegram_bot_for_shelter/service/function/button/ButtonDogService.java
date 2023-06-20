@@ -1,11 +1,14 @@
 package skypro.teamwork.telegram_bot_for_shelter.service.function.button;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+/**
+ * класс содержит названия кнопок для приюта собак
+ */
+@Component
 public class ButtonDogService {
     /**
      * ArrayList c кнопками меню после нажатия кнопки "CHOOSE_A_SHELTER_DOG"
@@ -25,7 +28,7 @@ public class ButtonDogService {
             "ABOUT_SHELTER_DOG",
             "HOW_TAKE_DOG",
             "SEND_REPORT_DOG",
-            "VOLUNTEER",
+            "VOLUNTEER_DOG",
             "START_BUTTON_FOR_EDIT_MESSAGE"
     ));
 
@@ -52,8 +55,8 @@ public class ButtonDogService {
             "SCHEDULE_AND_ADDRESS_DOG",
             "CONTACT_SECURITY_DOG",
             "RECOMMENDATION_LEAFY_DOG",
-            "TAKE_CONTACT_FOR_FEEDBACK",
-            "VOLUNTEER",
+            "VOLUNTEER_DOG",
+            "VOLUNTEER_DOG",
             "CHOOSE_A_SHELTER_DOG"
     ));
 
@@ -89,8 +92,8 @@ public class ButtonDogService {
             "LIST_OF_REASONS_FOR_ADOPTING_DOG",
             "LIST_OF_VERIFIED_CYNOLOGISTS_DOG",
             "CYNOLOGISTS_ADVICE_DOG",
-            "TAKE_CONTACT_FOR_FEEDBACK",
-            "VOLUNTEER",
+            "VOLUNTEER_DOG",
+            "VOLUNTEER_DOG",
             "CHOOSE_A_SHELTER_DOG"
     ));
 
@@ -158,4 +161,17 @@ public class ButtonDogService {
             "START_BUTTON_FOR_EDIT_MESSAGE"
     ));
 
+    public static final List<String> textButtonsAfterCommandVollunterDog = new ArrayList<>(List.of(
+            "Назад",
+            "Вернуться в начало"));
+    public static final List<String> callbackQueryAfterCommandVollunterDog = new ArrayList<>(List.of(
+            "CHOOSE_A_SHELTER_DOG",        "START_BUTTON_FOR_EDIT_MESSAGE"
+    ));
+
+    public static final List<String> textButtonsAfterCommandSendReportDog = new ArrayList<>(List.of(
+            "Назад",
+            "Вернуться в начало"));
+    public static final List<String> callbackQueryAfterCommandSendReportDog = new ArrayList<>(List.of(
+            "SEND_REPORT_DOG_BACK", "SEND_REPORT_DOG_HOME"
+    ));
 }

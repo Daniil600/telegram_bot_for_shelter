@@ -1,12 +1,11 @@
-package skypro.teamwork.telegram_bot_for_shelter.service;
+package skypro.teamwork.telegram_bot_for_shelter.service.function;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import skypro.teamwork.telegram_bot_for_shelter.service.function.BotService;
-import skypro.teamwork.telegram_bot_for_shelter.service.function.TextVaultService;
+import skypro.teamwork.telegram_bot_for_shelter.service.function.button.TextVaultService;
 import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonCatService;
 import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonDogService;
 import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonService;

@@ -13,6 +13,9 @@ import skypro.teamwork.telegram_bot_for_shelter.service.function.TelegramBot;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * класс создает кнопки, определяет их количество и порядок предоставления пользователю
+ */
 @Service
 public class ButtonService {
 
