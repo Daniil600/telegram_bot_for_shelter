@@ -14,6 +14,7 @@ import skypro.teamwork.telegram_bot_for_shelter.model.pet.ReportPet;
 import skypro.teamwork.telegram_bot_for_shelter.repository.pets.PetRepository;
 import skypro.teamwork.telegram_bot_for_shelter.repository.pets.PhotoPetReportRepository;
 import skypro.teamwork.telegram_bot_for_shelter.repository.pets.ReportPetRepository;
+import skypro.teamwork.telegram_bot_for_shelter.repository.user.UserRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,12 +37,14 @@ class ReportServiceTest {
 
     @Autowired
     private ReportService reportService;
+    @MockBean
+    private UserRepository userRepository;
 
 
     // Эту аннотацию использую, чтобы каждый раз создавать объект reportService перед каждым запуском метода теста
     @BeforeEach
     void setUp() {
-        reportService = new ReportService(petRepository, photoPetReportRepository, reportPetRepository);
+        reportService = new ReportService(petRepository, photoPetReportRepository, reportPetRepository, userRepository);
     }
 
 
@@ -59,8 +62,8 @@ class ReportServiceTest {
         long chatId = 1L;
         assertThat(reportService.activeReportUsers).isEmpty();
         reportService.activeReportCheck(chatId);
-        assertThat(reportService.activeReportUsers).containsKey(chatId);
-        assertThat(reportService.activeReportUsers).containsValue(1);
+        assertThat(reportService.activeReportUsers).contains(chatId);
+        assertThat(reportService.activeReportUsers).contains(1L);
     }
 
 
@@ -94,8 +97,8 @@ class ReportServiceTest {
         reportService.activeReportCheck(chatId);
         reportService.activeReportCheck(chatId);
         reportService.activeReportCheck(chatId);
-        assertThat(reportService.activeReportUsers).containsKey(chatId);
-        assertThat(reportService.activeReportUsers).containsValue(1);
+        assertThat(reportService.activeReportUsers).contains(chatId);
+        assertThat(reportService.activeReportUsers).contains(1L);
     }
 
 
