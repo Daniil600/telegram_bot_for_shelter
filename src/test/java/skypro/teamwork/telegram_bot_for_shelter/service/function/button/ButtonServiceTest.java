@@ -13,13 +13,13 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import skypro.teamwork.telegram_bot_for_shelter.service.function.TelegramBot;
-import skypro.teamwork.telegram_bot_for_shelter.service.function.button.ButtonService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+
 @ContextConfiguration(classes = {ButtonService.class})
 @ExtendWith(SpringExtension.class)
 public class ButtonServiceTest {
@@ -29,10 +29,11 @@ public class ButtonServiceTest {
     private final ButtonService buttonService = new ButtonService(telegramBot);
 
 
-    /** Этот тест проверяет метод prepareKeyboard класса ButtonService.
-     *Метод prepareKeyboard принимает два аргумента: buttonsTexts, список текстов кнопок, и buttonsCallback, список обратных вызовов кнопок.
-     *Он создает экземпляр класса InlineKeyboardMarkup и устанавливает его кнопки клавиатуры
-     *на основе предоставленного текста и списков обратного вызова.
+    /**
+     * Этот тест проверяет метод prepareKeyboard класса ButtonService.
+     * Метод prepareKeyboard принимает два аргумента: buttonsTexts, список текстов кнопок, и buttonsCallback, список обратных вызовов кнопок.
+     * Он создает экземпляр класса InlineKeyboardMarkup и устанавливает его кнопки клавиатуры
+     * на основе предоставленного текста и списков обратного вызова.
      */
 
     @Test
@@ -48,12 +49,14 @@ public class ButtonServiceTest {
 
         verify(telegramBot, times(1)).execute(any(SendMessage.class));
     }
-    /**Тест создает два списка, textButtonsAfterCommand и callbackQueryAfterCommand,
-     *  которые содержат ожидаемый текст кнопки и значения запроса обратного вызова соответственно.
-     *  Затем он вызывает метод prepare Keyboard()
-     *  с этим списком в качестве входных данных и сравнивает результирующий объект InlineKeyboardMarkup
-     *  с ожидаемым объектом InlineKeyboardMarkup, который был создан вручную.
-     *  */
+
+    /**
+     * Тест создает два списка, textButtonsAfterCommand и callbackQueryAfterCommand,
+     * которые содержат ожидаемый текст кнопки и значения запроса обратного вызова соответственно.
+     * Затем он вызывает метод prepare Keyboard()
+     * с этим списком в качестве входных данных и сравнивает результирующий объект InlineKeyboardMarkup
+     * с ожидаемым объектом InlineKeyboardMarkup, который был создан вручную.
+     */
 
     @Test
     void prepareKeyboardTest() {
@@ -69,7 +72,7 @@ public class ButtonServiceTest {
         InlineKeyboardMarkup actual = buttonService.prepareKeyboard(textButtonsAfterCommand, callbackQueryAfterCommand);
 
         InlineKeyboardMarkup expected = new InlineKeyboardMarkup();
-        List<List<InlineKeyboardButton>> rows= new ArrayList<>();
+        List<List<InlineKeyboardButton>> rows = new ArrayList<>();
         List<InlineKeyboardButton> row1 = new ArrayList<>();
         List<InlineKeyboardButton> row2 = new ArrayList<>();
 
@@ -91,10 +94,10 @@ public class ButtonServiceTest {
 
 
     /**
-     *  проверяет поведение метода "responseOnPressButton" класса "ButtonService".
-     *  Метод принимает четыре параметра - два целых числа, строку и объект "InlineKeyboardMarkup".
-     *  Цель этого теста - убедиться, что метод ведет себя корректно, проверив, что метод "TelegramBot.execute"
-     *  вызывается ровно один раз с экземпляром класса "editMessageText", когда вызывается метод
+     * проверяет поведение метода "responseOnPressButton" класса "ButtonService".
+     * Метод принимает четыре параметра - два целых числа, строку и объект "InlineKeyboardMarkup".
+     * Цель этого теста - убедиться, что метод ведет себя корректно, проверив, что метод "TelegramBot.execute"
+     * вызывается ровно один раз с экземпляром класса "editMessageText", когда вызывается метод
      */
     @Test
     void responseOnPressButtonTest() throws TelegramApiException {
