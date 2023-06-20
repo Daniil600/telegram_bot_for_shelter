@@ -49,7 +49,7 @@ public class ButtonService {
      * @param buttonsTexts    текст на кнопках
      * @param buttonsCallback идентификаторы кнопок
      * @return инлайн клавитура c кнопками
-     *
+     * <p>
      * создаем клавиатуру
      * создаем список строк
      * в цикле:
@@ -83,15 +83,16 @@ public class ButtonService {
 
         return markupInline;
     }
+
     /**
      * Метод отправляет пользователю сообщение с клавиатурой под сообщением
      *
      * @param chatId         идентификатор чата для отправки сообщения
      * @param messageText    текст сообщения
      * @param inlineKeyboard клавиатура под сообщением
-     *
-     * responseStartButton отлавливает сообщение старт и создает первое сообщение с клавиатурой,
-     * далее кнопки обращаются к методу responseOnPressButton и он заменяет предыдущее сообщение новым с новой клавиатурой
+     *                       <p>
+     *                       responseStartButton отлавливает сообщение старт и создает первое сообщение с клавиатурой,
+     *                       далее кнопки обращаются к методу responseOnPressButton и он заменяет предыдущее сообщение новым с новой клавиатурой
      */
     public void responseStartButton(long chatId, String messageText, InlineKeyboardMarkup inlineKeyboard) {
 
@@ -109,7 +110,7 @@ public class ButtonService {
         EditMessageText sendMess = new EditMessageText();
         sendMess.setChatId(String.valueOf(chatId));
         sendMess.setText(messageText);
-        sendMess.setMessageId((int)messageId);
+        sendMess.setMessageId((int) messageId);
         sendMess.setReplyMarkup(inlineKeyboard);
         try {
             telegramBot.execute(sendMess);

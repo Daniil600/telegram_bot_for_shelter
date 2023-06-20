@@ -165,7 +165,7 @@ public class ButtonDogService {
             "Назад",
             "Вернуться в начало"));
     public static final List<String> callbackQueryAfterCommandVollunterDog = new ArrayList<>(List.of(
-            "CHOOSE_A_SHELTER_DOG",        "START_BUTTON_FOR_EDIT_MESSAGE"
+            "CHOOSE_A_SHELTER_DOG", "START_BUTTON_FOR_EDIT_MESSAGE"
     ));
 
     public static final List<String> textButtonsAfterCommandSendReportDog = new ArrayList<>(List.of(
