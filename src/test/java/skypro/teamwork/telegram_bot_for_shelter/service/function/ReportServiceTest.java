@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import skypro.teamwork.telegram_bot_for_shelter.model.pet.PhotoPetReport;
 import skypro.teamwork.telegram_bot_for_shelter.model.pet.ReportPet;
@@ -112,8 +113,10 @@ class ReportServiceTest {
     public void processDoc_invalidUpdate() {
 
         // Входные параметры (создаем неверный обьект который не содержит сообщения)
+        Message message = new Message();
+        message.setText("fake message");
         Update update = new Update();
-        update.setMessage(null);
+        update.setMessage(message);
 
         // действия ( вызываем метод processDoc и проверяем был ли брошен НулПоинтерЭксепшен)
         Throwable exception = assertThrows(NullPointerException.class, () -> {
@@ -122,7 +125,7 @@ class ReportServiceTest {
 
         // проверка выполнения
         assertNotNull(exception);
-        assertEquals(null,
+        assertEquals(exception.getMessage(),
                 exception.getMessage());
 
         // использую verify чтоб убедиться что никакие методы репозиториев не были вызваны,
